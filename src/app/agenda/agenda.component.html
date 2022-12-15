@@ -1,0 +1,22 @@
+<div class="m-4">
+  <h2 class="title">Disponibilidad horarios</h2>
+  <div *ngFor="let shechedule of shechedules; index as i">
+    <h3>{{shechedule.lugar}}</h3>
+    <div class="table-responsive">
+    <table class="table table-hover table-bordered">
+      <thead class="table-light">
+        <tr >
+          <th scope="col">Dia/Hora</th>
+          <th scope="col" *ngFor="let day of shechedule.horario[i].dia">{{day.dia}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let hour of shechedule.horario">
+          <th scope="row">{{hour.franja}}</th>
+          <td *ngFor="let day of shechedule.horario[i].dia"></td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </div> 
+</div>

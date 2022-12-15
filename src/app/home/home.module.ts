@@ -4,6 +4,8 @@ import { AboutComponent } from './about/about.component';
 import { HeaderComponent } from './header/header.component';
 import { MenuComponent } from './menu/menu.component';
 import { CarruselComponent } from './carrusel/carrusel.component';
+import { BodyComponent } from './body/body.component';
+import { HomeComponent } from './home.component';
 
 
 
@@ -12,7 +14,9 @@ import { CarruselComponent } from './carrusel/carrusel.component';
     AboutComponent,
     HeaderComponent,
     MenuComponent,
-    CarruselComponent
+    CarruselComponent,
+    BodyComponent,
+    HomeComponent
   ],
   imports: [
     CommonModule

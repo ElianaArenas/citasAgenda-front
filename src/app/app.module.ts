@@ -7,16 +7,34 @@ import { CarruselComponent } from './home/carrusel/carrusel.component';
 import { HeaderComponent } from './home/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { BodyComponent } from './home/body/body.component';
+import { HomeComponent } from './home/home.component';
+import { AboutComponent } from './home/about/about.component';
+import { AgendaComponent } from './agenda/agenda.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
+    HomeComponent,
+    AboutComponent,
+    BodyComponent,
     CarruselComponent,
     FooterComponent,
     LoginComponent,
+    RegisterComponent,
+    AgendaComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

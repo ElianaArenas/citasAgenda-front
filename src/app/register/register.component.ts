@@ -1,16 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from '../service/auth.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css'],
 })
-export class LoginComponent {
-  loginForm: FormGroup = this.fb.group({
+export class RegisterComponent {
+  registerForm: FormGroup = this.fb.group({
+    document: ['', [Validators.required]],
+    code: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]],
   });
@@ -21,10 +23,8 @@ export class LoginComponent {
     private authService: LoginService
   ) {}
 
-  login() {
-    const { email, password } = this.loginForm.value;
-
-    this.authService.login(email, password).subscribe((login) => {
+  register() {
+    this.authService.register(this.registerForm.value).subscribe((login) => {
       if (!login?.token) {
         Swal.fire('Error', login?.message, 'error');
       } else {
