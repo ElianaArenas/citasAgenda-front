@@ -1,19 +1,26 @@
 <div class="m-4">
   <h2 class="title">Disponibilidad horarios</h2>
+  <div class="alert alert-secondary" role="alert">
+    <b>Para reservar un turno, debe ingresar a su cuenta</b>
+  </div>
   <div *ngFor="let shechedule of shechedules; index as i">
     <h3>{{shechedule.lugar}}</h3>
     <div class="table-responsive">
     <table class="table table-hover table-bordered">
+      <!-- Encabezado -->
       <thead class="table-light">
         <tr >
           <th scope="col">Dia/Hora</th>
-          <th scope="col" *ngFor="let day of shechedule.horario[i].dia">{{day.dia}}</th>
+          <!-- Repite los dias -->
+          <th scope="col" *ngFor="let day of shechedule.horario[i].dia">{{day?.dia}}</th>
         </tr>
       </thead>
       <tbody>
+        <!-- Repite las franjas -->
         <tr *ngFor="let hour of shechedule.horario">
-          <th scope="row">{{hour.franja}}</th>
-          <td *ngFor="let day of shechedule.horario[i].dia"></td>
+          <th scope="row">{{hour.granDemanda ? "(Alta demanda) ":""}}{{hour.franja}}</th>
+          <!-- Repite las celdas -->
+          <td *ngFor="let day of hour.dia">{{day?.horaSolicitud ? "Agendado": ""}}</td>
         </tr>
       </tbody>
     </table>
