@@ -1,0 +1,111 @@
+<div class="d-flex flex-column mb-4 mt-4" *ngIf="show; else Form">
+<div class="m-auto profile pt-4"><img src="../../assets/default-user-icon.jpg" alt="">
+  <div class="d-flex flex-row justify-content-around">
+    <div class="d-flex flex-column m-4">
+      <span>
+        <b>Nombre:</b> {{user.message.nombre}}
+      </span>
+      <span>
+        <b>Documento:</b> {{user.message.documento}}
+      </span>
+      <span>
+        <b>Código:</b> {{user.message.codigo}}
+      </span>
+      <span>
+        <b>Rol de usuario:</b> {{user.message.rol[0].name}}
+      </span>
+      <span>
+        <b>Celular/teléfono:</b> {{user.message.celular}}
+      </span>
+      <span>
+        <b>Celular/teléfono (2):</b> {{user.message.telefono2}}
+      </span>
+      <span>
+        <b>Barrio:</b> {{user.message.barrio}}
+      </span>
+      <span>
+        <b>Fecha de nacimiento:</b> {{user.message.fechaNacimiento}}
+      </span>
+     <span>
+      <b>Edad:</b>
+     </span>
+    </div>
+    <div class="d-flex flex-column m-4">
+      <span>
+        <b>Género:</b> {{user.message.genero}}
+      </span>
+      <span>
+        <b>Estatura (cm):</b> {{user.message.estatura}}
+      </span>
+      <span>
+        <b>Peso (kg):</b> {{user.message.peso}}
+      </span>
+      <span>
+        <b>Categoría:</b> {{user.message.categoria}}
+      </span>
+      <span>
+        <b>Torneo(s):</b> {{user.message.torneos}}
+      </span>
+      <span>
+        <b>Brazo dominante:</b> {{user.message.brazoDominante}}
+      </span>  
+      <span>
+        <b>Email:</b> {{user.message.email}}
+      </span>
+      <span>
+        <b>idFamiliar:</b> {{user.message.idFamiliar}}
+      </span>
+      <span>
+        <b>Estado:</b> {{user.message.activo? "activo": "desactivado"}}
+      </span>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center">
+    <button type="button" class="btn btn-secondary  m-4" (click)="navigateAgenda()">Regresar</button>
+    <button type="button" class="btn btn-primary  m-4" (click)="showForm()">Editar</button>
+  </div>
+</div>
+</div>
+
+<ng-template #Form>
+  <form [formGroup]="updatePasswordForm">
+    <section style="z-index: 1; background-color: rgba(174, 176, 177, 0.4);">
+      <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+            <div class="card shadow-2-strong" style="border-radius: 1rem;">
+              <div class="card-body p-5 text-center">
+    
+                <h3 class="mb-3 title">Actualizar contraseña</h3>
+                <div class="form-outline mb-2">
+                  <input type="password" id="typeEmailX-2" class="form-control form-control-lg" formControlName="oldPassword" required/>
+                  <label class="form-label" for="typeEmailX-2">Contraseña actual</label>
+                </div>
+    
+                <div class="form-outline mb-2">
+                  <input type="password" id="typePasswordX-2" class="form-control form-control-lg" formControlName="newPassword"/>
+                  <i class="bi bi-eye-slash" 
+                  id="togglePassword"></i>
+                  <label class="form-label" for="typePasswordX-2">Nueva contraseña</label>
+                </div>
+    
+                <div class="form-outline mb-2">
+                  <input type="password" id="typePasswordX-2" class="form-control form-control-lg" formControlName="confirmPassword"/>
+                  <i class="bi bi-eye-slash" 
+                  id="togglePassword"></i>
+                  <label class="form-label" for="typePasswordX-2">Confirma la contraseña</label>
+                </div>
+    
+                <div class="d-grid gap-2 mb-3">
+                  <button class="btn btn-primary" (click)="updatePassword()">Actualizar</button>
+                  <button class="btn btn-secondary" (click)="show=true">Regresar</button>
+                </div>
+                <hr class="my-4">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    </form>
+</ng-template>

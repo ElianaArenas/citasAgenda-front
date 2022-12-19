@@ -25,6 +25,8 @@ export class LoginService {
       .pipe(
         tap((resp) => {
           localStorage.setItem('token', resp.token!);
+          localStorage.setItem('user', JSON.stringify(resp.userFound!));
+          localStorage.setItem('auth', 'true');
         }),
         map((resp) => resp),
         catchError((err) => of(err.error.msg))
@@ -37,9 +39,19 @@ export class LoginService {
       .pipe(
         tap((resp) => {
           localStorage.setItem('token', resp.token!);
+          localStorage.setItem('user', JSON.stringify(resp.savedUser!));
+          localStorage.setItem('auth', 'true');
         }),
         map((resp) => resp),
         catchError((err) => of(err.error.msg))
       );
+  }
+
+  loggedIn() {
+    return !!localStorage.getItem('auth');
+  }
+
+  logout() {
+    localStorage.clear();
   }
 }

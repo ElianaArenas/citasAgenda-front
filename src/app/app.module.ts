@@ -14,6 +14,8 @@ import { AboutComponent } from './home/about/about.component';
 import { AgendaComponent } from './agenda/agenda.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { FormInfoUsersComponent } from './form-info-users/form-info-users.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { HttpClientModule } from '@angular/common/http';
     LoginComponent,
     RegisterComponent,
     AgendaComponent,
+    DashboardComponent,
+    FormInfoUsersComponent,
   ],
   imports: [
     BrowserModule,

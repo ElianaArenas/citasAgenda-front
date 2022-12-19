@@ -1,3 +1,11 @@
 a {
   color: #ffffff !important;
 }
+
+.text {
+  color: #ffffff;
+}
+
+.logged-container {
+  width: 50%;
+}

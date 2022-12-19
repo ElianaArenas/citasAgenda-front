@@ -28,7 +28,7 @@ export class LoginComponent {
       if (!login?.token) {
         Swal.fire('Error', login?.message, 'error');
       } else {
-        this.router.navigateByUrl('/about');
+        this.router.navigateByUrl('/dashboard');
       }
     });
   }

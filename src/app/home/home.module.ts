@@ -6,8 +6,7 @@ import { MenuComponent } from './menu/menu.component';
 import { CarruselComponent } from './carrusel/carrusel.component';
 import { BodyComponent } from './body/body.component';
 import { HomeComponent } from './home.component';
-
-
+import { AgendaComponent } from '../agenda/agenda.component';
 
 @NgModule({
   declarations: [
@@ -16,10 +15,9 @@ import { HomeComponent } from './home.component';
     MenuComponent,
     CarruselComponent,
     BodyComponent,
-    HomeComponent
+    HomeComponent,
+    AgendaComponent,
   ],
-  imports: [
-    CommonModule
-  ]
+  imports: [CommonModule],
 })
-export class HomeModule { }
+export class HomeModule {}

@@ -1,6 +1,6 @@
 export interface AgendaI {
   horario: HorarioI[];
-  id: string;
+  _id: string;
   activo: boolean;
   regenerar: boolean;
   lugar: string;

@@ -1,0 +1,15 @@
+b {
+  color: #20b0d8;
+}
+
+.profile {
+  border: #20b0d8 1px solid;
+  border-radius: 5%;
+}
+
+img {
+  display: block;
+  margin: auto;
+  max-width: 200px;
+  border-radius: 50%;
+}

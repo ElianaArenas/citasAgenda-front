@@ -5,6 +5,9 @@ import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './home/about/about.component';
 import { AgendaComponent } from './agenda/agenda.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { FormInfoUsersComponent } from './form-info-users/form-info-users.component';
+import { ValidarTokenGuard } from './validar-token.guard';
 
 const routes: Routes = [
   {
@@ -15,6 +18,17 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'agenda', component: AgendaComponent },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [ValidarTokenGuard],
+    canLoad: [ValidarTokenGuard],
+  },
+  { path: 'formUsers', component: FormInfoUsersComponent },
+  {
+    path: 'home',
+    component: HomeComponent,
+  },
 ];
 
 @NgModule({

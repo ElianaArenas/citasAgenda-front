@@ -1,6 +1,6 @@
 <div class="m-4">
   <h2 class="title">Disponibilidad horarios</h2>
-  <div class="alert alert-secondary" role="alert">
+  <div class="alert alert-secondary" role="alert" *ngIf="!isLogged()">
     <b>Para reservar un turno, debe ingresar a su cuenta</b>
   </div>
   <div *ngFor="let shechedule of shechedules; index as i">
@@ -12,7 +12,7 @@
         <tr >
           <th scope="col">Dia/Hora</th>
           <!-- Repite los dias -->
-          <th scope="col" *ngFor="let day of shechedule.horario[i].dia">{{day?.dia}}</th>
+          <th scope="col" *ngFor="let day of shechedule.horario[i].dia">{{day?.dia | titlecase}}</th>
         </tr>
       </thead>
       <tbody>
@@ -20,10 +20,52 @@
         <tr *ngFor="let hour of shechedule.horario">
           <th scope="row">{{hour.granDemanda ? "(Alta demanda) ":""}}{{hour.franja}}</th>
           <!-- Repite las celdas -->
-          <td *ngFor="let day of hour.dia">{{day?.horaSolicitud ? "Agendado": ""}}</td>
+          <td *ngFor="let day of hour.dia"><button class="btn btn-block" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="schedule(day)">
+            {{isLogged() ? day?.socio1: day?.horaSolicitud ? "Agendado": ""}}</button></td>
         </tr>
       </tbody>
     </table>
     </div>
   </div> 
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title title" id="exampleModalLabel">Solicitud de turno</h3>
+        <span>
+          solicitud a nombre de {{userInfo().nombre}}
+        </span>
+        <span>
+          {{day && day}}
+        </span>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Otros participantes:</p>
+        <label for="">Solicitante 2:</label>
+        <select class="form-select">
+          <option selected>Ninguno</option>
+          <option value="1" *ngFor="let socio of socios">{{socio.nombre}}</option>
+        </select>
+        <label for="">Solicitante 3:</label>
+        <select class="form-select">
+          <option selected>Ninguno</option>
+          <option value="1" *ngFor="let socio of socios">{{socio.nombre}}</option>
+        </select>
+        <label for="">Solicitante 4:</label>
+        <select class="form-select">
+          <option selected>Ninguno</option>
+          <option value="1" *ngFor="let socio of socios">{{socio.nombre}}</option>
+        </select>
+        <form action=""></form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Solicitar</button>
+      </div>
+    </div>
+  </div>
 </div>

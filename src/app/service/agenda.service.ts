@@ -18,4 +18,11 @@ export class AgendaService {
       catchError((err) => of(err.error.msg))
     );
   }
+
+  getHorario(scheduleId: string) {
+    return this.http.get<AgendaI>(`${this.baseUrl}/horario/${scheduleId}`).pipe(
+      map((resp) => resp),
+      catchError((err) => of(err.error.msg))
+    );
+  }
 }
