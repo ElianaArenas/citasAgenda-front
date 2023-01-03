@@ -1,4 +1,8 @@
-button {
+.button-agenda {
   border: none;
   width: 100%;
+}
+
+.text-center {
+  text-align: center;
 }
