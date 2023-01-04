@@ -17,6 +17,10 @@ export class HeaderComponent {
     return this.authService.loggedIn();
   }
 
+  isAdmin() {
+    return this.userInfo().rol[0].name === 'Administrador';
+  }
+
   userInfo() {
     return localStorage.getItem('user')
       ? JSON.parse(localStorage.getItem('user') || '')

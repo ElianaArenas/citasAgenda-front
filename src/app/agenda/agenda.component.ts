@@ -48,7 +48,7 @@ export class AgendaComponent implements OnInit {
   userInfo() {
     return localStorage.getItem('user')
       ? JSON.parse(localStorage.getItem('user') || '')
-      : {};
+      : undefined;
   }
 
   isLogged() {
@@ -56,11 +56,17 @@ export class AgendaComponent implements OnInit {
   }
 
   isSocio() {
-    return this.userInfo().rol[0].name === 'Socio';
+    if (!this.userInfo()) {
+      return false;
+    }
+    return this.userInfo()?.rol[0]?.name === 'Socio';
   }
 
   isProfesor() {
-    return this.userInfo().rol[0].name === 'Profesor';
+    if (!this.userInfo()) {
+      return false;
+    }
+    return this.userInfo()?.rol[0]?.name === 'Profesor';
   }
 
   getHorarios() {

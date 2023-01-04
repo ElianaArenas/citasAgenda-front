@@ -8,6 +8,7 @@ import { AgendaComponent } from './agenda/agenda.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FormInfoUsersComponent } from './form-info-users/form-info-users.component';
 import { ValidarTokenGuard } from './validar-token.guard';
+import { EmpresaPersonalizacionComponent } from './admin/empresa-personalizacion/empresa-personalizacion.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,7 @@ const routes: Routes = [
     canLoad: [ValidarTokenGuard],
   },
   { path: 'formUsers', component: FormInfoUsersComponent },
+  { path: 'personalizar', component: EmpresaPersonalizacionComponent },
   {
     path: 'home',
     component: HomeComponent,

@@ -1,0 +1,118 @@
+<div >
+   <h2 class="title">Personalizar datos empresa</h2>
+   <hr>
+   <!-- <form>
+    <div class="d-flex">
+      <div>
+         <span>
+           <b>Admin o representante legal:</b>
+           <input type="text" class="form-control" placeholder="Admin" value="{{company.message.administrador}}">
+         </span>
+         <span>
+           <b>Dirección:</b>
+           <input type="text" class="form-control" placeholder="Direccion" value="{{company.message.direccion}}">
+         </span>
+         <span>
+           <b>Teléfono(s):</b>
+           <input type="text" class="form-control" placeholder="telefono1" value="{{company.message.telefono1}}">
+           <input type="text" class="form-control" placeholder="telefono2" value="{{company.message.telefono2}}">
+         </span>
+         <span>
+           <b>Correo electrónico:</b>
+           <input type="email" class="form-control" placeholder="correo" value="{{company.message.email}}">
+         </span>
+         <span>
+           <b>Título:</b>
+           <input type="text" class="form-control" placeholder="Titulo" value="{{company.message.title}}">
+         </span>
+      </div>
+      <div>
+       <span>
+         <b>Facebook:</b>
+         <input type="text" class="form-control" placeholder="Facebook" value="{{company.message.facebook}}">
+       </span>
+       <span>
+         <b>Instagram:</b>
+         <input type="text" class="form-control" placeholder="Instagram" value="{{company.message.instagram}}">
+       </span>
+       <span>
+         <b>Whatsapp:</b>
+         <input type="text" class="form-control" placeholder="Whatsapp" value="{{company.message.whatsapp}}">
+       </span>
+       <span>
+         <b>Twitter:</b>
+         <input type="text" class="form-control" placeholder="Twitter" value="{{company.message.twitter}}">
+       </span>
+       <span>
+         <b>Linkedin:</b>
+         <input type="text" class="form-control" placeholder="Linkedin" value="{{company.message.linkedin}}">
+       </span>
+       <span>
+         <b>Youtube:</b>
+         <input type="text" class="form-control" placeholder="Youtube" value="{{company.message.youtube}}">
+       </span>
+      </div>
+    </div>
+   </form> -->
+   <form>
+    <div class="row m-5">
+      <div class="col">
+        <label for="admin">Admin o representante legal:</label>
+        <input type="text" class="form-control" placeholder="Admin" id="admin" value="{{company.message.administrador}}">
+      </div>
+      <div class="col">
+        <label for="direccion">Dirección:</label>
+        <input type="text" class="form-control" id="direccion" placeholder="Direccion" value="{{company.message.direccion}}">
+      </div>
+    </div>
+    <div class="row m-5">
+      <div class="col">
+        <label>Teléfono(s):</label>
+        <input type="text" class="form-control" placeholder="telefono1" value="{{company.message.telefono1}}">
+      </div>
+      <div class="col">
+        <label>Correo electrónico:</label>
+        <input type="email" class="form-control" placeholder="correo" value="{{company.message.email}}">
+      </div>
+    </div>
+    <div class="row m-5">
+      <div class="col">
+        <label for="admin">Título:</label>
+        <input type="text" class="form-control" placeholder="Titulo" value="{{company.message.title}}">
+      </div>
+      <div class="col">
+        <label>Facebook:</label>
+        <input type="text" class="form-control" placeholder="Facebook" value="{{company.message.facebook}}">
+      </div>
+    </div>
+    <div class="row m-5">
+      <div class="col">
+        <label>Instagram:</label>
+        <input type="text" class="form-control" placeholder="Instagram" value="{{company.message.instagram}}">
+      </div>
+      <div class="col">
+        <label>Whatsapp:</label>
+        <input type="text" class="form-control" placeholder="Whatsapp" value="{{company.message.whatsapp}}">
+      </div>
+    </div>
+    <div class="row m-5">
+      <div class="col">
+        <label>Twitter:</label>
+        <input type="text" class="form-control" placeholder="Twitter" value="{{company.message.twitter}}">
+      </div>
+      <div class="col">
+        <label>Linkedin:</label>
+        <input type="text" class="form-control" placeholder="Linkedin" value="{{company.message.linkedin}}">
+      </div>
+    </div>
+    <div class="row m-5">
+      <span>
+        <label>Texto, políticas o información a mostrar:</label>
+        <textarea class="form-control" rows="5">{{company.message.descripcion}}</textarea>
+      </span>
+     </div>
+     <div class="text-center">
+      <button type="button" class="btn btn-primary">Editar</button>
+     </div>
+  </form>
+</div>

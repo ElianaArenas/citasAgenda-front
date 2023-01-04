@@ -25,7 +25,7 @@
       </ul>
     </div>
     <ng-template #logged>
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav" *ngIf="!isAdmin(); else admin">
         <ul class="navbar-nav">
           <li class="nav-item">
             <a class="nav-link" data-toggle="modal" data-target="#exampleModal" routerLink="formUsers">Mi cuenta</a>
@@ -39,6 +39,53 @@
         </ul>
         <button type="button" class="btn btn-info" (click)="logOut()" routerLink="home">Logout</button>
       </div>
+      <ng-template #admin>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Pagina
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item dropdown-text" routerLink="personalizar">Personalizar</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Horario
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item dropdown-text">Configurar</a></li>
+                <li><a class="dropdown-item dropdown-text">Ver horarios</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Usuarios
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item dropdown-text">Registrar</a></li>
+                <li><a class="dropdown-item dropdown-text">Administrar</a></li>
+                <li><a class="dropdown-item dropdown-text">Mi cuenta</a></li>
+                <li><a class="dropdown-item dropdown-text">Formularios</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Guia
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item dropdown-text">Ayuda</a></li>
+                <li><a class="dropdown-item dropdown-text">Acerca de</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+             <a class="nav-link">Bienvenido {{userInfo().nombre}}, estado: {{userInfo().activo? "activo": "desactivado"}}</a>
+            </li>
+          </ul>
+          <button type="button" class="btn btn-info" (click)="logOut()" routerLink="home">Logout</button>
+        </div>
+      </ng-template>
     </ng-template>
   </div>
 </nav>

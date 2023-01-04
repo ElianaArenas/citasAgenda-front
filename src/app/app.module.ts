@@ -16,6 +16,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FormInfoUsersComponent } from './form-info-users/form-info-users.component';
+import { EmpresaPersonalizacionComponent } from './admin/empresa-personalizacion/empresa-personalizacion.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { FormInfoUsersComponent } from './form-info-users/form-info-users.compon
     AgendaComponent,
     DashboardComponent,
     FormInfoUsersComponent,
+    EmpresaPersonalizacionComponent,
   ],
   imports: [
     BrowserModule,
