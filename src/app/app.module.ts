@@ -17,6 +17,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FormInfoUsersComponent } from './form-info-users/form-info-users.component';
 import { EmpresaPersonalizacionComponent } from './admin/empresa-personalizacion/empresa-personalizacion.component';
+import { AgendaConfigureComponent } from './agenda/agenda-configure/agenda-configure.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { EmpresaPersonalizacionComponent } from './admin/empresa-personalizacion
     DashboardComponent,
     FormInfoUsersComponent,
     EmpresaPersonalizacionComponent,
+    AgendaConfigureComponent,
   ],
   imports: [
     BrowserModule,

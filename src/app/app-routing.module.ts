@@ -9,6 +9,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { FormInfoUsersComponent } from './form-info-users/form-info-users.component';
 import { ValidarTokenGuard } from './validar-token.guard';
 import { EmpresaPersonalizacionComponent } from './admin/empresa-personalizacion/empresa-personalizacion.component';
+import { AgendaConfigureComponent } from './agenda/agenda-configure/agenda-configure.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,7 @@ const routes: Routes = [
   },
   { path: 'formUsers', component: FormInfoUsersComponent },
   { path: 'personalizar', component: EmpresaPersonalizacionComponent },
+  { path: 'configureAgenda', component: AgendaConfigureComponent },
   {
     path: 'home',
     component: HomeComponent,
