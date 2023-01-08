@@ -10,6 +10,10 @@ import { FormInfoUsersComponent } from './form-info-users/form-info-users.compon
 import { ValidarTokenGuard } from './validar-token.guard';
 import { EmpresaPersonalizacionComponent } from './admin/empresa-personalizacion/empresa-personalizacion.component';
 import { AgendaConfigureComponent } from './agenda/agenda-configure/agenda-configure.component';
+import { RegisterUserComponent } from './admin/register-user/register-user.component';
+import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
+import { AyudaComponent } from './guia/ayuda/ayuda.component';
+import { SobrenosotrosComponent } from './sobrenosotros/sobrenosotros.component';
 
 const routes: Routes = [
   {
@@ -28,7 +32,11 @@ const routes: Routes = [
   },
   { path: 'formUsers', component: FormInfoUsersComponent },
   { path: 'personalizar', component: EmpresaPersonalizacionComponent },
+  { path: 'admin/register', component: RegisterUserComponent },
+  { path: 'admin/users', component: AdminUsersComponent },
   { path: 'configureAgenda', component: AgendaConfigureComponent },
+  { path: 'guia/ayuda', component: AyudaComponent },
+  { path: 'aboutUs', component: SobrenosotrosComponent },
   {
     path: 'home',
     component: HomeComponent,

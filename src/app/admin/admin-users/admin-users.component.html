@@ -1,0 +1,20 @@
+<div>
+  <h2 class="title">Mostrar todos los usuarios</h2>
+  <div class="row m-5">
+    <div class="col">
+      <label for="admin">Rol</label>
+      <select class="form-select" formControlName="socio3">
+       <option value=""></option>
+      </select>
+    </div>
+    <div class="col">
+      <label>Activo o inactivo:</label>
+      <select class="form-select" formControlName="socio3">
+        <option *ngFor="let estado of estados">{{estado}}</option>
+     </select>
+    </div>
+  </div>
+  <div class="text-center">
+    <button type="submit" class="btn btn-primary mb-4">Buscar</button>
+  </div>
+</div>

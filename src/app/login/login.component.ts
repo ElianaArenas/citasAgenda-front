@@ -26,7 +26,8 @@ export class LoginComponent {
 
     this.authService.login(email, password).subscribe((login) => {
       if (!login?.token) {
-        Swal.fire('Error', login?.message, 'error');
+        this.router.navigateByUrl('/login');
+        Swal.fire('Error', 'Credenciales invalidas', 'error');
       } else {
         this.router.navigateByUrl('/dashboard');
       }

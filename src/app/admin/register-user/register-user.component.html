@@ -1,0 +1,70 @@
+<div >
+  <h2 class="title">Registre nuevo usuario</h2>
+  <hr>
+  <form [formGroup]="registerForm">
+   <div class="row m-5">
+     <div class="col">
+       <label for="admin">Nombre completo:*</label>
+       <input type="text" class="form-control" placeholder="Nombre" id="admin"
+       formControlName="nombre">
+     </div>
+     <div class="col">
+       <label>Genero:</label>
+       <select class="form-select" formControlName="genero">
+        <option *ngFor="let genero of generos" >{{genero}}</option>
+      </select>
+     </div>
+   </div>
+   <div class="row m-5">
+     <div class="col">
+       <label>Número documento:*</label>
+       <input type="text" class="form-control" placeholder="Documento"
+         formControlName="documento">
+     </div>
+     <div class="col">
+       <label>Correo electrónico:*</label>
+       <input type="email" class="form-control" placeholder="Correo" 
+        formControlName="email">
+     </div>
+   </div>
+   <div class="row m-5">
+     <div class="col">
+       <label for="admin">Código:*</label>
+       <input type="text" class="form-control" placeholder="Código"
+        formControlName="codigo">
+     </div>
+     <div class="col">
+       <label>Id familiar:</label>
+       <input type="text" class="form-control" placeholder="idFamiliar"
+        formControlName="idFamiliar">
+     </div>
+   </div>
+   <div class="row m-5">
+     <div class="col">
+       <label>Direccion:</label>
+       <input type="text" class="form-control" placeholder="Direccion"
+         formControlName="direccion">
+     </div>
+     <div class="col">
+       <label>Barrio:</label>
+       <input type="text" class="form-control" placeholder="barrio"
+         formControlName="barrio">
+     </div>
+   </div>
+   <div class="row m-5">
+     <div class="col">
+       <label>Contraseña:</label>
+       <input type="password" class="form-control" placeholder="Contraseña"
+         formControlName="newPassword">
+     </div>
+     <div class="col">
+       <label>Confirme contraseña:</label>
+       <input type="password" class="form-control"
+         formControlName="confirmPassword">
+     </div>
+   </div>
+    <div class="text-center">
+     <button type="submit" class="btn btn-primary btn-lg mb-4">Registrar</button>
+    </div>
+ </form>
+</div>

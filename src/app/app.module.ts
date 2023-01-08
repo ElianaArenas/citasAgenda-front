@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CarruselComponent } from './home/carrusel/carrusel.component';
@@ -18,6 +18,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { FormInfoUsersComponent } from './form-info-users/form-info-users.component';
 import { EmpresaPersonalizacionComponent } from './admin/empresa-personalizacion/empresa-personalizacion.component';
 import { AgendaConfigureComponent } from './agenda/agenda-configure/agenda-configure.component';
+import { RegisterUserComponent } from './admin/register-user/register-user.component';
+import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
+import { AyudaComponent } from './guia/ayuda/ayuda.component';
+import { SobrenosotrosComponent } from './sobrenosotros/sobrenosotros.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +39,10 @@ import { AgendaConfigureComponent } from './agenda/agenda-configure/agenda-confi
     FormInfoUsersComponent,
     EmpresaPersonalizacionComponent,
     AgendaConfigureComponent,
+    RegisterUserComponent,
+    AdminUsersComponent,
+    AyudaComponent,
+    SobrenosotrosComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,6 +50,7 @@ import { AgendaConfigureComponent } from './agenda/agenda-configure/agenda-confi
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

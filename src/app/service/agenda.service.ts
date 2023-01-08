@@ -39,9 +39,6 @@ export class AgendaService {
   }
 
   configureHorario(scheduleId: string, updateBody: any) {
-
-    console.log();
-    
     return this.http
       .put(`${this.baseUrl}/horario/configuracion/${scheduleId}`, updateBody, {
         headers: { 'x-access-token': this.token },
@@ -52,9 +49,35 @@ export class AgendaService {
       );
   }
 
+  cambiarTitulo(scheduleId: string, titulo: string) {
+    return this.http
+      .put(
+        `${this.baseUrl}/horario/titulo/${scheduleId}`,
+        { lugar: titulo },
+        {
+          headers: { 'x-access-token': this.token },
+        }
+      )
+      .pipe(
+        map((resp) => resp),
+        catchError((err) => of(err.error.msg))
+      );
+  }
+
   solicitarTurno(scheduleId: string, updateBody: any) {
     return this.http
       .put(`${this.baseUrl}/horario/solicitud/${scheduleId}`, updateBody, {
+        headers: { 'x-access-token': this.token },
+      })
+      .pipe(
+        map((resp) => resp),
+        catchError((err) => of(err.error.msg))
+      );
+  }
+
+  deleteHorario(scheduleId: string) {
+    return this.http
+      .delete(`${this.baseUrl}/horario/${scheduleId}`, {
         headers: { 'x-access-token': this.token },
       })
       .pipe(

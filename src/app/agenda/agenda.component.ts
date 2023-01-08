@@ -24,8 +24,10 @@ export class AgendaComponent implements OnInit {
   dayAgenda!: any;
   hour: any;
   profesores!: ProfesorI[];
+  cancheros: any;
 
   sociosForm: FormGroup = this.fb.group({
+    socio1: [{}],
     socio2: [{}],
     socio3: [{}],
     socio4: [{}],
@@ -41,6 +43,7 @@ export class AgendaComponent implements OnInit {
   ) {
     this.getHorarios();
     this.getProfesores();
+    this.getCancheros();
   }
 
   ngOnInit(): void {}
@@ -67,6 +70,13 @@ export class AgendaComponent implements OnInit {
       return false;
     }
     return this.userInfo()?.rol[0]?.name === 'Profesor';
+  }
+
+  isAdmin() {
+    if (!this.userInfo()) {
+      return false;
+    }
+    return this.userInfo().rol[0].name === 'Administrador';
   }
 
   getHorarios() {
@@ -112,6 +122,23 @@ export class AgendaComponent implements OnInit {
     }
   }
 
+  deleteHorario(scheduleId: string) {
+    Swal.fire({
+      title: 'Eliminar horario',
+      text: '¿Desea eliminar el horario?',
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonText: 'Continuar',
+    }).then((respuesta) => {
+      if (respuesta.isConfirmed) {
+        this.agendaService.deleteHorario(scheduleId).subscribe((res) => {
+          this.getHorarios();
+          Swal.fire('Excelente', 'Horario eliminado', 'success');
+        });
+      }
+    });
+  }
+
   showAsistencia() {
     return !!this.dayAgenda.autor1;
   }
@@ -125,6 +152,14 @@ export class AgendaComponent implements OnInit {
       this.socios = users.filter(
         (user: any) => user.rol[0].name === 'Socio' && user.activo === true
         // user.nombre != this.userInfo().nombre
+      );
+    });
+  }
+
+  getCancheros() {
+    this.userService.getUsers().subscribe((users) => {
+      this.cancheros = users?.filter(
+        (user: any) => user.rol[0].name === 'Canchero'
       );
     });
   }
