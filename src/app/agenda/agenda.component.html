@@ -3,6 +3,12 @@
   <div class="alert alert-secondary" role="alert" *ngIf="!isLogged()">
     <b>Para reservar un turno, debe ingresar a su cuenta</b>
   </div>
+  <div class="alert alert-warning" role="alert" *ngIf="shechedules.length === 0">
+    <b>
+      No hay horarios disponibles aún. 
+    </b>
+  </div>
+
   <div *ngFor="let shechedule of shechedules; index as i">
     <div *ngIf="isLogged()" class="d-flex justify-content-between">
       <div>

@@ -159,7 +159,7 @@ export class AgendaComponent implements OnInit {
   getCancheros() {
     this.userService.getUsers().subscribe((users) => {
       this.cancheros = users?.filter(
-        (user: any) => user.rol[0].name === 'Canchero'
+        (user: any) => user?.rol[0]?.name === 'Canchero'
       );
     });
   }

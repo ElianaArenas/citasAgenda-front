@@ -18,7 +18,7 @@ export class HeaderComponent {
   }
 
   isAdmin() {
-    return this.userInfo().rol[0].name === 'Administrador';
+    return this.userInfo()?.rol[0]?.name === 'Administrador';
   }
 
   userInfo() {

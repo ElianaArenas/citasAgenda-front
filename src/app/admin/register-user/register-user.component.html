@@ -1,7 +1,7 @@
 <div >
   <h2 class="title">Registre nuevo usuario</h2>
   <hr>
-  <form [formGroup]="registerForm">
+  <form [formGroup]="registerForm" autocomplete="off" (ngSubmit)="register()">
    <div class="row m-5">
      <div class="col">
        <label for="admin">Nombre completo:*</label>
@@ -11,7 +11,7 @@
      <div class="col">
        <label>Genero:</label>
        <select class="form-select" formControlName="genero">
-        <option *ngFor="let genero of generos" >{{genero}}</option>
+        <option *ngFor="let genero of generos" [ngValue]="genero">{{genero}}</option>
       </select>
      </div>
    </div>
@@ -63,6 +63,20 @@
          formControlName="confirmPassword">
      </div>
    </div>
+   <div class="row m-5">
+    <div class="col">
+      <label>Rol:</label>
+      <select class="form-select" formControlName="rol">
+        <option *ngFor="let rol of roles" [ngValue]="rol">{{rol}}</option>
+      </select>
+    </div>
+    <div class="col">
+      <label>Activar o desactivar:</label>
+      <select class="form-select" formControlName="activo">
+        <option *ngFor="let status of userStatus" [ngValue]="status">{{status}}</option>
+      </select>
+    </div>
+  </div>
     <div class="text-center">
      <button type="submit" class="btn btn-primary btn-lg mb-4">Registrar</button>
     </div>

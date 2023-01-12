@@ -14,7 +14,7 @@ export class CompanyService {
 
   getCompany() {
     return this.http
-      .get(`${this.baseUrl}/empresa/configuracion/637a9227dcead0410c77146d`)
+      .get(`${this.baseUrl}/empresa/configuracion/63bcd0cba8962b3f487fe30d`)
       .pipe(
         map((resp) => resp),
         catchError((err) => of(err.error.msg))
@@ -24,7 +24,7 @@ export class CompanyService {
   updateCompany(updateBody: any) {
     return this.http
       .put(
-        `${this.baseUrl}/empresa/configuracion/637a9227dcead0410c77146d`,
+        `${this.baseUrl}/empresa/configuracion/63bcd0cba8962b3f487fe30d`,
         updateBody,
         {
           headers: { 'x-access-token': this.token },
