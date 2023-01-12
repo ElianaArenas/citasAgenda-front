@@ -15,6 +15,8 @@ export class LoginComponent {
     password: ['', [Validators.required, Validators.minLength(6)]],
   });
 
+  showLoading: boolean = false;
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -23,12 +25,14 @@ export class LoginComponent {
 
   login() {
     const { email, password } = this.loginForm.value;
-
+    this.showLoading = true;
     this.authService.login(email, password).subscribe((login) => {
       if (!login?.token) {
+        this.showLoading = false;
         this.router.navigateByUrl('/login');
         Swal.fire('Error', 'Credenciales invalidas', 'error');
       } else {
+        // this.showLoading = false;
         this.router.navigateByUrl('/dashboard');
       }
     });

@@ -8,6 +8,7 @@ import { CompanyService } from '../service/company.service';
 import { UserService } from '../service/user.service';
 import { ProfesorService } from '../service/profesor.service';
 import { ProfesorI } from '../interfaces/profesor';
+import { faWarning } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-agenda',
@@ -25,6 +26,7 @@ export class AgendaComponent implements OnInit {
   hour: any;
   profesores!: ProfesorI[];
   cancheros: any;
+  faWarning = faWarning;
 
   sociosForm: FormGroup = this.fb.group({
     socio1: [{}],

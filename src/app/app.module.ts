@@ -23,6 +23,8 @@ import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
 import { AyudaComponent } from './guia/ayuda/ayuda.component';
 import { SobrenosotrosComponent } from './sobrenosotros/sobrenosotros.component';
 
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,6 +53,7 @@ import { SobrenosotrosComponent } from './sobrenosotros/sobrenosotros.component'
     ReactiveFormsModule,
     HttpClientModule,
     NgbModule,
+    FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
