@@ -111,8 +111,11 @@ export class AgendaComponent implements OnInit {
 
       if (this.isProfesor() && day?.autor1) {
         // this.preAsistio(day.fecha);
-        this.showModal = false;
-        if (this.dayAgenda.profesor !== this.userInfo().nombre) {
+        // this.showModal = false;
+        if (
+          this.dayAgenda.profesor &&
+          this.dayAgenda.profesor !== this.userInfo()._id
+        ) {
           this.showModal = false;
           Swal.fire(
             'No estás asociado a esta franja',
@@ -142,7 +145,9 @@ export class AgendaComponent implements OnInit {
   }
 
   showAsistencia() {
-    return !!this.dayAgenda.autor1;
+    return (
+      !!this.dayAgenda.autor1 && this.dayAgenda.profesor === this.userInfo()._id
+    );
   }
 
   noShowModal() {
@@ -301,10 +306,35 @@ export class AgendaComponent implements OnInit {
     }
   }
 
+  confirmarAsistencia() {
+    const scheduleId = this.sheduleAgenda._id;
+
+    const updateBody = {
+      dia: this.dayAgenda.dia,
+      indice: this.hour.indice,
+      asistio: true,
+    };
+
+    this.agendaService
+      .confirmarAsistencia(scheduleId, updateBody)
+      .subscribe((resp) => {
+        Swal.fire(
+          'Asistencia confirmada',
+          'Se confirmó la asistencia',
+          'success'
+        );
+        this.getHorarios();
+      });
+  }
+
   configureHorario() {
     const scheduleId = this.sheduleAgenda._id;
+
     const updateBody = {
+      dia: this.dayAgenda.dia,
+      indice: this.hour.indice,
       profesor: this.userInfo()._id,
+      colorProfesor: this.userInfo().color,
     };
     this.agendaService
       .configureHorario(scheduleId, updateBody)

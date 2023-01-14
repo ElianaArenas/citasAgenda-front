@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import Swal from 'sweetalert2';
 import { CompanyService } from '../../service/company.service';
 import { CompanyI } from '../../interfaces/company';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-empresa-personalizacion',
@@ -17,11 +17,11 @@ export class EmpresaPersonalizacionComponent {
   }
 
   companyForm: FormGroup = this.fb.group({
-    administrador: [''],
-    direccion: [''],
+    administrador: ['', Validators.required],
+    direccion: ['', Validators.required],
     telefono: [''],
-    email: [''],
-    titulo: [''],
+    email: ['', Validators.required, Validators.email],
+    titulo: ['', Validators.required],
     facebook: [''],
     instagram: [''],
     whatsapp: [''],

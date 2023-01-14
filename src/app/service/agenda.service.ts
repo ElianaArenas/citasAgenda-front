@@ -75,6 +75,17 @@ export class AgendaService {
       );
   }
 
+  confirmarAsistencia(scheduleId: string, updateBody: any) {
+    return this.http
+      .put(`${this.baseUrl}/horario/asistio/${scheduleId}`, updateBody, {
+        headers: { 'x-access-token': this.token },
+      })
+      .pipe(
+        map((resp) => resp),
+        catchError((err) => of(err.error.msg))
+      );
+  }
+
   deleteHorario(scheduleId: string) {
     return this.http
       .delete(`${this.baseUrl}/horario/${scheduleId}`, {

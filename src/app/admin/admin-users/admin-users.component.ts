@@ -18,19 +18,19 @@ export class AdminUsersComponent {
   });
   editForm: FormGroup = this.fb.group({
     nombre: ['', [Validators.required]],
-    genero: [''],
-    documento: [''],
-    email: [''],
-    codigo: [''],
+    genero: ['', [Validators.required]],
+    documento: ['', [Validators.required]],
+    email: ['', [Validators.required]],
+    codigo: ['', [Validators.required]],
     idFamiliar: [''],
     celular: [''],
     categoria: [''],
-    direccion: [''],
-    barrio: [''],
+    direccion: ['', [Validators.required]],
+    barrio: ['', [Validators.required]],
     newPassword: ['', [Validators.required, Validators.minLength(6)]],
     confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
-    rol: [''],
-    activo: [''],
+    rol: ['', [Validators.required]],
+    activo: ['', [Validators.required]],
   });
   constructor(private fb: FormBuilder, private userService: UserService) {
     this.getUsers();

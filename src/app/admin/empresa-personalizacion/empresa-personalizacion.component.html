@@ -5,14 +5,16 @@
         (ngSubmit)="updateCompany()">
     <div class="row m-5">
       <div class="col">
-        <label for="admin">Admin o representante legal:</label>
+        <label for="admin">Admin o representante legal:*</label>
         <input type="text" class="form-control" placeholder="Admin" id="admin"
         formControlName="administrador">
+        <p *ngIf="companyForm.get('administrador')!.touched && companyForm.get('administrador')!.hasError('required')" class="alert-danger">El administrador es obligatorio</p>
       </div>
       <div class="col">
-        <label for="direccion">Dirección:</label>
+        <label for="direccion">Dirección:*</label>
         <input type="text" class="form-control" id="direccion" placeholder="Direccion"
         formControlName="direccion">
+        <p *ngIf="companyForm.get('direccion')!.touched && companyForm.get('direccion')!.hasError('required')" class="alert-danger">La dirección es obligatoria</p>
       </div>
     </div>
     <div class="row m-5">
@@ -22,16 +24,19 @@
           formControlName="telefono">
       </div>
       <div class="col">
-        <label>Correo electrónico:</label>
+        <label>Correo electrónico:*</label>
         <input type="email" class="form-control" placeholder="correo" 
          formControlName="email">
+        <p *ngIf="companyForm.get('email')!.touched && companyForm.get('email')!.hasError('required')" class="alert-danger">El email es obligatorio</p>
+        <p *ngIf="companyForm.get('email')!.touched && companyForm.get('email')!.hasError('invalid')" class="alert-danger">Debe ser un email valido</p>
       </div>
     </div>
     <div class="row m-5">
       <div class="col">
-        <label for="admin">Título:</label>
+        <label for="admin">Título:*</label>
         <input type="text" class="form-control" placeholder="Titulo"
          formControlName="titulo">
+        <p *ngIf="companyForm.get('titulo')!.touched && companyForm.get('titulo')!.hasError('required')" class="alert-danger">El titulo es obligatorio</p>
       </div>
       <div class="col">
         <label>Facebook:</label>

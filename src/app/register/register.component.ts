@@ -17,8 +17,8 @@ import Swal from 'sweetalert2';
 })
 export class RegisterComponent {
   registerForm: FormGroup = this.fb.group({
-    document: ['', [Validators.required]],
-    code: ['', [Validators.required]],
+    document: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+    code: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]],
   });

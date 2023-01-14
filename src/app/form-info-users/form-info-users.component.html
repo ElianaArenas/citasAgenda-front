@@ -9,28 +9,28 @@
   <div class="d-flex flex-row justify-content-around">
     <div class="d-flex flex-column m-4">
       <span>
-        <b>Nombre:</b> {{user.message.nombre}}
+        <b>Nombre:</b> {{user.message.nombre ?? 'N/A'}}
       </span>
       <span>
-        <b>Documento:</b> {{user.message.documento}}
+        <b>Documento:</b> {{user.message.documento ?? 'N/A' }}
       </span>
       <span>
-        <b>Código:</b> {{user.message.codigo}}
+        <b>Código:</b> {{user.message.codigo ?? 'N/A'}}
       </span>
       <span>
-        <b>Rol de usuario:</b> {{user.message.rol[0].name}}
+        <b>Rol de usuario:</b> {{user.message.rol[0].name ?? 'N/A'}}
       </span>
       <span>
-        <b>Celular/teléfono:</b> {{user.message.celular}}
+        <b>Celular/teléfono:</b> {{user.message.celular ?? 'N/A'}}
       </span>
       <span>
-        <b>Celular/teléfono (2):</b> {{user.message.telefono2}}
+        <b>Celular/teléfono (2):</b> {{user.message.telefono2 ?? 'N/A'}}
       </span>
       <span>
-        <b>Barrio:</b> {{user.message.barrio}}
+        <b>Barrio:</b> {{user.message.barrio ?? 'N/A'}}
       </span>
       <span>
-        <b>Fecha de nacimiento:</b> {{user.message.fechaNacimiento}}
+        <b>Fecha de nacimiento:</b> {{user.message.fechaNacimiento ?? 'N/A'}}
       </span>
      <span>
       <b>Edad:</b>
@@ -38,31 +38,31 @@
     </div>
     <div class="d-flex flex-column m-4">
       <span>
-        <b>Género:</b> {{user.message.genero}}
+        <b>Género:</b> {{user?.message?.genero ?? 'N/A'}}
       </span>
       <span>
-        <b>Estatura (cm):</b> {{user.message.estatura}}
+        <b>Estatura (cm):</b> {{user?.message?.estatura ?? 'N/A'}}
       </span>
       <span>
-        <b>Peso (kg):</b> {{user.message.peso}}
+        <b>Peso (kg):</b> {{user?.message?.peso ?? 'N/A'}}
       </span>
       <span>
-        <b>Categoría:</b> {{user.message.categoria}}
+        <b>Categoría:</b> {{user?.message?.categoria ?? 'N/A'}}
       </span>
       <span>
-        <b>Torneo(s):</b> {{user.message.torneos}}
+        <b>Torneo(s):</b> {{user?.message?.torneos ?? 'N/A'}}
       </span>
       <span>
-        <b>Brazo dominante:</b> {{user.message.brazoDominante}}
+        <b>Brazo dominante:</b> {{user?.message?.brazoDominante ?? 'N/A'}}
       </span>  
       <span>
-        <b>Email:</b> {{user.message.email}}
+        <b>Email:</b> {{user?.message?.email ?? 'N/A'}}
       </span>
       <span>
-        <b>idFamiliar:</b> {{user.message.idFamiliar}}
+        <b>idFamiliar:</b> {{user?.message?.idFamiliar ?? 'N/A'}}
       </span>
       <span>
-        <b>Estado:</b> {{user.message.activo? "activo": "desactivado"}}
+        <b>Estado:</b> {{user?.message?.activo? "activo": "desactivado"}}
       </span>
     </div>
   </div>
@@ -94,6 +94,9 @@
                   <input type="password" id="typePasswordX-2" class="form-control form-control-lg" formControlName="newPassword"/>
                   <p *ngIf="updatePasswordForm.get('newPassword')!.touched && updatePasswordForm.get('newPassword')!.hasError('required')" class="alert-danger">
                     La contraseña nueva es obligatoria
+                  </p>
+                  <p *ngIf="updatePasswordForm.get('newPassword')!.touched && updatePasswordForm.get('newPassword')!.hasError('invalid')" class="alert-danger">
+                    La contraseña nueva debe tener al menos 6 caracteres
                   </p>
                 </div>
     
