@@ -1,5 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from '../service/auth.service';
 import Swal from 'sweetalert2';
@@ -24,6 +30,10 @@ export class RegisterComponent {
   ) {}
 
   register() {
+    if (this.registerForm.invalid) {
+      Swal.fire('Error', 'Debe llenar los campos obligatorios', 'error');
+      return;
+    }
     this.authService.register(this.registerForm.value).subscribe((login) => {
       if (!login?.token) {
         Swal.fire('Error', login?.message, 'error');

@@ -11,22 +11,25 @@
             <h3 class="mb-3 title">Registro</h3>
             <p>Llene todos los campos obligatorios para crear la cuenta</p>
             <div class="form-outline mb-1">
-              <input type="text" id="documento" class="form-control form-control-lg" formControlName="document"/>
               <label class="form-label" for="documento">Número documento *</label>
+              <input type="text" id="documento" class="form-control form-control-lg" formControlName="document"/>
+              <p *ngIf="registerForm.get('document')!.touched && registerForm.get('document')!.hasError('required')" class="alert-danger">El documento es obligatorio</p>
             </div>
             <div class="form-outline mb-1">
-              <input type="text" id="codigo" class="form-control form-control-lg" formControlName="code"/>
               <label class="form-label" for="codigo">Código *</label>
+              <input type="text" id="codigo" class="form-control form-control-lg" formControlName="code"/>
+              <p *ngIf="registerForm.get('code')!.touched && registerForm.get('code')!.hasError('required')" class="alert-danger">El codigo es obligatorio</p>
             </div>
             <div class="form-outline mb-1">
-              <input type="email" id="typeEmailX-2" class="form-control form-control-lg" formControlName="email"/>
               <label class="form-label" for="typeEmailX-2">Email *</label>
+              <input type="email" id="typeEmailX-2" class="form-control form-control-lg" formControlName="email"/>
+              <p *ngIf="registerForm.get('email')!.touched && registerForm.get('email')!.hasError('required')" class="alert-danger">El correo es obligatorio</p>
+              <p *ngIf="registerForm.get('email')!.touched && registerForm.get('email')!.hasError('email')" class="alert-danger">El correo es invalido</p>
             </div>
             <div class="form-outline mb-1">
-              <input type="password" id="typePasswordX-2" class="form-control form-control-lg" formControlName="password"/>
-              <i class="bi bi-eye-slash" 
-              id="togglePassword"></i>
               <label class="form-label" for="typePasswordX-2">Password *</label>
+              <input type="password" id="typePasswordX-2" class="form-control form-control-lg" formControlName="password"/>
+              <p *ngIf="registerForm.get('email')!.touched && registerForm.get('password')!.hasError('required')" class="alert-danger">La contraseña es obligatoria</p>
             </div>
             <div class="d-grid gap-2 mb-3">
               <button class="btn btn-primary btn-lg" type="submit">Registrarse</button>

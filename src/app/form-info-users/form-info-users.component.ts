@@ -20,6 +20,7 @@ export class FormInfoUsersComponent implements OnInit {
   user!: IUser;
   show: boolean = true;
   userId = JSON.parse(localStorage.getItem('user') || '')._id || '';
+  showLoading: boolean = false;
 
   constructor(
     private userService: UserService,
@@ -32,8 +33,10 @@ export class FormInfoUsersComponent implements OnInit {
   ngOnInit(): void {}
 
   getUser() {
+    this.showLoading = true;
     this.userService.getUser(this.userId).subscribe((user) => {
       this.user = user;
+      this.showLoading = false;
     });
   }
 
