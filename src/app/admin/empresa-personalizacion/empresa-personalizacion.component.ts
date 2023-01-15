@@ -52,6 +52,12 @@ export class EmpresaPersonalizacionComponent {
   }
 
   updateCompany() {
+    if (this.companyForm.invalid) {
+      this.companyForm.markAllAsTouched();
+      Swal.fire('Error', 'Debe llenar los campos obligatorios', 'error');
+      return;
+    }
+
     const {
       administrador,
       direccion,
@@ -86,6 +92,7 @@ export class EmpresaPersonalizacionComponent {
       .updateCompany(updateBody)
       .subscribe((company: CompanyI) => {
         Swal.fire('Actualizado correctamente', '', 'success');
+        this.getCompany();
         console.log('Updated');
       });
   }
