@@ -48,7 +48,8 @@
                     (click)="schedule(shechedule,hour, day)"
                     *ngIf="isSocio()"
                     >
-            {{isLogged() ? day?.socio1: day?.horaSolicitud ? "Agendado": ""}}</button>
+            {{isLogged() ? day?.socio1: day?.horaSolicitud ? "Agendado": ""}}
+            </button>
             <button class="btn btn-block button-agenda" 
                     data-bs-toggle="modal" 
                     data-bs-target="#profesorModal" 
@@ -63,8 +64,9 @@
               (click)="schedule(shechedule,hour, day)"
               *ngIf="isAdmin()"
             >
-      {{isLogged() ? day?.socio1: day?.horaSolicitud ? "Agendado": ""}}
-    </button>
+            {{isLogged() ? day?.socio1: day?.horaSolicitud ? "Agendado": ""}}
+            </button>
+            {{!isLogged() && day?.horaSolicitud ? "Agendado": ""}}
           </td>
         </tr>
       </tbody>
