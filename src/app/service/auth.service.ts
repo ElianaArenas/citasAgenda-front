@@ -54,4 +54,13 @@ export class LoginService {
   logout() {
     localStorage.clear();
   }
+
+  SendMailForgotPassword(data: any) {
+    return this.http
+      .put<RegisterResponseI>(`${this.baseUrl}/auth/forgot-password`, data)
+      .pipe(
+        map((resp) => resp),
+        catchError((err) => of(err.error.msg))
+      );
+  }
 }

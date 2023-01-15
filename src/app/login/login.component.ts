@@ -15,6 +15,10 @@ export class LoginComponent {
     password: ['', [Validators.required, Validators.minLength(6)]],
   });
 
+  mailForm: FormGroup = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+  });
+
   showLoading: boolean = false;
 
   constructor(
@@ -35,6 +39,24 @@ export class LoginComponent {
         // this.showLoading = false;
         this.router.navigateByUrl('/dashboard');
       }
+    });
+  }
+
+  sendMail() {
+    const { email } = this.mailForm.value;
+
+    if (this.mailForm.invalid) {
+      Swal.fire('Error', 'Debe colocar un correo valido', 'error');
+      return;
+    }
+
+    this.authService.SendMailForgotPassword({ email }).subscribe((resp) => {
+      Swal.fire(
+        'Excelente',
+        'Se ha enviado el correo de recuperación de contraseña',
+        'success'
+      );
+      console.log(resp);
     });
   }
 }
