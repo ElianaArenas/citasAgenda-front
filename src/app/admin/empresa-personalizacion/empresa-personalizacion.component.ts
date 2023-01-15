@@ -20,7 +20,7 @@ export class EmpresaPersonalizacionComponent {
     administrador: ['', Validators.required],
     direccion: ['', Validators.required],
     telefono: [''],
-    email: ['', Validators.required, Validators.email],
+    email: ['', Validators.required],
     titulo: ['', Validators.required],
     facebook: [''],
     instagram: [''],

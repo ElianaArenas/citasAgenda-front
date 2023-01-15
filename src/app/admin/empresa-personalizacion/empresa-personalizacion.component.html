@@ -28,7 +28,6 @@
         <input type="email" class="form-control" placeholder="correo" 
          formControlName="email">
         <p *ngIf="companyForm.get('email')!.touched && companyForm.get('email')!.hasError('required')" class="alert-danger">El email es obligatorio</p>
-        <p *ngIf="companyForm.get('email')!.touched && companyForm.get('email')!.hasError('invalid')" class="alert-danger">Debe ser un email valido</p>
       </div>
     </div>
     <div class="row m-5">
