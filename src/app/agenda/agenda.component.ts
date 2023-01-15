@@ -19,6 +19,9 @@ export class AgendaComponent implements OnInit {
   shechedules: AgendaI[] = [];
   day1!: string;
   socios: any;
+  socios2: any;
+  socios3: any;
+  socios4: any;
   showModal: boolean = false;
   company: any;
   sheduleAgenda: any;
@@ -33,6 +36,11 @@ export class AgendaComponent implements OnInit {
     socio2: [{}],
     socio3: [{}],
     socio4: [{}],
+  });
+
+  profesorForm: FormGroup = this.fb.group({
+    profesor: [{}],
+    canchero: [''],
   });
 
   constructor(
@@ -108,6 +116,17 @@ export class AgendaComponent implements OnInit {
       this.sheduleAgenda = shechedule;
       this.hour = hour;
       this.dayAgenda = day;
+
+      // this.sociosForm.controls['socios'].setValue(day.socio1);
+
+      this.sociosForm.patchValue({
+        socio1: day.socio1,
+        socio2: day.autor2,
+        socio3: day.socio3,
+        socio4: day.socio4,
+      });
+
+      console.log(this.sociosForm.value.socio1);
 
       if (this.isProfesor() && day?.autor1) {
         // this.preAsistio(day.fecha);
@@ -330,11 +349,21 @@ export class AgendaComponent implements OnInit {
   configureHorario() {
     const scheduleId = this.sheduleAgenda._id;
 
+    let profesor, colorProfesor;
+    if (this.userInfo().rol[0].name === 'Administrador') {
+      profesor = this.profesorForm.value.profesor.nombre;
+      colorProfesor = this.profesorForm.value.profesor.color;
+    } else {
+      profesor = this.userInfo().nombre;
+      colorProfesor = this.userInfo().color;
+    }
+
     const updateBody = {
       dia: this.dayAgenda.dia,
       indice: this.hour.indice,
-      profesor: this.userInfo()._id,
-      colorProfesor: this.userInfo().color,
+      profesor,
+      canchero: this.profesorForm.value.canchero.nombre,
+      colorProfesor,
     };
     this.agendaService
       .configureHorario(scheduleId, updateBody)
@@ -359,18 +388,27 @@ export class AgendaComponent implements OnInit {
     const hour =
       today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
 
+    let autor1, socio1;
+    if (this.userInfo().rol[0].name === 'Administrador') {
+      autor1 = this.sociosForm.value.socio1._id;
+      socio1 = this.sociosForm.value.socio1.nombre;
+    } else {
+      socio1 = this.userInfo().nombre;
+      autor1 = this.userInfo()._id;
+    }
+
     const updateSchedule = {
       dia: this.dayAgenda.dia,
       indice: this.hour.indice,
-      autor1: this.userInfo()._id,
+      autor1,
       codigoAutor1: this.sheduleAgenda.codigoAutor1,
-      socio1: this.userInfo().nombre,
-      socio2: this.sociosForm.value.socio2.nombre,
-      socio3: this.sociosForm.value.socio3.nombre,
-      socio4: this.sociosForm.value.socio4.nombre,
-      autor2: this.sociosForm.value.socio2._id,
-      autor3: this.sociosForm.value.socio3._id,
-      autor4: this.sociosForm.value.socio4._id,
+      socio1,
+      socio2: this.sociosForm.value.socio2?.nombre,
+      socio3: this.sociosForm.value.socio3?.nombre,
+      socio4: this.sociosForm.value.socio4?.nombre,
+      autor2: this.sociosForm.value.socio2?._id,
+      autor3: this.sociosForm.value.socio3?._id,
+      autor4: this.sociosForm.value.socio4?._id,
       horaSolicitud: `${day} ${hour}`,
       solicita: 'Turno',
     };
@@ -402,7 +440,25 @@ export class AgendaComponent implements OnInit {
           this.getHorarios();
         }
       });
-      this.getHorarios();
     }
+  }
+
+  cancelTurno() {
+    const updateSchedule = {
+      dia: this.dayAgenda.dia,
+      indice: this.hour.indice,
+      solicita: 'cancelar',
+    };
+    this.agendaService
+      .solicitarTurno(this.sheduleAgenda._id, updateSchedule)
+      .subscribe((resp) => {
+        Swal.fire('Excelente', 'Se ha cancelado el turno', 'success').then(
+          (result) => {
+            if (result.isConfirmed) {
+              this.getHorarios();
+            }
+          }
+        );
+      });
   }
 }

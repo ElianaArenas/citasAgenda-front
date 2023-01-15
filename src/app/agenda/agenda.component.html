@@ -115,7 +115,7 @@
   </div>
 </div>
 
-<!-------------------Modal profesor -------------------->
+<!-------------------Modal profesor y admin -------------------->
 <div class="modal fade" id="profesorModal" tabindex="-1" aria-labelledby="profesorModalLabel" aria-hidden="true" *ngIf="showModal">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -147,7 +147,7 @@
             {{dayAgenda.canchero ?? 'N/A'}}<br><br>
           </span>
           <div class="text-center">
-            <button type="button" class="btn btn btn-danger btn-sm">Cancelar turno</button>
+            <button type="button" class="btn btn btn-danger btn-sm" (click)="cancelTurno()">Cancelar turno</button>
           </div>
           <hr>
           <div class="d-flex">
@@ -155,8 +155,8 @@
            <form [formGroup]="sociosForm">
              <label for="">Titular:</label>
              <select class="form-select" formControlName="socio1">
-               <option selected>Ninguno</option>
-               <option [ngValue]="socio" *ngFor="let socio of socios">{{dayAgenda.socio1}}</option>
+               <option>Ninguno</option>
+               <option [ngValue]="socio"  *ngFor="let socio of socios" selected>{{socio.nombre}}</option>
              </select>
              <label for="">Solicitante 2:</label>
              <select class="form-select" formControlName="socio2">
@@ -175,24 +175,26 @@
              </select>
            </form>
              <div class="text-center m-4">
-               <button type="button" class="btn btn-primary mb-2 btn-sm" data-bs-dismiss="modal">Reasignar</button>
+               <button type="button" class="btn btn-primary mb-2 btn-sm" data-bs-dismiss="modal" (click)="agenda()">Reasignar</button>
              </div>
            </div>
            <div class="m-2" style="width: 50%;">
-               <label>Profesor:</label>
-               <select class="form-select" formControlName="socio3">
-                 <option selected>Ninguno</option>
-                 <option [ngValue]="profesor" *ngFor="let profesor of profesores" >{{profesor.nombre}}</option>
-               </select>
-               <label>Canchero:</label>
-               <select class="form-select" formControlName="socio3">
-                 <option selected>Ninguno</option>
-                 <option [ngValue]="canchero" *ngFor="let canchero of cancheros" >{{canchero.nombre}}</option>
-               </select>
-               <div class="text-center m-4">
-                 <button type="button" class="btn btn-primary btn-sm">Actualizar</button>
-               </div>
-           </div>
+           <form [formGroup]="profesorForm">
+              <label>Profesor:</label>
+              <select class="form-select" formControlName="profesor">
+                <option selected>Ninguno</option>
+                <option [ngValue]="profesor" *ngFor="let profesor of profesores" >{{profesor.nombre}}</option>
+              </select>
+              <label>Canchero:</label>
+              <select class="form-select" formControlName="canchero">
+                <option selected>Ninguno</option>
+                <option [ngValue]="canchero" *ngFor="let canchero of cancheros" >{{canchero.nombre}}</option>
+              </select>
+              <div class="text-center m-4">
+                <button type="button" class="btn btn-primary btn-sm" (click)="configureHorario()">Actualizar</button>
+              </div>
+           </form>
+          </div>
           </div>
           <div>
          </div>
