@@ -86,7 +86,7 @@
           solicitud a nombre de <b>{{userInfo().nombre}}</b>
         </span><br>
         <span>
-          {{day && day}}
+          {{day1 && day1}}
         </span><br><br>
         <p>Otros participantes:</p>
         <form [formGroup]="sociosForm">
@@ -130,7 +130,7 @@
          </span>
          <span>
            <b>Franja:</b>
-           {{day && day}}<br>
+           {{day1 && day1}}<br>
          </span>
          <ng-template #turn>
           <span *ngIf="isProfesor()">

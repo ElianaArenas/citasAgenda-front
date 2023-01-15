@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { faWarning } from '@fortawesome/free-solid-svg-icons';
 import { AgendaI, DiaClassI } from '../interfaces/agenda';
 import { AgendaService } from '../service/agenda.service';
 import { LoginService } from '../service/auth.service';
@@ -8,7 +9,6 @@ import { CompanyService } from '../service/company.service';
 import { UserService } from '../service/user.service';
 import { ProfesorService } from '../service/profesor.service';
 import { ProfesorI } from '../interfaces/profesor';
-import { faWarning } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-agenda',
@@ -17,7 +17,7 @@ import { faWarning } from '@fortawesome/free-solid-svg-icons';
 })
 export class AgendaComponent implements OnInit {
   shechedules: AgendaI[] = [];
-  day!: string;
+  day1!: string;
   socios: any;
   showModal: boolean = false;
   company: any;
@@ -103,7 +103,7 @@ export class AgendaComponent implements OnInit {
     } else {
       this.showModal = true;
       this.getUsers();
-      this.day = `${day.dia} ${day.fecha} ${day.turno}`;
+      this.day1 = `${day.dia} ${day.fecha} ${day.turno}`;
       this.preAgenda(day, shechedule, day.turno, day.fecha);
       this.sheduleAgenda = shechedule;
       this.hour = hour;
@@ -391,6 +391,7 @@ export class AgendaComponent implements OnInit {
           this.getHorarios();
         }
       });
+      this.getHorarios();
     } else {
       Swal.fire(
         'Excelente',
@@ -401,6 +402,7 @@ export class AgendaComponent implements OnInit {
           this.getHorarios();
         }
       });
+      this.getHorarios();
     }
   }
 }

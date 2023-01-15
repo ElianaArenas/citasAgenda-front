@@ -39,6 +39,8 @@ export class AgendaService {
   }
 
   configureHorario(scheduleId: string, updateBody: any) {
+    console.log(this.token);
+
     return this.http
       .put(`${this.baseUrl}/horario/configuracion/${scheduleId}`, updateBody, {
         headers: { 'x-access-token': this.token },
