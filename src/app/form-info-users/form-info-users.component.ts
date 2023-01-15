@@ -55,6 +55,7 @@ export class FormInfoUsersComponent implements OnInit {
 
   updatePassword() {
     if (this.updatePasswordForm.invalid) {
+      this.updatePasswordForm.markAllAsTouched();
       Swal.fire('Error', 'Debe llenar los campos obligatorios', 'error');
       return;
     }

@@ -68,18 +68,19 @@
        <label>Confirme contraseña:</label>
        <input type="password" class="form-control"
          formControlName="confirmPassword">
+         <p *ngIf="registerForm.get('confirmPassword')!.touched && registerForm.get('confirmPassword')!.hasError('confirmedValidator')" class="alert-danger">Las contraseñas no coinciden</p>
      </div>
    </div>
    <div class="row m-5">
     <div class="col">
-      <label>Rol:</label>
+      <label>Rol:*</label>
       <select class="form-select" formControlName="rol">
         <option *ngFor="let rol of roles" [ngValue]="rol">{{rol}}</option>
       </select>
       <p *ngIf="registerForm.get('rol')!.touched && registerForm.get('rol')!.hasError('required')" class="alert-danger">El rol es obligatorio</p>
     </div>
     <div class="col">
-      <label>Activar o desactivar:</label>
+      <label>Activar o desactivar:*</label>
       <select class="form-select" formControlName="activo">
         <option *ngFor="let status of userStatus" [ngValue]="status">{{status}}</option>
       </select>

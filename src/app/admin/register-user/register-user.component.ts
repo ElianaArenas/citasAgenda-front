@@ -9,22 +9,30 @@ import { AdminService } from 'src/app/service/admin.service';
   styleUrls: ['./register-user.component.css'],
 })
 export class RegisterUserComponent {
-  registerForm: FormGroup = this.fb.group({
-    nombre: ['', [Validators.required]],
-    genero: [''],
-    documento: [''],
-    email: [''],
-    codigo: [''],
-    idFamiliar: [''],
-    celular: [''],
-    categoria: [''],
-    direccion: [''],
-    barrio: [''],
-    newPassword: ['', [Validators.required, Validators.minLength(6)]],
-    confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
-    rol: [''],
-    activo: [''],
-  });
+  registerForm: FormGroup = this.fb.group(
+    {
+      nombre: ['', [Validators.required]],
+      genero: [''],
+      documento: ['', [Validators.required]],
+      email: ['', [Validators.required]],
+      codigo: ['', [Validators.required]],
+      idFamiliar: ['', [Validators.required]],
+      celular: [''],
+      categoria: [''],
+      direccion: ['', [Validators.required]],
+      barrio: ['', [Validators.required]],
+      newPassword: ['', [Validators.required /*, Validators.minLength(6)*/]],
+      confirmPassword: [
+        '',
+        [Validators.required /*, Validators.minLength(6)*/],
+      ],
+      rol: [''],
+      activo: [''],
+    },
+    {
+      validator: this.ConfirmedValidator('newPassword', 'confirmPassword'),
+    }
+  );
 
   generos: string[] = ['F', 'M', 'Otro'];
   userStatus: string[] = ['Inactivo', 'Activar', 'Desactivar'];
@@ -32,6 +40,12 @@ export class RegisterUserComponent {
   constructor(private fb: FormBuilder, private adminService: AdminService) {}
 
   register() {
+    if (this.registerForm.invalid) {
+      this.registerForm.markAllAsTouched();
+      Swal.fire('Error', 'Debe llenar los campos obligatorios', 'error');
+      return;
+    }
+
     const {
       nombre,
       genero,
@@ -66,13 +80,26 @@ export class RegisterUserComponent {
     };
 
     this.adminService.createUser(createUser).subscribe((res) => {
-      Swal.fire('Excelente', 'Usuario creado exitosamente', 'success');
       //TODO:Control errors
-      if (res._id) {
-        Swal.fire('Excelente', 'Usuario creado exitosamente', 'success');
-      } else {
-        Swal.fire('Error', 'Ocurrió un problema al crear el usuario', 'error');
-      }
+      Swal.fire('Excelente', 'Usuario creado exitosamente', 'success');
     });
+  }
+
+  ConfirmedValidator(controlName: string, matchingControlName: string) {
+    return (formGroup: FormGroup) => {
+      const control = formGroup.controls[controlName];
+      const matchingControl = formGroup.controls[matchingControlName];
+      if (
+        matchingControl.errors &&
+        !matchingControl.errors['confirmedValidator']
+      ) {
+        return;
+      }
+      if (control.value !== matchingControl.value) {
+        matchingControl.setErrors({ confirmedValidator: true });
+      } else {
+        matchingControl.setErrors(null);
+      }
+    };
   }
 }
