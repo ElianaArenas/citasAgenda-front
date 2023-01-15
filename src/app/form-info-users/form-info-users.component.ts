@@ -11,11 +11,16 @@ import { UserService } from '../service/user.service';
   styleUrls: ['./form-info-users.component.css'],
 })
 export class FormInfoUsersComponent implements OnInit {
-  updatePasswordForm: FormGroup = this.fb.group({
-    oldPassword: ['', [Validators.required]],
-    newPassword: ['', [Validators.required, Validators.minLength(6)]],
-    confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
-  });
+  updatePasswordForm: FormGroup = this.fb.group(
+    {
+      oldPassword: ['', [Validators.required]],
+      newPassword: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
+    },
+    {
+      validator: this.ConfirmedValidator('newPassword', 'confirmPassword'),
+    }
+  );
 
   user!: IUser;
   show: boolean = true;
@@ -49,6 +54,10 @@ export class FormInfoUsersComponent implements OnInit {
   }
 
   updatePassword() {
+    if (this.updatePasswordForm.invalid) {
+      Swal.fire('Error', 'Debe llenar los campos obligatorios', 'error');
+      return;
+    }
     const { oldPassword, newPassword } = this.updatePasswordForm.value;
     this.userService
       .updatePassword(this.userId, oldPassword, newPassword)
@@ -59,5 +68,23 @@ export class FormInfoUsersComponent implements OnInit {
           'success'
         );
       });
+  }
+
+  ConfirmedValidator(controlName: string, matchingControlName: string) {
+    return (formGroup: FormGroup) => {
+      const control = formGroup.controls[controlName];
+      const matchingControl = formGroup.controls[matchingControlName];
+      if (
+        matchingControl.errors &&
+        !matchingControl.errors['confirmedValidator']
+      ) {
+        return;
+      }
+      if (control.value !== matchingControl.value) {
+        matchingControl.setErrors({ confirmedValidator: true });
+      } else {
+        matchingControl.setErrors(null);
+      }
+    };
   }
 }

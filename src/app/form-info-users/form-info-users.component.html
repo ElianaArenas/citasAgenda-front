@@ -9,28 +9,28 @@
   <div class="d-flex flex-row justify-content-around">
     <div class="d-flex flex-column m-4">
       <span>
-        <b>Nombre:</b> {{user.message.nombre ?? 'N/A'}}
+        <b>Nombre:</b> {{user?.message?.nombre ?? 'N/A'}}
       </span>
       <span>
-        <b>Documento:</b> {{user.message.documento ?? 'N/A' }}
+        <b>Documento:</b> {{user?.message?.documento ?? 'N/A' }}
       </span>
       <span>
-        <b>Código:</b> {{user.message.codigo ?? 'N/A'}}
+        <b>Código:</b> {{user?.message?.codigo ?? 'N/A'}}
       </span>
       <span>
         <b>Rol de usuario:</b> {{user.message.rol[0].name ?? 'N/A'}}
       </span>
       <span>
-        <b>Celular/teléfono:</b> {{user.message.celular ?? 'N/A'}}
+        <b>Celular/teléfono:</b> {{user?.message?.celular ?? 'N/A'}}
       </span>
       <span>
-        <b>Celular/teléfono (2):</b> {{user.message.telefono2 ?? 'N/A'}}
+        <b>Celular/teléfono (2):</b> {{user?.message?.telefono2 ?? 'N/A'}}
       </span>
       <span>
-        <b>Barrio:</b> {{user.message.barrio ?? 'N/A'}}
+        <b>Barrio:</b> {{user?.message?.barrio ?? 'N/A'}}
       </span>
       <span>
-        <b>Fecha de nacimiento:</b> {{user.message.fechaNacimiento ?? 'N/A'}}
+        <b>Fecha de nacimiento:</b> {{user?.message?.fechaNacimiento ?? 'N/A'}}
       </span>
      <span>
       <b>Edad:</b>
@@ -101,10 +101,9 @@
                 </div>
     
                 <div class="form-outline mb-2">
-                  <input type="password" id="typePasswordX-2" class="form-control form-control-lg" formControlName="confirmPassword"/>
-                  <i class="bi bi-eye-slash" 
-                  id="togglePassword"></i>
                   <label class="form-label" for="typePasswordX-2">Confirma la contraseña</label>
+                  <input type="password" id="typePasswordX-2" class="form-control form-control-lg" formControlName="confirmPassword"/>
+                  <p *ngIf="updatePasswordForm.get('confirmPassword')!.touched && updatePasswordForm.get('confirmPassword')!.hasError('confirmedValidator')" class="alert-danger">Las contraseñas no coinciden</p>
                 </div>
     
                 <div>
