@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 import { IUser } from 'src/app/interfaces/user';
 import { UserService } from 'src/app/service/user.service';
 
@@ -11,7 +12,9 @@ import { UserService } from 'src/app/service/user.service';
 export class AdminUsersComponent {
   estados: string[] = ['Activo', 'Inactivo'];
   roles: string[] = ['Administrador', 'Profesor', 'Canchero', 'Socio'];
+  generos: string[] = ['F', 'M', 'Otro'];
   users: any[] = [];
+  user: any;
   usersForm: FormGroup = this.fb.group({
     rol: [''],
     status: [''],
@@ -27,8 +30,6 @@ export class AdminUsersComponent {
     categoria: [''],
     direccion: ['', [Validators.required]],
     barrio: ['', [Validators.required]],
-    newPassword: ['', [Validators.required, Validators.minLength(6)]],
-    confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
     rol: ['', [Validators.required]],
     activo: ['', [Validators.required]],
   });
@@ -62,5 +63,77 @@ export class AdminUsersComponent {
     });
   }
 
-  getUser(user: any) {}
+  getUser(user: any) {
+    this.user = user;
+    console.log(this.user);
+
+    this.editForm.setValue({
+      nombre: user.nombre,
+      genero: '',
+      documento: user.documento,
+      email: user.email,
+      codigo: user.codigo,
+      idFamiliar: '',
+      celular: user.celular,
+      categoria: '',
+      direccion: user.direccion,
+      barrio: '',
+      rol: '',
+      activo: user.activo,
+    });
+  }
+
+  updateUser() {
+    const {
+      nombre,
+      genero,
+      documento,
+      email,
+      codigo,
+      idFamilia,
+      celular,
+      categoria,
+      direccion,
+      barrio,
+      rol,
+      activo,
+    } = this.editForm.value;
+
+    const updateBody = {
+      nombre,
+      genero,
+      documento,
+      email,
+      codigo,
+      idFamilia,
+      celular,
+      categoria,
+      direccion,
+      barrio,
+      rol,
+      activo,
+    };
+
+    this.userService
+      .editUser(this.user.documento, updateBody)
+      .subscribe((resp) => {
+        Swal.fire(
+          'Operación exitosa',
+          'Se actualizó el usuario correctamente',
+          'success'
+        );
+        this.getUsers();
+      });
+  }
+
+  deleteUser() {
+    this.userService.deleteUser(this.user.documento).subscribe((resp) => {
+      Swal.fire(
+        'Operación exitosa',
+        'Se eliminó el usuario correctamente',
+        'success'
+      );
+      this.getUsers();
+    });
+  }
 }

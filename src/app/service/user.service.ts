@@ -62,4 +62,26 @@ export class UserService {
         catchError((err) => of(false))
       );
   }
+
+  editUser(documento: number, updateBody: any) {
+    return this.http
+      .put(`${this.baseUrl}/users/documento/${documento}`, updateBody, {
+        headers: { 'x-access-token': this.token },
+      })
+      .pipe(
+        map((resp) => resp),
+        catchError((err) => of(err.error.msg))
+      );
+  }
+
+  deleteUser(documento: number) {
+    return this.http
+      .delete(`${this.baseUrl}/users/documento/${documento}`, {
+        headers: { 'x-access-token': this.token },
+      })
+      .pipe(
+        map((resp) => resp),
+        catchError((err) => of(err.error.msg))
+      );
+  }
 }
