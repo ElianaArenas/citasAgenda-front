@@ -11,6 +11,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class EmpresaPersonalizacionComponent {
   company!: CompanyI;
+  showLoading: boolean = false;
 
   constructor(private fb: FormBuilder, private companyService: CompanyService) {
     this.getCompany();
@@ -92,6 +93,7 @@ export class EmpresaPersonalizacionComponent {
       .updateCompany(updateBody)
       .subscribe((company: CompanyI) => {
         Swal.fire('Actualizado correctamente', '', 'success');
+        this.showLoading = false;
         this.getCompany();
         console.log('Updated');
       });
