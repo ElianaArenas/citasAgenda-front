@@ -8,13 +8,14 @@ import { environment } from 'src/environments/environment';
 })
 export class UserService {
   private baseUrl: string = environment.baseUrl;
-  private token = localStorage.getItem('token') || '';
   constructor(private http: HttpClient) {}
 
   getUser(userId: string) {
+    const token = localStorage.getItem('token') || '';
+
     return this.http
       .get(`${this.baseUrl}/users/${userId}`, {
-        headers: { 'x-access-token': this.token },
+        headers: { 'x-access-token': token },
       })
       .pipe(
         map((resp) => resp),
@@ -23,9 +24,11 @@ export class UserService {
   }
 
   getUsers() {
+    const token = localStorage.getItem('token') || '';
+
     return this.http
       .get(`${this.baseUrl}/users/`, {
-        headers: { 'x-access-token': this.token },
+        headers: { 'x-access-token': token },
       })
       .pipe(
         map((resp) => resp),
@@ -34,12 +37,14 @@ export class UserService {
   }
 
   updatePassword(userId: string, oldPassword: string, newPassword: string) {
+    const token = localStorage.getItem('token') || '';
+
     return this.http
       .put(
         `${this.baseUrl}/users/cambiarContra/${userId}`,
         { contraAntigua: oldPassword, contraNueva: newPassword },
         {
-          headers: { 'x-access-token': this.token },
+          headers: { 'x-access-token': token },
         }
       )
       .pipe(
@@ -49,14 +54,27 @@ export class UserService {
   }
 
   validateToken() {
-    const userId = JSON.parse(localStorage.getItem('user') || '')._id;
+    let userId;
+
+    console.log(localStorage.getItem('user'));
+
+    if (localStorage.getItem('user')) {
+      userId = JSON.parse(localStorage.getItem('user') || '')._id;
+      console.log({ userId });
+    }
+
+    console.log(userId);
+
+    const token = localStorage.getItem('token') || '';
+
     return this.http
       .get(`${this.baseUrl}/users/refrescar/${userId}`, {
-        headers: { 'x-access-token': this.token },
+        headers: { 'x-access-token': token },
       })
       .pipe(
         map((resp) => {
           resp;
+          console.log({ resp });
           return true;
         }),
         catchError((err) => of(false))
@@ -64,9 +82,11 @@ export class UserService {
   }
 
   editUser(documento: number, updateBody: any) {
+    const token = localStorage.getItem('token') || '';
+
     return this.http
       .put(`${this.baseUrl}/users/documento/${documento}`, updateBody, {
-        headers: { 'x-access-token': this.token },
+        headers: { 'x-access-token': token },
       })
       .pipe(
         map((resp) => resp),
@@ -75,9 +95,11 @@ export class UserService {
   }
 
   deleteUser(documento: number) {
+    const token = localStorage.getItem('token') || '';
+
     return this.http
       .delete(`${this.baseUrl}/users/documento/${documento}`, {
-        headers: { 'x-access-token': this.token },
+        headers: { 'x-access-token': token },
       })
       .pipe(
         map((resp) => resp),
