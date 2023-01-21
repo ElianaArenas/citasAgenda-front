@@ -18,7 +18,7 @@ export class AdminService {
       })
       .pipe(
         map((resp) => resp),
-        catchError((err) => of(err.error.msg))
+        catchError((err) => of(false))
       );
   }
 }

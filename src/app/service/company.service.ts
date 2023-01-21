@@ -17,7 +17,7 @@ export class CompanyService {
       .get(`${this.baseUrl}/empresa/configuracion/63bcd0cba8962b3f487fe30d`)
       .pipe(
         map((resp) => resp),
-        catchError((err) => of(err.error.msg))
+        catchError((err) => of(false))
       );
   }
 
@@ -32,7 +32,7 @@ export class CompanyService {
       )
       .pipe(
         map((resp) => resp),
-        catchError((err) => of(err.error.msg))
+        catchError((err) => of(false))
       );
   }
 }

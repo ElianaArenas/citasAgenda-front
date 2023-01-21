@@ -80,7 +80,10 @@ export class RegisterUserComponent {
     };
 
     this.adminService.createUser(createUser).subscribe((res) => {
-      //TODO:Control errors
+      if (!res) {
+        Swal.fire('Error', 'Hubo un error al crear el usuario', 'error');
+        return;
+      }
       Swal.fire('Excelente', 'Usuario creado exitosamente', 'success');
     });
   }

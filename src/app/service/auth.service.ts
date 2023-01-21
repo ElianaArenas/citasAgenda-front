@@ -29,7 +29,7 @@ export class LoginService {
           localStorage.setItem('auth', 'true');
         }),
         map((resp) => resp),
-        catchError((err) => of(err.error.msg))
+        catchError((err) => of(false))
       );
   }
 
@@ -43,7 +43,7 @@ export class LoginService {
           localStorage.setItem('auth', 'true');
         }),
         map((resp) => resp),
-        catchError((err) => of(err.error.msg))
+        catchError((err) => of(false))
       );
   }
 
@@ -60,7 +60,7 @@ export class LoginService {
       .put<RegisterResponseI>(`${this.baseUrl}/auth/forgot-password`, data)
       .pipe(
         map((resp) => resp),
-        catchError((err) => of(err.error.msg))
+        catchError((err) => of(false))
       );
   }
 }

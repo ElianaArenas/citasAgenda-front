@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { faWarning } from '@fortawesome/free-solid-svg-icons';
@@ -9,6 +9,7 @@ import { CompanyService } from '../service/company.service';
 import { UserService } from '../service/user.service';
 import { ProfesorService } from '../service/profesor.service';
 import { ProfesorI } from '../interfaces/profesor';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-agenda',
@@ -16,6 +17,8 @@ import { ProfesorI } from '../interfaces/profesor';
   styleUrls: ['./agenda.component.css'],
 })
 export class AgendaComponent implements OnInit {
+  showLoading: boolean = false;
+
   shechedules: AgendaI[] = [];
   day1!: string;
   socios: any;
@@ -90,9 +93,20 @@ export class AgendaComponent implements OnInit {
   }
 
   getHorarios() {
-    this.agendaService.getHorarios().subscribe((horarios: AgendaI[]) => {
-      this.shechedules = horarios;
-    });
+    this.showLoading = true;
+    console.log(this.showLoading);
+
+    this.agendaService
+      .getHorarios()
+      .subscribe((horarios: AgendaI[] | boolean) => {
+        if (!horarios) {
+          Swal.fire('Error', 'Hubo un error en la petición', 'error');
+          return;
+        }
+        this.shechedules = Array.isArray(horarios) ? horarios : [];
+        this.showLoading = false;
+      });
+    this.showLoading = false;
   }
 
   getProfesores() {
@@ -156,6 +170,10 @@ export class AgendaComponent implements OnInit {
     }).then((respuesta) => {
       if (respuesta.isConfirmed) {
         this.agendaService.deleteHorario(scheduleId).subscribe((res) => {
+          if (!res) {
+            Swal.fire('Error', 'Hubo un error en la petición', 'error');
+            return;
+          }
           this.getHorarios();
           Swal.fire('Excelente', 'Horario eliminado', 'success');
         });
@@ -196,7 +214,7 @@ export class AgendaComponent implements OnInit {
     turno: string,
     turnDate: string
   ) {
-    this.companyService.getCompany().subscribe((resp) => {
+    this.companyService.getCompany().subscribe((resp: any) => {
       this.company = resp.message;
     });
 
@@ -337,6 +355,10 @@ export class AgendaComponent implements OnInit {
     this.agendaService
       .confirmarAsistencia(scheduleId, updateBody)
       .subscribe((resp) => {
+        if (!resp) {
+          Swal.fire('Error', 'Hubo un error en la petición', 'error');
+          return;
+        }
         Swal.fire(
           'Asistencia confirmada',
           'Se confirmó la asistencia',
@@ -368,6 +390,10 @@ export class AgendaComponent implements OnInit {
     this.agendaService
       .configureHorario(scheduleId, updateBody)
       .subscribe((resp) => {
+        if (!resp) {
+          Swal.fire('Error', 'Hubo un error en la petición', 'error');
+          return;
+        }
         Swal.fire(
           'Asignación correcta',
           'Se asigno correctamente al turno',
@@ -416,7 +442,9 @@ export class AgendaComponent implements OnInit {
     this.agendaService
       .solicitarTurno(this.sheduleAgenda._id, updateSchedule)
       .subscribe((resp) => {
-        console.log(resp);
+        if (!resp) {
+          Swal.fire('Error', 'Hubo un error en la petición', 'error');
+        }
       });
 
     if (this.company.aleatorio) {

@@ -1,3 +1,9 @@
+<div class="d-flex justify-content-center">
+  <div class="spinner-border text-info" role="status" *ngIf="showLoading">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
 <div class="m-4">
   <h2 class="title">Disponibilidad horarios</h2>
   <div class="alert alert-secondary" role="alert" *ngIf="!isLogged()">
@@ -81,7 +87,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h3 class="modal-title title" id="exampleModalLabel">Solicitud de turno</h3>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="noShowModal()"></button>
+        <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="noShowModal()"></button>
       </div>
       <div class="modal-body">
         <span>

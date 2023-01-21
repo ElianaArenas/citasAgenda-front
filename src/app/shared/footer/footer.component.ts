@@ -23,7 +23,7 @@ export class FooterComponent {
   }
 
   getCompanyInformation() {
-    this.companyService.getCompany().subscribe((company) => {
+    this.companyService.getCompany().subscribe((company: any) => {
       this.company = company;
 
       console.log(this.company);

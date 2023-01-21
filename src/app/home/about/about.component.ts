@@ -15,11 +15,9 @@ export class AboutComponent {
   title: string = '';
 
   getCompanyInformation() {
-    this.companyService
-      .getCompany()
-      .subscribe(({ message: { descripcion, title } }) => {
-        this.description = descripcion;
-        this.title = title;
-      });
+    this.companyService.getCompany().subscribe((message: any) => {
+      this.description = message.descripcion;
+      this.title = message.title;
+    });
   }
 }

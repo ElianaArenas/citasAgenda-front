@@ -95,7 +95,7 @@
                   <p *ngIf="updatePasswordForm.get('newPassword')!.touched && updatePasswordForm.get('newPassword')!.hasError('required')" class="alert-danger">
                     La contraseña nueva es obligatoria
                   </p>
-                  <p *ngIf="updatePasswordForm.get('newPassword')!.touched && updatePasswordForm.get('newPassword')!.hasError('invalid')" class="alert-danger">
+                  <p *ngIf="updatePasswordForm.get('newPassword')!.touched && updatePasswordForm.get('newPassword')?.hasError('minlength')" class="alert-danger">
                     La contraseña nueva debe tener al menos 6 caracteres
                   </p>
                 </div>
@@ -104,6 +104,9 @@
                   <label class="form-label" for="typePasswordX-2">Confirma la contraseña</label>
                   <input type="password" id="typePasswordX-2" class="form-control form-control-lg" formControlName="confirmPassword"/>
                   <p *ngIf="updatePasswordForm.get('confirmPassword')!.touched && updatePasswordForm.get('confirmPassword')!.hasError('confirmedValidator')" class="alert-danger">Las contraseñas no coinciden</p>
+                  <p *ngIf="updatePasswordForm.get('confirmPassword')!.touched && updatePasswordForm.get('confirmPassword')?.hasError('minlength')" class="alert-danger">
+                    La contraseña nueva debe tener al menos 6 caracteres
+                  </p>
                 </div>
     
                 <div>

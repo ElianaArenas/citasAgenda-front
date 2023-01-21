@@ -33,8 +33,13 @@ export class EmpresaPersonalizacionComponent {
   });
 
   getCompany() {
-    this.companyService.getCompany().subscribe((company: CompanyI) => {
+    this.companyService.getCompany().subscribe((company: any) => {
+      if (!company) {
+        Swal.fire('Error', 'Hubo un error al obtener la empresa', 'error');
+        return;
+      }
       this.company = company;
+
       this.companyForm.setValue({
         administrador: company.message?.administrador,
         direccion: company.message?.direccion,
@@ -89,13 +94,15 @@ export class EmpresaPersonalizacionComponent {
       youtube: youtube,
     };
 
-    this.companyService
-      .updateCompany(updateBody)
-      .subscribe((company: CompanyI) => {
-        Swal.fire('Actualizado correctamente', '', 'success');
-        this.showLoading = false;
-        this.getCompany();
-        console.log('Updated');
-      });
+    this.companyService.updateCompany(updateBody).subscribe((company: any) => {
+      if (!company) {
+        Swal.fire('Error', 'Hubo un error en la petición', 'error');
+        return;
+      }
+      Swal.fire('Actualizado correctamente', '', 'success');
+      this.showLoading = false;
+      this.getCompany();
+      console.log('Updated');
+    });
   }
 }

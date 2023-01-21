@@ -48,8 +48,8 @@ export class UserService {
         }
       )
       .pipe(
-        map((resp) => resp),
-        catchError((err) => of(err.error.msg))
+        map((resp) => true),
+        catchError((err) => of(false))
       );
   }
 

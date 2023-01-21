@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 export class LoginComponent {
   loginForm: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(6)]],
+    password: ['', [Validators.required]],
   });
 
   mailForm: FormGroup = this.fb.group({
@@ -29,14 +29,20 @@ export class LoginComponent {
 
   login() {
     const { email, password } = this.loginForm.value;
+
+    if (this.loginForm.invalid) {
+      Swal.fire('Error', 'Debe ingresar el usuario y contraseña', 'error');
+      return;
+    }
+
     this.showLoading = true;
     this.authService.login(email, password).subscribe((login) => {
-      if (!login?.token) {
+      if (!login) {
         this.showLoading = false;
         this.router.navigateByUrl('/login');
         Swal.fire('Error', 'Credenciales invalidas', 'error');
       } else {
-        // this.showLoading = false;
+        this.showLoading = false;
         this.router.navigateByUrl('/dashboard');
       }
     });
@@ -51,12 +57,15 @@ export class LoginComponent {
     }
 
     this.authService.SendMailForgotPassword({ email }).subscribe((resp) => {
+      if (!resp) {
+        Swal.fire('Error', 'Hubo un error al enviar el correo', 'error');
+        return;
+      }
       Swal.fire(
         'Excelente',
         'Se ha enviado el correo de recuperación de contraseña',
         'success'
       );
-      console.log(resp);
     });
   }
 }

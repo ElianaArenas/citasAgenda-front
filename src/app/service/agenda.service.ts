@@ -16,14 +16,14 @@ export class AgendaService {
   getHorarios() {
     return this.http.get<AgendaI[]>(`${this.baseUrl}/horario`).pipe(
       map((resp) => resp),
-      catchError((err) => of(err.error.msg))
+      catchError((err) => of(false))
     );
   }
 
   getHorario(scheduleId: string) {
     return this.http.get<AgendaI>(`${this.baseUrl}/horario/${scheduleId}`).pipe(
       map((resp) => resp),
-      catchError((err) => of(err.error.msg))
+      catchError((err) => of(false))
     );
   }
 
@@ -34,7 +34,7 @@ export class AgendaService {
       })
       .pipe(
         map((resp) => resp),
-        catchError((err) => of(err.error.msg))
+        catchError((err) => of(false))
       );
   }
 
@@ -47,7 +47,7 @@ export class AgendaService {
       })
       .pipe(
         map((resp) => resp),
-        catchError((err) => of(err.error.msg))
+        catchError((err) => of(false))
       );
   }
 
@@ -62,7 +62,7 @@ export class AgendaService {
       )
       .pipe(
         map((resp) => resp),
-        catchError((err) => of(err.error.msg))
+        catchError((err) => of(false))
       );
   }
 
@@ -73,7 +73,7 @@ export class AgendaService {
       })
       .pipe(
         map((resp) => resp),
-        catchError((err) => of(err.error.msg))
+        catchError((err) => of(false))
       );
   }
 
@@ -84,7 +84,7 @@ export class AgendaService {
       })
       .pipe(
         map((resp) => resp),
-        catchError((err) => of(err.error.msg))
+        catchError((err) => of(false))
       );
   }
 
@@ -95,7 +95,7 @@ export class AgendaService {
       })
       .pipe(
         map((resp) => resp),
-        catchError((err) => of(err.error.msg))
+        catchError((err) => of(false))
       );
   }
 }

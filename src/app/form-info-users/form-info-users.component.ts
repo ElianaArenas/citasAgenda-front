@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { tap } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { IUser } from '../interfaces/user';
 import { UserService } from '../service/user.service';
@@ -63,11 +64,26 @@ export class FormInfoUsersComponent implements OnInit {
     this.userService
       .updatePassword(this.userId, oldPassword, newPassword)
       .subscribe((updated) => {
+        if (!updated) {
+          Swal.fire(
+            'Error',
+            'Hubo un error al actualizar la contraseña',
+            'error'
+          );
+          return;
+        }
+
         Swal.fire(
           'Operación exitosa',
           'Se actualizó correctamente la contraseña',
           'success'
         );
+        this.updatePasswordForm.setValue({
+          oldPassword: '',
+          newPassword: '',
+          confirmPassword: '',
+        });
+        this.updatePasswordForm.markAsUntouched();
       });
   }
 

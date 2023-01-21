@@ -38,9 +38,11 @@ export class AgendaConfigureComponent {
   }
 
   getHorarios() {
-    this.agendaService.getHorarios().subscribe((horarios: AgendaI[]) => {
-      this.shechedules = horarios;
-    });
+    this.agendaService
+      .getHorarios()
+      .subscribe((horarios: AgendaI[] | boolean) => {
+        this.shechedules = Array.isArray(horarios) ? horarios : [];
+      });
   }
 
   getHorario(schedule: AgendaI) {
@@ -51,6 +53,10 @@ export class AgendaConfigureComponent {
     const titulo = this.tituloForm.get('titulo')?.value;
 
     this.agendaService.cambiarTitulo(scheduleId, titulo).subscribe((res) => {
+      if (!res) {
+        Swal.fire('Error', 'Hubo un error en la petición', 'error');
+        return;
+      }
       this.getHorarios();
       Swal.fire('Excelente', 'Titulo actualizado', 'success');
     });
@@ -66,6 +72,10 @@ export class AgendaConfigureComponent {
     }).then((respuesta) => {
       if (respuesta.isConfirmed) {
         this.agendaService.deleteHorario(scheduleId).subscribe((res) => {
+          if (res) {
+            Swal.fire('Error', 'Hubo un error en la petición', 'error');
+            return;
+          }
           this.getHorarios();
           Swal.fire('Excelente', 'Horario eliminado', 'success');
         });

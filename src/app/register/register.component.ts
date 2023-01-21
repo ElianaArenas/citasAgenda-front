@@ -35,8 +35,8 @@ export class RegisterComponent {
       return;
     }
     this.authService.register(this.registerForm.value).subscribe((login) => {
-      if (!login?.token) {
-        Swal.fire('Error', login?.message, 'error');
+      if (!login) {
+        Swal.fire('Error', '', 'error');
       } else {
         this.router.navigateByUrl('/about');
       }
