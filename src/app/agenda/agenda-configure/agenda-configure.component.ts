@@ -575,7 +575,6 @@ export class AgendaConfigureComponent {
         idCanchero: null,
         colorProfesor: null,
       });
-    else dia.push(null);
     if (this.diasForm.get('martes')?.value)
       dia.push({
         dia: 'martes',
@@ -595,7 +594,6 @@ export class AgendaConfigureComponent {
         idCanchero: null,
         colorProfesor: null,
       });
-    else dia.push(null);
     if (this.diasForm.get('miercoles')?.value)
       dia.push({
         dia: 'miercoles',
@@ -615,7 +613,6 @@ export class AgendaConfigureComponent {
         idCanchero: null,
         colorProfesor: null,
       });
-    else dia.push(null);
     if (this.diasForm.get('jueves')?.value)
       dia.push({
         dia: 'jueves',
@@ -635,7 +632,6 @@ export class AgendaConfigureComponent {
         idCanchero: null,
         colorProfesor: null,
       });
-    else dia.push(null);
     if (this.diasForm.get('viernes')?.value)
       dia.push({
         dia: 'viernes',
@@ -655,7 +651,6 @@ export class AgendaConfigureComponent {
         idCanchero: null,
         colorProfesor: null,
       });
-    else dia.push(null);
     if (this.diasForm.get('sabado')?.value)
       dia.push({
         dia: 'sabado',
@@ -675,7 +670,6 @@ export class AgendaConfigureComponent {
         idCanchero: null,
         colorProfesor: null,
       });
-    else dia.push(null);
     if (this.diasForm.get('domingo')?.value)
       dia.push({
         dia: 'domingo',
@@ -695,7 +689,6 @@ export class AgendaConfigureComponent {
         idCanchero: null,
         colorProfesor: null,
       });
-    else dia.push(null);
 
     this.franjas[element].dia = dia;
 
