@@ -194,8 +194,10 @@ export class AgendaComponent implements OnInit {
   getUsers() {
     this.userService.getUsers().subscribe((users) => {
       this.socios = users.filter(
-        (user: any) => user.rol[0].name === 'Socio' && user.activo === true
-        // user.nombre != this.userInfo().nombre
+        (user: any) =>
+          user.rol[0].name === 'Socio' &&
+          user.activo === true &&
+          user.nombre != this.userInfo().nombre
       );
     });
   }
@@ -214,6 +216,8 @@ export class AgendaComponent implements OnInit {
     turno: string,
     turnDate: string
   ) {
+    console.log({ classDay, turnDate });
+
     this.companyService.getCompany().subscribe((resp: any) => {
       this.company = resp.message;
     });
@@ -254,71 +258,48 @@ export class AgendaComponent implements OnInit {
     const day =
       hoy.getMonth() + 1 + '/' + hoy.getDate() + '/' + hoy.getFullYear();
     const manana = new Date(manan).toLocaleDateString('en-US');
-    // if (new Date(turnDate).getTime() < new Date(day).getTime()) {
-    //   this.showModal = false;
-    //   Swal.fire(
-    //     'Fecha inválida',
-    //     'No se pueden agendar turnos ya con fechas vencidas',
-    //     'info'
-    //   );
-    //   return;
-    // }
-    // if (new Date(turnDate).getTime() === new Date(day).getTime()) {
-    //   if (ahora > turn) {
-    //     this.showModal = false;
-    //     Swal.fire(
-    //       'Turno ya no es válido',
-    //       'No se pueden agendar un turno pasada la hora del mismo',
-    //       'info'
-    //     );
-    //     return;
-    //   }
-    // }
-    // if (new Date(turnDate).getTime() > new Date(manana).getTime()) {
-    //   this.showModal = false;
-    //   Swal.fire(
-    //     'Turno aún no válido',
-    //     'No se puede agendar turno con más de un día de anticipación',
-    //     'info'
-    //   );
-    //   return;
-    // }
-    // if (
-    //   (ahora < apAm || ahora > cierrAm) &&
-    //   (ahora < apPm || ahora > cierrPm)
-    // ) {
-    //   this.showModal = false;
-    //   Swal.fire(
-    //     'Hora inválida',
-    //     'No se puede agendar turno fuera del horario establecido.',
-    //     'info'
-    //   );
-    //   return;
-    // }
+    if (new Date(turnDate).getTime() < new Date(day).getTime()) {
+      this.showModal = false;
+      Swal.fire(
+        'Fecha inválida',
+        'No se pueden agendar turnos ya con fechas vencidas',
+        'info'
+      );
+      return;
+    }
+    if (new Date(turnDate).getTime() === new Date(day).getTime()) {
+      if (ahora > turn) {
+        this.showModal = false;
+        Swal.fire(
+          'Turno ya no es válido',
+          'No se pueden agendar un turno pasada la hora del mismo',
+          'info'
+        );
+        return;
+      }
+    }
+    if (new Date(turnDate).getTime() > new Date(manana).getTime()) {
+      this.showModal = false;
+      Swal.fire(
+        'Turno aún no válido',
+        'No se puede agendar turno con más de un día de anticipación',
+        'info'
+      );
+      return;
+    }
 
-    // Swal.fire({
-    //   title: 'Solicitar turno',
-    //   text: 'Para agendar este turno por favor clic en: "Continuar".',
-    //   icon: 'info', //success , warning, info, error
-    // }).then((respuesta) => {
-    //   if (respuesta) {
-    //     const updateSchedule = {
-    //       dia: classDay.dia,
-    //       indice: schedule.indice,
-    //       autor1: schedule.autor1,
-    //       codigoAutor1: schedule.codigoAutor1,
-    //       socio1: schedule.socio1,
-    //       socio2: schedule.socio2,
-    //       socio3: schedule.socio3,
-    //       socio4: schedule.socio4,
-    //       autor2: schedule.autor2,
-    //       autor3: schedule.autor3,
-    //       autor4: schedule.autor4,
-    //       solicita: schedule.solicita,
-    //     };
-    //     this.agenda(schedule._id, updateSchedule);
-    //   }
-    // });
+    if (
+      (ahora < apAm || ahora > cierrAm) &&
+      (ahora < apPm || ahora > cierrPm)
+    ) {
+      this.showModal = false;
+      Swal.fire(
+        'Hora inválida',
+        'No se puede agendar turno fuera del horario establecido.',
+        'info'
+      );
+      return;
+    }
   }
 
   preAsistio(fecha: any) {
@@ -328,7 +309,7 @@ export class AgendaComponent implements OnInit {
     var hora = today.getHours() + ':' + today.getMinutes();
     if (new Date().getTime() < new Date(fecha).getTime()) {
       Swal.fire(
-        'El usuario aun no asiste a este turno',
+        'El usuario aún no asiste a este turno',
         'No se puede validar la asistencia antes de la fecha del turno',
         'info'
       );
