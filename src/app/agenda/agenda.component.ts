@@ -460,8 +460,8 @@ export class AgendaComponent implements OnInit {
     };
 
     Swal.fire({
-      title: 'Eliminar horario',
-      text: '¿Desea eliminar el horario?',
+      title: 'Cancelar turno',
+      text: '¿Desea cancelar el turno?',
       icon: 'info',
       showCancelButton: true,
       confirmButtonText: 'Continuar',

@@ -127,13 +127,23 @@ export class AdminUsersComponent {
   }
 
   deleteUser() {
-    this.userService.deleteUser(this.user.documento).subscribe((resp) => {
-      Swal.fire(
-        'Operación exitosa',
-        'Se eliminó el usuario correctamente',
-        'success'
-      );
-      this.getUsers();
+    Swal.fire({
+      title: 'Eliminar usuario',
+      text: '¿Desea eliminar el usuario?',
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonText: 'Continuar',
+    }).then((respuesta) => {
+      if (respuesta.isConfirmed) {
+        this.userService.deleteUser(this.user.documento).subscribe((resp) => {
+          Swal.fire(
+            'Operación exitosa',
+            'Se eliminó el usuario correctamente',
+            'success'
+          );
+          this.getUsers();
+        });
+      }
     });
   }
 }
