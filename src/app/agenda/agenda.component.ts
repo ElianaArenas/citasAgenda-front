@@ -458,16 +458,27 @@ export class AgendaComponent implements OnInit {
       indice: this.hour.indice,
       solicita: 'cancelar',
     };
-    this.agendaService
-      .solicitarTurno(this.sheduleAgenda._id, updateSchedule)
-      .subscribe((resp) => {
-        Swal.fire('Excelente', 'Se ha cancelado el turno', 'success').then(
-          (result) => {
-            if (result.isConfirmed) {
-              this.getHorarios();
-            }
-          }
-        );
-      });
+
+    Swal.fire({
+      title: 'Eliminar horario',
+      text: '¿Desea eliminar el horario?',
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonText: 'Continuar',
+    }).then((respuesta) => {
+      if (respuesta.isConfirmed) {
+        this.agendaService
+          .solicitarTurno(this.sheduleAgenda._id, updateSchedule)
+          .subscribe((resp) => {
+            Swal.fire('Excelente', 'Se ha cancelado el turno', 'success').then(
+              (result) => {
+                if (result.isConfirmed) {
+                  this.getHorarios();
+                }
+              }
+            );
+          });
+      }
+    });
   }
 }
