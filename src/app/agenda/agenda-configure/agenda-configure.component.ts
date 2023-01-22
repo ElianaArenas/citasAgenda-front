@@ -427,6 +427,7 @@ export class AgendaConfigureComponent {
         Swal.fire('Error', 'Hubo un error en la petición', 'error');
         return;
       }
+      this.getHorarios();
       Swal.fire('Excelente', 'Se creo el horario exitosamente', 'success');
       return;
     });
