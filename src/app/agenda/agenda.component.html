@@ -135,7 +135,7 @@
         <span *ngIf="showAsistencia(); else turn">
           <b>Franja asignada a:</b> 
            {{dayAgenda.socio1}} - {{dayAgenda.socio2}} - {{dayAgenda.socio3}} - {{dayAgenda.socio4}} <br>
-         </span>
+        </span>
          <span>
            <b>Franja:</b>
            {{day1 && day1}}<br>
@@ -146,17 +146,17 @@
           </span><br><br>
         </ng-template>
          <div *ngIf="isAdmin()">
-          <span>
-            <b>Profesor:</b>
-            {{dayAgenda.profesor ?? 'N/A'}}
-          </span>
-          <span>
-            <b>Canchero:</b>
-            {{dayAgenda.canchero ?? 'N/A'}}<br><br>
-          </span>
-          <div class="text-center">
-            <button type="button" class="btn btn btn-danger btn-sm" (click)="cancelTurno()">Cancelar turno</button>
-          </div>
+          <div>
+            <span>
+              <b>Profesor:</b>
+              {{dayAgenda.profesor ?? 'N/A'}}
+            </span>
+            <span>
+              <b>Canchero:</b>
+              {{dayAgenda.canchero ?? 'N/A'}}
+            </span>
+              <button type="button" class="btn btn btn-danger btn-sm m-4" (click)="cancelTurno()">Cancelar turno</button>
+         </div>
           <hr>
           <div class="d-flex">
            <div class="m-2" style="width: 50%;">

@@ -98,4 +98,49 @@ export class AgendaService {
         catchError((err) => of(false))
       );
   }
+
+  autorenovar(scheduleId: string, active: boolean) {
+    return this.http
+      .put(
+        `${this.baseUrl}/horario/regenerar/${scheduleId}`,
+        {
+          regenerar: !active,
+        },
+        {
+          headers: { 'x-access-token': this.token },
+        }
+      )
+      .pipe(
+        map((resp) => resp),
+        catchError((err) => of(false))
+      );
+  }
+
+  mostrarHorario(scheduleId: string, active: boolean) {
+    return this.http
+      .put(
+        `${this.baseUrl}/horario/mostrarTodo/${scheduleId}`,
+        {
+          mostrarTodo: !active,
+        },
+        {
+          headers: { 'x-access-token': this.token },
+        }
+      )
+      .pipe(
+        map((resp) => resp),
+        catchError((err) => of(false))
+      );
+  }
+
+  createHorario(createBody: any) {
+    return this.http
+      .post(`${this.baseUrl}/horario`, createBody, {
+        headers: { 'x-access-token': this.token },
+      })
+      .pipe(
+        map((resp) => resp),
+        catchError((err) => of(false))
+      );
+  }
 }

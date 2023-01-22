@@ -35,4 +35,49 @@ export class CompanyService {
         catchError((err) => of(false))
       );
   }
+
+  aperturaTurnos(updateBody: any) {
+    return this.http
+      .put(
+        `${this.baseUrl}/empresa/configuracion/aperturas/63bcd0cba8962b3f487fe30d`,
+        updateBody,
+        {
+          headers: { 'x-access-token': this.token },
+        }
+      )
+      .pipe(
+        map((resp) => resp),
+        catchError((err) => of(false))
+      );
+  }
+
+  opcionCancelar(updateBody: any) {
+    return this.http
+      .put(
+        `${this.baseUrl}/empresa/configuracion/horario/cancelar/63bcd0cba8962b3f487fe30d`,
+        updateBody,
+        {
+          headers: { 'x-access-token': this.token },
+        }
+      )
+      .pipe(
+        map((resp) => resp),
+        catchError((err) => of(false))
+      );
+  }
+
+  actualizarRenovar(updateBody: any) {
+    return this.http
+      .put(
+        `${this.baseUrl}/empresa/configuracion/horario/renovar/63bcd0cba8962b3f487fe30d`,
+        updateBody,
+        {
+          headers: { 'x-access-token': this.token },
+        }
+      )
+      .pipe(
+        map((resp) => resp),
+        catchError((err) => of(false))
+      );
+  }
 }

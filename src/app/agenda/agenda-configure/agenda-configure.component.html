@@ -3,7 +3,7 @@
   <hr>
   <div>
     <h3 class="title">Horarios presentes</h3>
-    <div class="alert alert-warning m-5" role="alert" *ngIf="shechedules.length === 0">
+    <div class="alert alert-warning m-5" role="alert" *ngIf="shechedules?.length === 0">
       <b>
         No hay horarios disponibles aún. 
       </b>
@@ -13,11 +13,13 @@
         <div class="card-body" >
           <h5 class="card-title">{{schedule.lugar}}</h5>
           <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"
+                   (change)="mostrarHorario(schedule._id,schedule.mostrarTodo)" [checked]="schedule.mostrarTodo">
             <label class="form-check-label" for="flexSwitchCheckDefault">Horario clases</label>
           </div>
           <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" 
+                  (change)="autorenovar(schedule._id,schedule.regenerar)" [checked]="schedule.regenerar">
             <label class="form-check-label" for="flexSwitchCheckDefault">Autorenovar</label>
           </div>
           <div class="text-center">
@@ -51,6 +53,11 @@
         <ngb-timepicker [(ngModel)]="cierrePm" [meridian]="meridian"></ngb-timepicker>
       </div>
     </div>
+    <div class="text-center">
+      <button class="btn btn-primary btn-sm m-2" (click)="aperturaTurnos()">
+        Habilitar
+      </button>
+    </div>
   </div>
 </div>
 <hr>
@@ -68,6 +75,11 @@
       <ngb-timepicker [(ngModel)]="limitePm" [meridian]="meridian"></ngb-timepicker>
     </div>
   </div>
+  <div class="text-center">
+    <button class="btn btn-primary btn-sm m-2" (click)="opcionCancelar()">
+      Habilitar
+    </button>
+  </div>
 </div>
 <hr>
 <div>
@@ -77,21 +89,28 @@
   <div>
     <div class="d-flex justify-content-center">
       <div class="m-5">
+        <form [formGroup]="renovarHorarioForm">
         <label>Defina el dia: </label>
-        <select class="form-select">
-          <option selected>Lunes</option>
-          <option value="1">Martes</option>
-          <option value="2">Miercoles</option>
-          <option value="3">Jueves</option>
-          <option value="3">Viernes</option>
-          <option value="3">Sabado</option>
-          <option value="3">Domingo</option>
+        <select class="form-select" formControlName="dia">
+          <option selected value="1">Lunes</option>
+          <option value="2">Martes</option>
+          <option value="3">Miercoles</option>
+          <option value="4">Jueves</option>
+          <option value="5">Viernes</option>
+          <option value="6">Sabado</option>
+          <option value="0">Domingo</option>
         </select>
+        </form>
       </div>
       <div>
         <label>Defina la hora: </label>
         <ngb-timepicker [(ngModel)]="renovarHorario" [meridian]="meridian"></ngb-timepicker>
       </div>
+    </div>
+    <div class="text-center">
+      <button class="btn btn-primary btn-sm m-2" (click)="actualizarRenovar()">
+        Habilitar
+      </button>
     </div>
   </div>
 </div>
@@ -102,54 +121,69 @@
     <div class="ml-5 mr-5">
       <p>Seleccione los días.</p>
       <hr>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-        <label class="form-check-label" for="flexCheckDefault">
-          Lunes
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-        <label class="form-check-label" for="flexCheckChecked">
-          Martes
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-        <label class="form-check-label" for="flexCheckChecked">
-          Miercoles
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-        <label class="form-check-label" for="flexCheckChecked">
-          Jueves
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-        <label class="form-check-label" for="flexCheckChecked">
-          Viernes
-        </label>
-      </div>
+      <form [formGroup]="diasForm">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" formControlName="lunes">
+          <label class="form-check-label" for="flexCheckDefault">
+            Lunes
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked formControlName="martes">
+          <label class="form-check-label" for="flexCheckChecked">
+            Martes
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked formControlName="miercoles">
+          <label class="form-check-label" for="flexCheckChecked">
+            Miercoles
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked  formControlName="jueves">
+          <label class="form-check-label" for="flexCheckChecked">
+            Jueves
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked formControlName="viernes">
+          <label class="form-check-label" for="flexCheckChecked">
+            Viernes
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked formControlName="sabado">
+          <label class="form-check-label" for="flexCheckChecked">
+            Sabado
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked formControlName="domingo">
+          <label class="form-check-label" for="flexCheckChecked">
+            Domingo
+          </label>
+        </div>
+      </form>
     </div>
     <div>
-      <form>
+      <form [formGroup]="tituloCrearHorarioForm">
         <label>Título del lugar, localidad o profesión</label>
-        <input type="text" class="form-control">
+        <input type="text" class="form-control" formControlName="titulo">
       </form>
       <label>Fecha de inicio</label>
       <form class="form-inline">
         <div class="form-group">
           <div class="input-group">
             <input class="form-control" placeholder="yyyy-mm-dd"
-                   name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+                   name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker" (dateSelect) ="validateDate($event)">
             <div class="input-group-append">
               <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
             </div>
           </div>
         </div>
       </form>
+      <p *ngIf="invalidDate" class="alert-danger">Por favor indique fecha actual o futura para definir la fecha de inicio, no se permiten fechas anteriores</p>
       <div class="d-flex m-5">
         <div>
           <label>Hora inicio: </label>
@@ -169,18 +203,20 @@
         </div>
       </div>
       <div>
-        <div class="form-check form-switch">
-          <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault1">
-          <label class="form-check-label" for="flexSwitchCheckDefault1">Horario para clases</label>
-          <p>(Habilitar para mostrar el horario completo, de lo contrario solo se mostrará el día presente y el siguiente día)</p>
-        </div>
-        <div class="form-check form-switch">
-          <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault2">
-          <label class="form-check-label" for="flexSwitchCheckDefault2">Renovar horario</label>
-          <p>(Para renovar automáticamente su horario según la fecha que desee)</p>
-        </div>
+        <form [formGroup]="diasForm">
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault1" formControlName="horarioClases">
+            <label class="form-check-label" for="flexSwitchCheckDefault1">Horario para clases</label>
+            <p>(Habilitar para mostrar el horario completo, de lo contrario solo se mostrará el día presente y el siguiente día)</p>
+          </div>
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault2" formControlName="autorenovar">
+            <label class="form-check-label" for="flexSwitchCheckDefault2">Renovar horario</label>
+            <p>(Para renovar automáticamente su horario según la fecha que desee)</p>
+          </div>
+        </form>
         <div class="text-center m-5">
-          <button type="submit" class="btn btn-primary m-2">Validar y agregar</button>
+          <button type="submit" class="btn btn-primary m-2" (click)="createHorario()">Validar y agregar</button>
           <button type="submit" class="btn btn-secondary m-2">Limpiar todo</button>
         </div>
       </div>
