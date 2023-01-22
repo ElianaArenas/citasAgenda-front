@@ -34,6 +34,7 @@ export class RegisterUserComponent {
     }
   );
 
+  color: any;
   generos: string[] = ['F', 'M', 'Otro'];
   userStatus: string[] = ['Inactivo', 'Activar', 'Desactivar'];
   roles: string[] = ['Administrador', 'Profesor', 'Canchero', 'Socio'];
@@ -77,6 +78,7 @@ export class RegisterUserComponent {
       email,
       genero: genero,
       barrio: barrio,
+      color: this.color,
     };
 
     this.adminService.createUser(createUser).subscribe((res) => {

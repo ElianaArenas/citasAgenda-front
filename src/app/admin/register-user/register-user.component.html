@@ -87,6 +87,14 @@
       <p *ngIf="registerForm.get('activo')!.touched && registerForm.get('activo')!.hasError('required')" class="alert-danger">El status es obligatorio</p>
     </div>
   </div>
+  <div class="row m-5">
+    <div class="col">
+      <label>Color:</label>
+      <ngx-colors ngx-colors-trigger style="display: inline-block; margin:5px;" [(ngModel)]="color">
+      </ngx-colors>
+    </div>
+  </div>
+
     <div class="text-center">
      <button type="submit" class="btn btn-primary btn-lg mb-4">Registrar</button>
     </div>
