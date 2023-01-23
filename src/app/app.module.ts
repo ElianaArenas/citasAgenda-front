@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxColorsModule } from 'ngx-colors';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CarruselComponent } from './home/carrusel/carrusel.component';
@@ -27,6 +28,9 @@ import { SobrenosotrosComponent } from './sobrenosotros/sobrenosotros.component'
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ImagenesComponent } from './imagenes/imagenes.component';
 import { SafeUrlPipePipe } from './safe-url-pipe.pipe';
+import { SpinnerModule } from './shared/components/spinner/spinner.module';
+import { SpinnerComponent } from './shared/components/spinner/spinner.component';
+import { SpinnerInterceptor } from './shared/interceptors/spinner.interceptor';
 
 @NgModule({
   declarations: [
@@ -60,8 +64,15 @@ import { SafeUrlPipePipe } from './safe-url-pipe.pipe';
     NgbModule,
     NgxColorsModule,
     FontAwesomeModule,
+    SpinnerModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: SpinnerInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

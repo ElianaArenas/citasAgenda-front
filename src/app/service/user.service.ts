@@ -19,7 +19,7 @@ export class UserService {
       })
       .pipe(
         map((resp) => resp),
-        catchError((err) => of(err.error.msg))
+        catchError((err) => of(err))
       );
   }
 
@@ -32,7 +32,7 @@ export class UserService {
       })
       .pipe(
         map((resp) => resp),
-        catchError((err) => of(err.error.msg))
+        catchError((err) => of(err))
       );
   }
 
@@ -90,7 +90,7 @@ export class UserService {
       })
       .pipe(
         map((resp) => resp),
-        catchError((err) => of(err.error.msg))
+        catchError((err) => of(err))
       );
   }
 
@@ -103,7 +103,7 @@ export class UserService {
       })
       .pipe(
         map((resp) => resp),
-        catchError((err) => of(err.error.msg))
+        catchError((err) => of(err))
       );
   }
 }

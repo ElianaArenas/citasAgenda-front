@@ -16,7 +16,7 @@ export class ProfesorService {
   getProfesores() {
     return this.http.get<ProfesorI[]>(`${this.baseUrl}/profesor`).pipe(
       map((resp) => resp),
-      catchError((err) => of(err.error.msg))
+      catchError((err) => of(err))
     );
   }
 }
