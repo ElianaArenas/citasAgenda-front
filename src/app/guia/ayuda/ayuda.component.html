@@ -1,21 +1,30 @@
-<div class="m-5" >
+<div class="m-5 div-background p-5">
   <div *ngIf="pagina == 1" style="margin: auto">
      <h3 class="title">A continuación encontrarás ayuda básica acerca de la configuración de
       los diferentes componentes de este aplicativo.</h3>
      <hr>
+     <div>
+      
+     </div>
       <div class="cursor" (click)="setPage(2)">
-        <ul><b>Página:</b>
+        <ul>
+          <fa-icon [icon]="faGlobe"></fa-icon>
+          <b>  Página:</b>
             <li>Personalizar</li>
         </ul>
       </div>
       <div class="cursor" (click)="setPage(3)">
-        <ul><b>Horario:</b>
+        <ul>
+          <fa-icon [icon]="faCalendar"></fa-icon>
+          <b>  Horario:</b>
             <li>Configurar</li>
             <li>Ver horarios</li>
         </ul>
       </div>
       <div class="cursor" (click)="setPage(4)">
-        <ul><b>Usuarios:</b>
+        <ul>
+          <fa-icon [icon]="faUsers"></fa-icon>
+          <b> Usuarios:</b>
           <li>Registrar</li>
           <li>Administrar</li>
           <li>Mi cuenta</li>

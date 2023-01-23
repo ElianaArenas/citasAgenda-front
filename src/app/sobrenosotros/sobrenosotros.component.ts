@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  faTwitter,
-  faFacebookF,
-  faLinkedinIn,
-} from '@fortawesome/free-brands-svg-icons';
+import { faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-sobrenosotros',
@@ -11,8 +8,7 @@ import {
   styleUrls: ['./sobrenosotros.component.css'],
 })
 export class SobrenosotrosComponent {
-  faFacebook = faFacebookF;
-  faTwitter = faTwitter;
   faLinkedinIn = faLinkedinIn;
+  faEnvelope = faEnvelope;
   constructor() {}
 }

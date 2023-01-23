@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import {
+  faCalendar,
+  faGlobe,
+  faUsers,
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-ayuda',
@@ -7,6 +12,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AyudaComponent {
   pagina: number = 1;
+  faCalendar: any = faCalendar;
+  faGlobe: any = faGlobe;
+  faUsers: any = faUsers;
   constructor() {}
 
   next() {

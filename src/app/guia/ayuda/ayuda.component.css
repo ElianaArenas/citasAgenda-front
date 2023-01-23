@@ -1,3 +1,11 @@
 .cursor {
   cursor: pointer;
 }
+
+.div-background {
+  background-color: #f4fba0;
+}
+
+ul {
+  list-style: none;
+}
