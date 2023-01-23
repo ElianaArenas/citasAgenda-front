@@ -14,6 +14,7 @@ import { RegisterUserComponent } from './admin/register-user/register-user.compo
 import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
 import { AyudaComponent } from './guia/ayuda/ayuda.component';
 import { SobrenosotrosComponent } from './sobrenosotros/sobrenosotros.component';
+import { ImagenesComponent } from './imagenes/imagenes.component';
 
 const routes: Routes = [
   {
@@ -39,6 +40,12 @@ const routes: Routes = [
   {
     path: 'personalizar',
     component: EmpresaPersonalizacionComponent,
+    canActivate: [ValidarTokenGuard],
+    canLoad: [ValidarTokenGuard],
+  },
+  {
+    path: 'imagenes',
+    component: ImagenesComponent,
     canActivate: [ValidarTokenGuard],
     canLoad: [ValidarTokenGuard],
   },

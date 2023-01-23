@@ -80,4 +80,17 @@ export class CompanyService {
         catchError((err) => of(false))
       );
   }
+
+  uploadImages(files: any) {
+    let filesToUpload = new FormData();
+    filesToUpload.append('imagen', files);
+    return this.http
+      .post(`${this.baseUrl}/empresa/imagenes/`, filesToUpload, {
+        headers: { 'x-access-token': this.token },
+      })
+      .pipe(
+        map((resp) => resp),
+        catchError((err) => of(false))
+      );
+  }
 }
