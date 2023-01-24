@@ -1,156 +1,161 @@
-<div>
-  <h2 class="title">Mostrar todos los usuarios</h2>
-  <form [formGroup]="usersForm"
-  (ngSubmit)="getUsers()">
-  <div class="row m-5">
-    <div class="col">
-      <label for="admin">Rol</label>
-      <select class="form-select" formControlName="rol">
-        <option value="Todos" selected>Todos</option>
-        <option *ngFor="let rol of roles" [ngValue]="rol">{{rol}}</option>
-      </select>
+<div class="p-5 background-div">
+  <div>
+    <h2 class="title">Mostrar todos los usuarios</h2>
+    <hr>
+    <form [formGroup]="usersForm"
+    (ngSubmit)="getUsers()">
+    <div class="row m-5">
+      <div class="col">
+        <label for="admin">Rol</label>
+        <select class="form-select" formControlName="rol">
+          <option value="Todos" selected>Todos</option>
+          <option *ngFor="let rol of roles" [ngValue]="rol">{{rol}}</option>
+        </select>
+      </div>
+      <div class="col">
+        <label>Activo o inactivo:</label>
+        <select class="form-select" formControlName="status">
+          <option value="Todos" selected>Todos</option>
+          <option *ngFor="let estado of estados" [ngValue]="estado">{{estado}}</option>
+       </select>
+      </div>
     </div>
-    <div class="col">
-      <label>Activo o inactivo:</label>
-      <select class="form-select" formControlName="status">
-        <option value="Todos" selected>Todos</option>
-        <option *ngFor="let estado of estados" [ngValue]="estado">{{estado}}</option>
-     </select>
+    <div class="text-center">
+      <button type="submit" class="btn btn-primary mb-4">Buscar</button>
+    </div>
+    </form>
+  </div>
+  
+  <div class="m-5">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Documento</th>
+          <th scope="col">Código</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Rol</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users; index as i">
+          <th scope="row">{{i+1}}</th>
+          <td><button class="button-tabble" data-bs-toggle="modal" 
+            data-bs-target="#userModal"
+            (click)="getUser(user)"
+            >{{user?.documento}}</button></td>
+          <td><button class="button-tabble" data-bs-toggle="modal" 
+            data-bs-target="#userModal"
+            (click)="getUser(user)"
+            >{{user?.codigo}}</button></td>
+          <td><button class="button-tabble" data-bs-toggle="modal" 
+            data-bs-target="#userModal"
+            (click)="getUser(user)"
+            >{{user?.nombre}}</button></td>
+          <td><button class="button-tabble" data-bs-toggle="modal" 
+            data-bs-target="#userModal"
+            (click)="getUser(user)"
+            >{{user?.rol[0].name}}</button></td>
+          <td><button class="button-tabble" data-bs-toggle="modal" 
+            data-bs-target="#userModal"
+            (click)="getUser(user)"
+            >{{user?.activo === true? 'Activo': 'Inactivo'}}</button></td>
+          <td>
+            <button type="button" class="btn btn-danger btn-sm m-2" (click)="deleteUser()">Eliminar</button>
+            <button type="button" class="btn btn-primary btn-sm m-2"  data-bs-toggle="modal" 
+            data-bs-target="#userModal"
+            (click)="getUser(user)">Editar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <!------------Modal------------------------>
+  <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title title" id="exampleModalLabel">Editar usuario</h3>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form   [formGroup]="editForm">
+            <div class="row m-2">
+              <div class="col">
+                <label for="admin">Nombre completo:*</label>
+                <input type="text" class="form-control" placeholder="Nombre" id="admin"
+                formControlName="nombre">
+              </div>
+              <div class="col">
+                <label>Genero:</label>
+                <select class="form-select" formControlName="genero">
+                  <option selected>Ninguno</option>
+                 <option *ngFor="let genero of generos" [ngValue]="genero">{{genero}}</option>
+               </select>
+              </div>
+            </div>
+            <div class="row m-2">
+              <div class="col">
+                <label>Número documento:*</label>
+                <input type="text" class="form-control" placeholder="Documento"
+                  formControlName="documento">
+              </div>
+              <div class="col">
+                <label>Correo electrónico:*</label>
+                <input type="email" class="form-control" placeholder="Correo" 
+                 formControlName="email">
+              </div>
+            </div>
+            <div class="row m-2">
+              <div class="col">
+                <label for="admin">Código:*</label>
+                <input type="text" class="form-control" placeholder="Código"
+                 formControlName="codigo">
+              </div>
+              <div class="col">
+                <label>Id familiar:</label>
+                <input type="text" class="form-control" placeholder="idFamiliar"
+                 formControlName="idFamiliar">
+              </div>
+            </div>
+            <div class="row m-2">
+              <div class="col">
+                <label>Direccion:</label>
+                <input type="text" class="form-control" placeholder="Direccion"
+                  formControlName="direccion">
+              </div>
+              <div class="col">
+                <label>Barrio:</label>
+                <input type="text" class="form-control" placeholder="barrio"
+                  formControlName="barrio">
+              </div>
+            </div>
+            <div class="row m-2">
+             <div class="col">
+               <label>Rol:</label>
+               <select class="form-select" formControlName="rol">
+                 <option *ngFor="let rol of roles" [ngValue]="rol">{{rol}}</option>
+               </select>
+             </div>
+             <div class="col">
+               <label>Activar o desactivar:</label>
+               <select class="form-select" formControlName="activo">
+                 <option *ngFor="let status of estados" [ngValue]="status">{{status}}</option>
+               </select>
+             </div>
+           </div>
+          </form>
+        </div>
+        <div class="modal-footer m-auto">
+          <button type="button" class="btn btn-primary" (click)="updateUser()">Editar</button>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="text-center">
-    <button type="submit" class="btn btn-primary mb-4">Buscar</button>
-  </div>
-  </form>
 </div>
 
-<div class="m-5">
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Documento</th>
-        <th scope="col">Código</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Rol</th>
-        <th scope="col">Estado</th>
-        <th scope="col">Acción</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let user of users; index as i">
-        <th scope="row">{{i+1}}</th>
-        <td><button class="button-tabble" data-bs-toggle="modal" 
-          data-bs-target="#userModal"
-          (click)="getUser(user)"
-          >{{user?.documento}}</button></td>
-        <td><button class="button-tabble" data-bs-toggle="modal" 
-          data-bs-target="#userModal"
-          (click)="getUser(user)"
-          >{{user?.codigo}}</button></td>
-        <td><button class="button-tabble" data-bs-toggle="modal" 
-          data-bs-target="#userModal"
-          (click)="getUser(user)"
-          >{{user?.nombre}}</button></td>
-        <td><button class="button-tabble" data-bs-toggle="modal" 
-          data-bs-target="#userModal"
-          (click)="getUser(user)"
-          >{{user?.rol[0].name}}</button></td>
-        <td><button class="button-tabble" data-bs-toggle="modal" 
-          data-bs-target="#userModal"
-          (click)="getUser(user)"
-          >{{user?.activo === true? 'Activo': 'Inactivo'}}</button></td>
-        <td>
-          <button type="button" class="btn btn-danger btn-sm m-2" (click)="deleteUser()">Eliminar</button>
-          <button type="button" class="btn btn-primary btn-sm m-2"  data-bs-toggle="modal" 
-          data-bs-target="#userModal"
-          (click)="getUser(user)">Editar</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
 
-<!------------Modal------------------------>
-<div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title title" id="exampleModalLabel">Editar usuario</h3>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form   [formGroup]="editForm">
-          <div class="row m-2">
-            <div class="col">
-              <label for="admin">Nombre completo:*</label>
-              <input type="text" class="form-control" placeholder="Nombre" id="admin"
-              formControlName="nombre">
-            </div>
-            <div class="col">
-              <label>Genero:</label>
-              <select class="form-select" formControlName="genero">
-                <option selected>Ninguno</option>
-               <option *ngFor="let genero of generos" [ngValue]="genero">{{genero}}</option>
-             </select>
-            </div>
-          </div>
-          <div class="row m-2">
-            <div class="col">
-              <label>Número documento:*</label>
-              <input type="text" class="form-control" placeholder="Documento"
-                formControlName="documento">
-            </div>
-            <div class="col">
-              <label>Correo electrónico:*</label>
-              <input type="email" class="form-control" placeholder="Correo" 
-               formControlName="email">
-            </div>
-          </div>
-          <div class="row m-2">
-            <div class="col">
-              <label for="admin">Código:*</label>
-              <input type="text" class="form-control" placeholder="Código"
-               formControlName="codigo">
-            </div>
-            <div class="col">
-              <label>Id familiar:</label>
-              <input type="text" class="form-control" placeholder="idFamiliar"
-               formControlName="idFamiliar">
-            </div>
-          </div>
-          <div class="row m-2">
-            <div class="col">
-              <label>Direccion:</label>
-              <input type="text" class="form-control" placeholder="Direccion"
-                formControlName="direccion">
-            </div>
-            <div class="col">
-              <label>Barrio:</label>
-              <input type="text" class="form-control" placeholder="barrio"
-                formControlName="barrio">
-            </div>
-          </div>
-          <div class="row m-2">
-           <div class="col">
-             <label>Rol:</label>
-             <select class="form-select" formControlName="rol">
-               <option *ngFor="let rol of roles" [ngValue]="rol">{{rol}}</option>
-             </select>
-           </div>
-           <div class="col">
-             <label>Activar o desactivar:</label>
-             <select class="form-select" formControlName="activo">
-               <option *ngFor="let status of estados" [ngValue]="status">{{status}}</option>
-             </select>
-           </div>
-         </div>
-        </form>
-      </div>
-      <div class="modal-footer m-auto">
-        <button type="button" class="btn btn-primary" (click)="updateUser()">Editar</button>
-      </div>
-    </div>
-  </div>
-</div>
 

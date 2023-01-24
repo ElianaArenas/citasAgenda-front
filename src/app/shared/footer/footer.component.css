@@ -1,0 +1,20 @@
+li,
+p {
+  color: darkgray;
+  size: 0.1rem;
+}
+
+.gray {
+  width: 30px;
+  border: 0.1px solid white;
+}
+
+.gray:hover {
+  background-color: powderblue;
+  transition: background-color 0.5s;
+}
+
+.love:hover {
+  color: red;
+  transition: background-color 0.5s;
+}

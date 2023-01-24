@@ -22,12 +22,14 @@ export class CompanyService {
   }
 
   updateCompany(updateBody: any) {
+    const token = localStorage.getItem('token') || '';
+
     return this.http
       .put(
         `${this.baseUrl}/empresa/configuracion/63bcd0cba8962b3f487fe30d`,
         updateBody,
         {
-          headers: { 'x-access-token': this.token },
+          headers: { 'x-access-token': token },
         }
       )
       .pipe(

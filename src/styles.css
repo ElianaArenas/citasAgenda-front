@@ -12,3 +12,18 @@
   background-color: #20b0d8;
   color: white;
 }
+
+.title-2 {
+  text-align: center;
+  color: white;
+  margin: 20px 0 40px 0;
+}
+
+.background-div {
+  background-color: #e5e0ff;
+}
+
+.icons:hover {
+  color: powderblue;
+  transition: background-color 0.5s;
+}

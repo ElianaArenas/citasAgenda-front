@@ -7,6 +7,12 @@ import {
   faInstagramSquare,
 } from '@fortawesome/free-brands-svg-icons';
 
+import {
+  faHeart,
+  faLocationDot,
+  faPhone,
+  faEnvelope,
+} from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
@@ -17,6 +23,10 @@ export class FooterComponent {
   faFacebook = faFacebookF;
   faTwitter = faTwitter;
   faInstagram = faInstagramSquare;
+  faHeart = faHeart;
+  faLocationDot = faLocationDot;
+  faPhone = faPhone;
+  faEnvelope = faEnvelope;
 
   constructor(private companyService: CompanyService) {
     this.getCompanyInformation();
@@ -25,8 +35,6 @@ export class FooterComponent {
   getCompanyInformation() {
     this.companyService.getCompany().subscribe((company: any) => {
       this.company = company;
-
-      console.log(this.company);
     });
   }
 }

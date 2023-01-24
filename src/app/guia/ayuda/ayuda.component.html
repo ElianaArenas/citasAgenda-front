@@ -1,6 +1,6 @@
 <div class="m-5 div-background p-5">
   <div *ngIf="pagina == 1" style="margin: auto">
-     <h3 class="title">A continuación encontrarás ayuda básica acerca de la configuración de
+     <h3 class="title-2">A continuación encontrarás ayuda básica acerca de la configuración de
       los diferentes componentes de este aplicativo.</h3>
      <hr>
      <div>
@@ -8,14 +8,14 @@
      </div>
       <div class="cursor" (click)="setPage(2)">
         <ul>
-          <fa-icon [icon]="faGlobe"></fa-icon>
+          <fa-icon [icon]="faGlobe" class="icons"></fa-icon>
           <b>  Página:</b>
             <li>Personalizar</li>
         </ul>
       </div>
       <div class="cursor" (click)="setPage(3)">
         <ul>
-          <fa-icon [icon]="faCalendar"></fa-icon>
+          <fa-icon [icon]="faCalendar" class="icons"></fa-icon>
           <b>  Horario:</b>
             <li>Configurar</li>
             <li>Ver horarios</li>
@@ -23,7 +23,7 @@
       </div>
       <div class="cursor" (click)="setPage(4)">
         <ul>
-          <fa-icon [icon]="faUsers"></fa-icon>
+          <fa-icon [icon]="faUsers" class="icons"></fa-icon>
           <b> Usuarios:</b>
           <li>Registrar</li>
           <li>Administrar</li>
@@ -33,7 +33,7 @@
       </div>
   </div>
   <div *ngIf="pagina == 2">
-    <h2 class="title"><b>Página</b></h2>
+    <h2 class="title-2"><b>Página</b></h2>
     <header><b>Personalizar</b></header>
     <p>
        En esta parte encontrarás todas las opciones para personalizar tu sitio web y  forma parte de los aspectos y datos importantes o relevantes que tus usuarios observan al momento de ingresar.
@@ -55,7 +55,7 @@
   </div>
   <div *ngIf="pagina == 3">
     <div>
-      <h2 class="title"><b>Horario</b></h2>
+      <h2 class="title-2"><b>Horario</b></h2>
       <header><b>Configurar</b></header>
       <p>
           En esta parte encontrará todo lo relacionado para crear y configurar sus horarios, como puede observar existen seis (6) apartados, describiremos uno a uno para mayor comprensión.<br><br>
@@ -90,7 +90,7 @@
   </div>
   </div>
   <div *ngIf="pagina == 4">
-    <h2 class="title"><b>Usuarios</b></h2>
+    <h2 class="title-2"><b>Usuarios</b></h2>
     <header><b>Registrar</b></header>
     <p>
       Aquí puede registrar, activar y asignar directamente el rol a sus nuevos usuarios.
