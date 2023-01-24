@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { faWarning } from '@fortawesome/free-solid-svg-icons';
@@ -9,14 +9,13 @@ import { CompanyService } from '../service/company.service';
 import { UserService } from '../service/user.service';
 import { ProfesorService } from '../service/profesor.service';
 import { ProfesorI } from '../interfaces/profesor';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-agenda',
   templateUrl: './agenda.component.html',
   styleUrls: ['./agenda.component.css'],
 })
-export class AgendaComponent implements OnInit {
+export class AgendaComponent {
   showLoading: boolean = false;
 
   shechedules: AgendaI[] = [];
@@ -58,8 +57,6 @@ export class AgendaComponent implements OnInit {
     this.getProfesores();
     this.getCancheros();
   }
-
-  ngOnInit(): void {}
 
   userInfo() {
     return localStorage.getItem('user')
@@ -131,23 +128,14 @@ export class AgendaComponent implements OnInit {
       this.hour = hour;
       this.dayAgenda = day;
 
-      // this.sociosForm.controls['socios'].setValue(day.socio1);
-
-      this.sociosForm.patchValue({
-        socio1: day.socio1,
-        socio2: day.autor2,
-        socio3: day.socio3,
-        socio4: day.socio4,
-      });
-
-      console.log(this.sociosForm.value.socio1);
+      // this.sociosForm.get('socio1')?.setValue([{ nombre: 'hola' }],);
 
       if (this.isProfesor() && day?.autor1) {
         // this.preAsistio(day.fecha);
         // this.showModal = false;
         if (
           this.dayAgenda.profesor &&
-          this.dayAgenda.profesor !== this.userInfo()._id
+          this.dayAgenda.profesor !== this.userInfo().nombre
         ) {
           this.showModal = false;
           Swal.fire(
@@ -183,7 +171,8 @@ export class AgendaComponent implements OnInit {
 
   showAsistencia() {
     return (
-      !!this.dayAgenda.autor1 && this.dayAgenda.profesor === this.userInfo()._id
+      !!this.dayAgenda.autor1 &&
+      this.dayAgenda.profesor === this.userInfo().nombre
     );
   }
 
@@ -258,7 +247,10 @@ export class AgendaComponent implements OnInit {
     const day =
       hoy.getMonth() + 1 + '/' + hoy.getDate() + '/' + hoy.getFullYear();
     const manana = new Date(manan).toLocaleDateString('en-US');
-    if (new Date(turnDate).getTime() < new Date(day).getTime()) {
+    if (
+      new Date(turnDate).getTime() < new Date(day).getTime() &&
+      this.isSocio()
+    ) {
       this.showModal = false;
       Swal.fire(
         'Fecha inválida',
@@ -267,7 +259,10 @@ export class AgendaComponent implements OnInit {
       );
       return;
     }
-    if (new Date(turnDate).getTime() === new Date(day).getTime()) {
+    if (
+      new Date(turnDate).getTime() === new Date(day).getTime() &&
+      this.isSocio()
+    ) {
       if (ahora > turn) {
         this.showModal = false;
         Swal.fire(
@@ -278,7 +273,10 @@ export class AgendaComponent implements OnInit {
         return;
       }
     }
-    if (new Date(turnDate).getTime() > new Date(manana).getTime()) {
+    if (
+      new Date(turnDate).getTime() > new Date(manana).getTime() &&
+      this.isSocio()
+    ) {
       this.showModal = false;
       Swal.fire(
         'Turno aún no válido',
@@ -290,7 +288,8 @@ export class AgendaComponent implements OnInit {
 
     if (
       (ahora < apAm || ahora > cierrAm) &&
-      (ahora < apPm || ahora > cierrPm)
+      (ahora < apPm || ahora > cierrPm) &&
+      this.isSocio()
     ) {
       this.showModal = false;
       Swal.fire(

@@ -27,50 +27,52 @@
     </div>
 
     <h4 class="text-center">{{shechedule.lugar}}</h4>
-    <div class="table-responsive">
-    <table class="table table-hover table-bordered">
-      <!-- Encabezado -->
-      <thead class="table-light">
-        <tr >
-          <th scope="col">Dia/Hora</th>
-          <!-- Repite los dias -->
-            <th class="text-center" scope="col" *ngFor="let day of shechedule.horario[i]?.dia">{{day?.dia | titlecase}} <br /> {{day?.fecha}}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Repite las franjas -->
-        <tr *ngFor="let hour of shechedule.horario">
-          <th scope="row">{{hour.granDemanda ? "(Alta demanda) ":""}}{{hour.franja}}</th>
-          <!-- Repite las celdas -->
-          <td *ngFor="let day of hour.dia" [ngStyle]="{'background-color': day?.colorProfesor}">
-            <button class="btn btn-block button-agenda" data-bs-toggle="modal" 
-                    data-bs-target="#socioModal"
-                    (click)="schedule(shechedule,hour, day)"
-                    *ngIf="isSocio()"
-                    >
-            {{isLogged() ? day?.socio1: day?.horaSolicitud ? "Agendado": ""}}
-            </button>
-            <button class="btn btn-block button-agenda" 
-                    data-bs-toggle="modal" 
-                    data-bs-target="#profesorModal" 
-                    (click)="schedule(shechedule,hour, day)"
-                    *ngIf="isProfesor()"
-                    >
-              {{isLogged() ? day?.socio1: day?.horaSolicitud ? "Agendado": ""}}
-            </button>
-            <button class="btn btn-block button-agenda" 
-              data-bs-toggle="modal" 
-              data-bs-target="#profesorModal" 
-              (click)="schedule(shechedule,hour, day)"
-              *ngIf="isAdmin()"
-            >
-            {{isLogged() ? day?.socio1: day?.horaSolicitud ? "Agendado": ""}}
-            </button>
-            {{!isLogged() && day?.horaSolicitud ? "Agendado": ""}}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="m-4">
+      <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+          <!-- Encabezado -->
+          <thead class="table-light">
+            <tr >
+              <th scope="col">Dia/Hora</th>
+              <!-- Repite los dias -->
+                <th class="text-center" scope="col" *ngFor="let day of shechedule.horario[i]?.dia">{{day?.dia | titlecase}} <br /> {{day?.fecha}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Repite las franjas -->
+            <tr *ngFor="let hour of shechedule.horario">
+              <th scope="row">{{hour.granDemanda ? "(Alta demanda) ":""}}{{hour.franja}}</th>
+              <!-- Repite las celdas -->
+              <td *ngFor="let day of hour.dia" [ngStyle]="{'background-color': day?.colorProfesor}">
+                <button class="btn btn-block button-agenda" data-bs-toggle="modal" 
+                        data-bs-target="#socioModal"
+                        (click)="schedule(shechedule,hour, day)"
+                        *ngIf="isSocio()"
+                        >
+                {{isLogged() ? day?.socio1: day?.horaSolicitud ? "Agendado": ""}}
+                </button>
+                <button class="btn btn-block button-agenda" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#profesorModal" 
+                        (click)="schedule(shechedule,hour, day)"
+                        *ngIf="isProfesor()"
+                        >
+                  {{isLogged() ? day?.socio1: day?.horaSolicitud ? "Agendado": ""}}
+                </button>
+                <button class="btn btn-block button-agenda" 
+                  data-bs-toggle="modal" 
+                  data-bs-target="#profesorModal" 
+                  (click)="schedule(shechedule,hour, day)"
+                  *ngIf="isAdmin()"
+                >
+                {{isLogged() ? day?.socio1: day?.horaSolicitud ? "Agendado": ""}}
+                </button>
+                {{!isLogged() && day?.horaSolicitud ? "Agendado": ""}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
     </div>
   </div> 
 </div>
@@ -158,7 +160,7 @@
              <label for="">Titular:</label>
              <select class="form-select" formControlName="socio1">
                <option>Ninguno</option>
-               <option [ngValue]="socio"  *ngFor="let socio of socios" selected>{{socio.nombre}}</option>
+               <option [ngValue]="socio"  *ngFor="let socio of socios">{{socio.nombre}}</option>
              </select>
              <label for="">Solicitante 2:</label>
              <select class="form-select" formControlName="socio2">
