@@ -101,6 +101,13 @@ export class AgendaComponent {
           return;
         }
         this.shechedules = Array.isArray(horarios) ? horarios : [];
+
+        if (!this.isAdmin()) {
+          this.shechedules = this.shechedules.filter(
+            (schedule) => schedule.activo
+          );
+        }
+
         this.showLoading = false;
       });
     this.showLoading = false;
