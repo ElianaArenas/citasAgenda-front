@@ -1,11 +1,5 @@
 import { Component } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormGroup,
-  ValidationErrors,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from '../service/auth.service';
 import Swal from 'sweetalert2';
@@ -21,15 +15,21 @@ export class RegisterComponent {
     code: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]],
+    token: [''],
   });
 
+  token: string | undefined;
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private authService: LoginService
-  ) {}
+  ) {
+    this.token = undefined;
+  }
 
   register() {
+    console.log(this.registerForm.get('token')?.value);
+
     if (this.registerForm.invalid) {
       Swal.fire('Error', 'Debe llenar los campos obligatorios', 'error');
       return;
@@ -41,5 +41,16 @@ export class RegisterComponent {
         this.router.navigateByUrl('/about');
       }
     });
+  }
+
+  public send(form: NgForm): void {
+    if (form.invalid) {
+      for (const control of Object.keys(form.controls)) {
+        form.controls[control].markAsTouched();
+      }
+      return;
+    }
+
+    console.debug(`Token [${this.token}] generated`);
   }
 }
