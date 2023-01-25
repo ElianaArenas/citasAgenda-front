@@ -3,6 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxColorsModule } from 'ngx-colors';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import {
+  RECAPTCHA_SETTINGS,
+  RecaptchaFormsModule,
+  RecaptchaModule,
+  RecaptchaSettings,
+} from 'ng-recaptcha';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CarruselComponent } from './home/carrusel/carrusel.component';
@@ -65,12 +71,20 @@ import { SpinnerInterceptor } from './shared/interceptors/spinner.interceptor';
     NgxColorsModule,
     FontAwesomeModule,
     SpinnerModule,
+    RecaptchaModule,
+    RecaptchaFormsModule,
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: SpinnerInterceptor,
       multi: true,
+    },
+    {
+      provide: RECAPTCHA_SETTINGS,
+      useValue: {
+        siteKey: '6LeXIyUkAAAAAOPbh3HUnrYDyoBI9kexkMK7RyHM',
+      } as RecaptchaSettings,
     },
   ],
   bootstrap: [AppComponent],
