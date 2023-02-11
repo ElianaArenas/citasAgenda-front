@@ -71,6 +71,10 @@ export class AgendaConfigureComponent {
   company: any;
   invalidDate: boolean = false;
 
+  showDias = true;
+  showHoras = false;
+  showRenovar = false;
+
   constructor(
     private agendaService: AgendaService,
     private fb: FormBuilder,
@@ -297,17 +301,7 @@ export class AgendaConfigureComponent {
     });
   }
 
-  createHorario() {
-    if (this.tituloCrearHorarioForm.invalid) {
-      Swal.fire('Error', 'Debe ingresar un lugar o localidad', 'error');
-      return;
-    }
-
-    if (!this.model || !this.validateDate(this.model)) {
-      Swal.fire('Error', 'Debe ingresar una fecha valida', 'error');
-      return;
-    }
-
+  nextHours() {
     if (
       !this.diasForm.get('lunes')?.value &&
       !this.diasForm.get('martes')?.value &&
@@ -322,6 +316,21 @@ export class AgendaConfigureComponent {
         'Debe ingresar almenos un dia para crear el horario',
         'error'
       );
+      return;
+    }
+
+    this.showDias = false;
+    this.showHoras = true;
+  }
+
+  nextRenovar() {
+    if (this.tituloCrearHorarioForm.invalid) {
+      Swal.fire('Error', 'Debe ingresar un lugar o localidad', 'error');
+      return;
+    }
+
+    if (!this.model || !this.validateDate(this.model)) {
+      Swal.fire('Error', 'Debe ingresar una fecha valida', 'error');
       return;
     }
 
@@ -351,7 +360,11 @@ export class AgendaConfigureComponent {
       );
       return;
     }
+    this.showHoras = false;
+    this.showRenovar = true;
+  }
 
+  createHorario() {
     const fechaInicio = new Date(
       this.model.year,
       this.model.month - 1,

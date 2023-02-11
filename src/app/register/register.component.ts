@@ -28,8 +28,6 @@ export class RegisterComponent {
   }
 
   register() {
-    console.log(this.registerForm.get('token')?.value);
-
     if (this.registerForm.invalid) {
       Swal.fire('Error', 'Debe llenar los campos obligatorios', 'error');
       return;
@@ -50,7 +48,5 @@ export class RegisterComponent {
       }
       return;
     }
-
-    console.debug(`Token [${this.token}] generated`);
   }
 }

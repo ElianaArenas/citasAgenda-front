@@ -118,9 +118,9 @@
   <hr>
   <div>
     <h3 class="title">Crear nuevo espacio con horario.</h3>
-    <div class="d-flex">
-      <div class="ml-5 mr-5">
-        <p>Seleccione los días.</p>
+    <div>
+      <div class="ml-5 mr-5 p-5" *ngIf="showDias">
+        <h5 class="title3"><b>1. Seleccione los días para definir el horario.</b></h5>
         <hr>
         <form [formGroup]="diasForm">
           <div class="form-check">
@@ -166,8 +166,15 @@
             </label>
           </div>
         </form>
+        <div class="text-center">
+          <button class="btn btn-primary m-2" (click)="nextHours()">
+            Siguiente
+          </button>
+        </div>
       </div>
-      <div>
+      <div class="ml-5 mr-5 p-5" *ngIf="showHoras">
+        <h5 class="title3"><b>2. Defina el lugar, la fecha de inicio, hora inicio - fin y las franjas del horario.</b></h5>
+        <hr>
         <form [formGroup]="tituloCrearHorarioForm">
           <label>Título del lugar, localidad o profesión</label>
           <input type="text" class="form-control" formControlName="titulo">
@@ -203,7 +210,20 @@
             <ngb-timepicker [(ngModel)]="horaFin" [meridian]="meridian"></ngb-timepicker>
           </div>
         </div>
+        <div class="text-center">
+            <button class="btn btn-secondary m-2" (click)="showHoras= false; showDias= true">
+              Anterior
+            </button>
+          <button class="btn btn-primary m-2" (click)="nextRenovar()">
+            Siguiente
+          </button>
+        </div>
+      </div>
+
+      <div class="ml-5 mr-5 p-5" *ngIf="showRenovar">
         <div>
+          <h5 class="title3"><b>3. Defina si es un horario para clase o si se debe renovar.</b></h5>
+          <hr>
           <form [formGroup]="diasForm">
             <div class="form-check form-switch">
               <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault1" formControlName="horarioClases">
@@ -217,8 +237,8 @@
             </div>
           </form>
           <div class="text-center m-5">
+            <button type="submit" class="btn btn-secondary m-2" (click)="showHoras= true; showRenovar= false">Anterior</button>
             <button type="submit" class="btn btn-primary m-2" (click)="createHorario()">Validar y agregar</button>
-            <button type="submit" class="btn btn-secondary m-2">Limpiar todo</button>
           </div>
         </div>
       </div>

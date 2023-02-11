@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxColorsModule } from 'ngx-colors';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import {
   RECAPTCHA_SETTINGS,
   RecaptchaFormsModule,
@@ -21,7 +21,6 @@ import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './home/about/about.component';
 import { AgendaComponent } from './agenda/agenda.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FormInfoUsersComponent } from './form-info-users/form-info-users.component';
 import { EmpresaPersonalizacionComponent } from './admin/empresa-personalizacion/empresa-personalizacion.component';
@@ -35,7 +34,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ImagenesComponent } from './imagenes/imagenes.component';
 import { SafeUrlPipePipe } from './safe-url-pipe.pipe';
 import { SpinnerModule } from './shared/components/spinner/spinner.module';
-import { SpinnerComponent } from './shared/components/spinner/spinner.component';
 import { SpinnerInterceptor } from './shared/interceptors/spinner.interceptor';
 
 @NgModule({
