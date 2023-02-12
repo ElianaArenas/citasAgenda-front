@@ -1,118 +1,66 @@
-<div class="d-flex p-5 background-div" *ngIf="show; else Form">
-<div class="m-auto profile pt-4"><img src="../../assets/default-user-icon.jpg" alt="">
-  <div class="d-flex flex-row justify-content-around">
-    <div class="d-flex flex-column m-4">
-      <span>
-        <b>Nombre:</b> {{user?.message?.nombre ?? 'N/A'}}
-      </span>
-      <span>
-        <b>Documento:</b> {{user?.message?.documento ?? 'N/A' }}
-      </span>
-      <span>
-        <b>Código:</b> {{user?.message?.codigo ?? 'N/A'}}
-      </span>
-      <span>
-        <b>Rol de usuario:</b> {{user.message.rol[0].name ?? 'N/A'}}
-      </span>
-      <span>
-        <b>Celular/teléfono:</b> {{user?.message?.celular ?? 'N/A'}}
-      </span>
-      <span>
-        <b>Celular/teléfono (2):</b> {{user?.message?.telefono2 ?? 'N/A'}}
-      </span>
-      <span>
-        <b>Barrio:</b> {{user?.message?.barrio ?? 'N/A'}}
-      </span>
-      <span>
-        <b>Fecha de nacimiento:</b> {{user?.message?.fechaNacimiento ?? 'N/A'}}
-      </span>
-     <span>
-      <b>Edad:</b>
-     </span>
+<div class="p-5 background-div">
+  <h2 class="title">Editar datos</h2>
+  <hr>
+  <img src="../../assets/default-user-icon.jpg" alt="">
+  <form [formGroup]="registerForm" autocomplete="off">
+   <div class="row m-5">
+     <div class="col">
+       <label for="admin">Nombre completo:*</label>
+       <input type="text" class="form-control" placeholder="Nombre" id="admin"
+       formControlName="nombre">
+       <p *ngIf="registerForm.get('nombre')!.touched && registerForm.get('nombre')!.hasError('required')" class="alert-danger">El nombre es obligatorio</p>
+     </div>
+     <div class="col">
+       <label>Genero:</label>
+       <select class="form-select" formControlName="genero">
+        <option *ngFor="let genero of generos" [ngValue]="genero">{{genero}}</option>
+      </select>
+      <p *ngIf="registerForm.get('genero')!.touched && registerForm.get('genero')!.hasError('required')" class="alert-danger">El genero es obligatorio</p>
+     </div>
+   </div>
+   <div class="row m-5">
+     <div class="col">
+       <label>Número documento:*</label>
+       <input type="text" class="form-control" placeholder="Documento"
+         formControlName="documento">
+         <p *ngIf="registerForm.get('documento')!.touched && registerForm.get('documento')!.hasError('required')" class="alert-danger">El documento es obligatorio</p>
+     </div>
+     <div class="col">
+       <label>Correo electrónico:*</label>
+       <input type="email" class="form-control" placeholder="Correo" 
+        formControlName="email">
+       <p *ngIf="registerForm.get('email')!.touched && registerForm.get('email')!.hasError('required')" class="alert-danger">El correo es obligatorio</p>
+     </div>
+   </div>
+   <div class="row m-5">
+     <div class="col">
+       <label for="admin">Código:*</label>
+       <input type="text" class="form-control" placeholder="Código"
+        formControlName="codigo">
+        <p *ngIf="registerForm.get('codigo')!.touched && registerForm.get('codigo')!.hasError('required')" class="alert-danger">El código es obligatorio</p>
+     </div>
+     <div class="col">
+       <label>Id familiar:</label>
+       <input type="text" class="form-control" placeholder="idFamiliar"
+        formControlName="idFamiliar">
+     </div>
+   </div>
+   <div class="row m-5">
+     <div class="col">
+       <label>Direccion:*</label>
+       <input type="text" class="form-control" placeholder="Direccion"
+         formControlName="direccion">
+      <p *ngIf="registerForm.get('direccion')!.touched && registerForm.get('direccion')!.hasError('required')" class="alert-danger">La dirección es obligatoria</p>
+     </div>
+     <div class="col">
+       <label>Barrio:*</label>
+       <input type="text" class="form-control" placeholder="barrio"
+         formControlName="barrio">
+       <p *ngIf="registerForm.get('barrio')!.touched && registerForm.get('barrio')!.hasError('required')" class="alert-danger">El barrio es obligatorio</p>
+     </div>
+   </div>
+    <div class="text-center">
+     <button type="submit" class="btn btn-primary mb-4" (click)="updateUser()">Editar</button>
     </div>
-    <div class="d-flex flex-column m-4">
-      <span>
-        <b>Género:</b> {{user?.message?.genero ?? 'N/A'}}
-      </span>
-      <span>
-        <b>Estatura (cm):</b> {{user?.message?.estatura ?? 'N/A'}}
-      </span>
-      <span>
-        <b>Peso (kg):</b> {{user?.message?.peso ?? 'N/A'}}
-      </span>
-      <span>
-        <b>Categoría:</b> {{user?.message?.categoria ?? 'N/A'}}
-      </span>
-      <span>
-        <b>Torneo(s):</b> {{user?.message?.torneos ?? 'N/A'}}
-      </span>
-      <span>
-        <b>Brazo dominante:</b> {{user?.message?.brazoDominante ?? 'N/A'}}
-      </span>  
-      <span>
-        <b>Email:</b> {{user?.message?.email ?? 'N/A'}}
-      </span>
-      <span>
-        <b>idFamiliar:</b> {{user?.message?.idFamiliar ?? 'N/A'}}
-      </span>
-      <span>
-        <b>Estado:</b> {{user?.message?.activo? "activo": "desactivado"}}
-      </span>
-    </div>
-  </div>
-  <div class="d-flex justify-content-center">
-    <button type="button" class="btn btn-secondary  m-4" (click)="navigateAgenda()">Regresar</button>
-    <button type="button" class="btn btn-primary  m-4" (click)="showForm()">Editar</button>
-  </div>
+ </form>
 </div>
-</div>
-
-<ng-template #Form>
-  <form [formGroup]="updatePasswordForm">
-    <section style="z-index: 1; background-color: rgba(174, 176, 177, 0.4);">
-      <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-          <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-            <div class="card shadow-2-strong" style="border-radius: 1rem;">
-              <div class="card-body p-5 text-center">
-    
-                <h3 class="mb-3 title">Actualizar contraseña</h3>
-                <div class="form-outline mb-2">
-                  <label class="form-label" for="typeEmailX-2">Contraseña actual</label>
-                  <input type="password" id="typeEmailX-2" class="form-control form-control-lg" formControlName="oldPassword" required/>
-                  <p *ngIf="updatePasswordForm.get('oldPassword')!.touched && updatePasswordForm.get('oldPassword')!.hasError('required')" class="alert-danger">La contraseña actual es obligatoria</p>
-                </div>
-    
-                <div class="form-outline mb-2">
-                  <label class="form-label" for="typePasswordX-2">Nueva contraseña</label>
-                  <input type="password" id="typePasswordX-2" class="form-control form-control-lg" formControlName="newPassword"/>
-                  <p *ngIf="updatePasswordForm.get('newPassword')!.touched && updatePasswordForm.get('newPassword')!.hasError('required')" class="alert-danger">
-                    La contraseña nueva es obligatoria
-                  </p>
-                  <p *ngIf="updatePasswordForm.get('newPassword')!.touched && updatePasswordForm.get('newPassword')?.hasError('minlength')" class="alert-danger">
-                    La contraseña nueva debe tener al menos 6 caracteres
-                  </p>
-                </div>
-    
-                <div class="form-outline mb-2">
-                  <label class="form-label" for="typePasswordX-2">Confirma la contraseña</label>
-                  <input type="password" id="typePasswordX-2" class="form-control form-control-lg" formControlName="confirmPassword"/>
-                  <p *ngIf="updatePasswordForm.get('confirmPassword')!.touched && updatePasswordForm.get('confirmPassword')!.hasError('confirmedValidator')" class="alert-danger">Las contraseñas no coinciden</p>
-                  <p *ngIf="updatePasswordForm.get('confirmPassword')!.touched && updatePasswordForm.get('confirmPassword')?.hasError('minlength')" class="alert-danger">
-                    La contraseña nueva debe tener al menos 6 caracteres
-                  </p>
-                </div>
-    
-                <div>
-                  <button class="btn btn-secondary  m-2" (click)="show=true">Regresar</button>
-                  <button class="btn btn-primary  m-2" (click)="updatePassword()">Actualizar</button>
-                </div>
-                <hr class="my-4">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    </form>
-</ng-template>

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { tap } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { IUser } from '../interfaces/user';
 import { UserService } from '../service/user.service';
@@ -11,97 +10,84 @@ import { UserService } from '../service/user.service';
   templateUrl: './form-info-users.component.html',
   styleUrls: ['./form-info-users.component.css'],
 })
-export class FormInfoUsersComponent implements OnInit {
-  updatePasswordForm: FormGroup = this.fb.group(
-    {
-      oldPassword: ['', [Validators.required]],
-      newPassword: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
-    },
-    {
-      validator: this.ConfirmedValidator('newPassword', 'confirmPassword'),
-    }
-  );
-
+export class FormInfoUsersComponent {
+  registerForm: FormGroup = this.fb.group({
+    nombre: ['', [Validators.required]],
+    genero: [''],
+    documento: ['', [Validators.required]],
+    email: ['', [Validators.required]],
+    codigo: ['', [Validators.required]],
+    idFamiliar: ['', [Validators.required]],
+    celular: [''],
+    categoria: [''],
+    direccion: ['', [Validators.required]],
+    barrio: ['', [Validators.required]],
+  });
+  generos: string[] = ['F', 'M', 'Otro'];
   user!: IUser;
   show: boolean = true;
   userId = JSON.parse(localStorage.getItem('user') || '')._id || '';
   showLoading: boolean = false;
 
-  constructor(
-    private userService: UserService,
-    private router: Router,
-    private fb: FormBuilder
-  ) {
+  constructor(private userService: UserService, private fb: FormBuilder) {
     this.getUser();
   }
-
-  ngOnInit(): void {}
 
   getUser() {
     this.showLoading = true;
     this.userService.getUser(this.userId).subscribe((user) => {
       this.user = user;
+
+      this.registerForm.get('nombre')?.setValue(user?.message?.nombre);
+      this.registerForm.get('genero')?.setValue(user?.message?.genero);
+      this.registerForm.get('documento')?.setValue(user?.message?.documento);
+      this.registerForm.get('email')?.setValue(user?.message?.email);
+      this.registerForm.get('codigo')?.setValue(user?.message?.codigo);
+      this.registerForm.get('idFamiliar')?.setValue(user?.message?.idFamiliar);
+      this.registerForm.get('celular')?.setValue(user?.message?.celular);
+      this.registerForm.get('categoria')?.setValue(user?.message?.categoria);
+      this.registerForm.get('direccion')?.setValue(user?.message?.direccion);
+      this.registerForm.get('barrio')?.setValue(user?.message?.barrio);
       this.showLoading = false;
     });
   }
 
-  navigateAgenda() {
-    this.router.navigateByUrl('dashboard');
-  }
+  updateUser() {
+    const {
+      nombre,
+      genero,
+      documento,
+      email,
+      codigo,
+      idFamilia,
+      celular,
+      categoria,
+      direccion,
+      barrio,
+    } = this.registerForm.value;
 
-  showForm() {
-    this.show = false;
-  }
+    const updateBody = {
+      nombre,
+      genero,
+      documento,
+      email,
+      codigo,
+      idFamilia,
+      celular,
+      categoria,
+      direccion,
+      barrio,
+    };
 
-  updatePassword() {
-    if (this.updatePasswordForm.invalid) {
-      this.updatePasswordForm.markAllAsTouched();
-      Swal.fire('Error', 'Debe llenar los campos obligatorios', 'error');
-      return;
-    }
-    const { oldPassword, newPassword } = this.updatePasswordForm.value;
     this.userService
-      .updatePassword(this.userId, oldPassword, newPassword)
-      .subscribe((updated) => {
-        if (!updated) {
-          Swal.fire(
-            'Error',
-            'Hubo un error al actualizar la contraseña',
-            'error'
-          );
-          return;
-        }
-
+      .updateUser(Number(this.user?.message?.documento), updateBody)
+      .subscribe((resp) => {
         Swal.fire(
           'Operación exitosa',
-          'Se actualizó correctamente la contraseña',
+          'Se actualizó el usuario correctamente',
           'success'
         );
-        this.updatePasswordForm.setValue({
-          oldPassword: '',
-          newPassword: '',
-          confirmPassword: '',
-        });
-        this.updatePasswordForm.markAsUntouched();
+        this.getUser();
       });
-  }
-
-  ConfirmedValidator(controlName: string, matchingControlName: string) {
-    return (formGroup: FormGroup) => {
-      const control = formGroup.controls[controlName];
-      const matchingControl = formGroup.controls[matchingControlName];
-      if (
-        matchingControl.errors &&
-        !matchingControl.errors['confirmedValidator']
-      ) {
-        return;
-      }
-      if (control.value !== matchingControl.value) {
-        matchingControl.setErrors({ confirmedValidator: true });
-      } else {
-        matchingControl.setErrors(null);
-      }
-    };
   }
 }

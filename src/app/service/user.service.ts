@@ -94,6 +94,19 @@ export class UserService {
       );
   }
 
+  updateUser(documento: number, updateBody: any) {
+    const token = localStorage.getItem('token') || '';
+
+    return this.http
+      .put(`${this.baseUrl}/users/general/documento/${documento}`, updateBody, {
+        headers: { 'x-access-token': token },
+      })
+      .pipe(
+        map((resp) => resp),
+        catchError((err) => of(err))
+      );
+  }
+
   deleteUser(documento: number) {
     const token = localStorage.getItem('token') || '';
 
