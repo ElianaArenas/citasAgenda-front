@@ -14,7 +14,7 @@
   </div>
 
   <div *ngFor="let shechedule of shechedules; index as i">
-    <div *ngIf="isLogged()" class="d-flex justify-content-between">
+    <div *ngIf="isLogged()" class="d-flex flex-wrap justify-content-between">
       <div>
         <b>Profesor(es):</b>
         <div *ngFor="let profesor of profesores" class="d-flex">

@@ -9,7 +9,7 @@
           No hay horarios disponibles aún. 
         </b>
       </div>
-      <div class="d-flex">
+      <div class="d-flex flex-wrap">
         <div class="card m-4" style="width: 18rem;" *ngFor="let schedule of shechedules">
           <div class="card-body" >
             <h5 class="card-title">{{schedule.lugar}}</h5>
@@ -36,26 +36,26 @@
     <div>
       <h3 class="title">Horas para apertura y cierre de solicitud de turnos</h3>
       <p class="text-center">Ingrese el horario para definir la apertura y cierre de solicitud de turnos.</p>
-      <div class="d-flex m-4">
-        <div class="m-5">
+      <div class="d-flex flex-wrap m-4 justify-content-center">
+        <div class="m-3">
           <label>Horario apertura AM: </label>
           <ngb-timepicker [(ngModel)]="aperturaAm" [meridian]="meridian"></ngb-timepicker>
         </div>
-        <div class="m-5">
+        <div class="m-3">
           <label>Horario apertura PM: </label>
           <ngb-timepicker [(ngModel)]="aperturaPm" [meridian]="meridian"></ngb-timepicker>
         </div>
-        <div class="m-5">
+        <div class="m-3">
           <label>Horario cierre AM: </label>
           <ngb-timepicker [(ngModel)]="cierreAm" [meridian]="meridian"></ngb-timepicker>
         </div>
-        <div class="m-5">
+        <div class="m-3">
           <label>Horario cierre PM: </label>
           <ngb-timepicker [(ngModel)]="cierrePm" [meridian]="meridian"></ngb-timepicker>
         </div>
       </div>
       <div class="text-center">
-        <button class="btn btn-primary m-2" (click)="aperturaTurnos()">
+        <button class="btn btn-primary" (click)="aperturaTurnos()">
           Habilitar
         </button>
       </div>
@@ -66,18 +66,18 @@
     <h3 class="title">Opción de cancelar turno</h3>
     <p class="text-center">Habilite o deshabilite si sus usuarios pueden cancelar los turnos o agendas ya registrados.
     </p>
-    <div class="d-flex justify-content-center">
-      <div class="m-5">
+    <div class="d-flex flex-wrap justify-content-center">
+      <div class="m-3">
         <label>Hora limite en la mañana: </label>
         <ngb-timepicker [(ngModel)]="limiteAm" [meridian]="meridian"></ngb-timepicker>
       </div>
-      <div class="m-5">
+      <div class="m-3">
         <label>Hora limite en la tarde: </label>
         <ngb-timepicker [(ngModel)]="limitePm" [meridian]="meridian"></ngb-timepicker>
       </div>
     </div>
     <div class="text-center">
-      <button class="btn btn-primary m-2" (click)="opcionCancelar()">
+      <button class="btn btn-primary" (click)="opcionCancelar()">
         Habilitar
       </button>
     </div>
@@ -88,7 +88,7 @@
     <p class="text-center">Defina la fecha para cuando desee que se renueven los horarios.
     </p>
     <div>
-      <div class="d-flex justify-content-center">
+      <div class="d-flex flex-wrap justify-content-center">
         <div class="m-5">
           <form [formGroup]="renovarHorarioForm">
           <label>Defina el dia: </label>
@@ -103,7 +103,7 @@
           </select>
           </form>
         </div>
-        <div>
+        <div class="m-2">
           <label>Defina la hora: </label>
           <ngb-timepicker [(ngModel)]="renovarHorario" [meridian]="meridian"></ngb-timepicker>
         </div>
@@ -118,8 +118,8 @@
   <hr>
   <div>
     <h3 class="title">Crear nuevo espacio con horario.</h3>
-    <div>
-      <div class="ml-5 mr-5 p-5" *ngIf="showDias">
+    <div class="d-flex flex-wrap justify-content-center">
+      <div class="ml-5 mr-5 pt-1 p-5" *ngIf="showDias">
         <h5 class="title3"><b>1. Seleccione los días para definir el horario.</b></h5>
         <hr>
         <form [formGroup]="diasForm">
@@ -172,7 +172,7 @@
           </button>
         </div>
       </div>
-      <div class="ml-5 mr-5 p-5" *ngIf="showHoras">
+      <div class="ml-5 mr-5 pt-1 p-5" *ngIf="showHoras">
         <h5 class="title3"><b>2. Defina el lugar, la fecha de inicio, hora inicio - fin y las franjas del horario.</b></h5>
         <hr>
         <form [formGroup]="tituloCrearHorarioForm">
@@ -192,7 +192,7 @@
           </div>
         </form>
         <p *ngIf="invalidDate" class="alert-danger">Por favor indique fecha actual o futura para definir la fecha de inicio, no se permiten fechas anteriores</p>
-        <div class="d-flex m-5">
+        <div class="d-flex m-5 flex-wrap">
           <div>
             <label>Hora inicio: </label>
             <ngb-timepicker [(ngModel)]="horaInicio" [meridian]="meridian"></ngb-timepicker>
@@ -220,7 +220,7 @@
         </div>
       </div>
 
-      <div class="ml-5 mr-5 p-5" *ngIf="showRenovar">
+      <div class="ml-5 mr-5 pt-1 p-5 d-flex flex-wrap" *ngIf="showRenovar">
         <div>
           <h5 class="title3"><b>3. Defina si es un horario para clase o si se debe renovar.</b></h5>
           <hr>
