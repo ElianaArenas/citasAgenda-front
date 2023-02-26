@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { faWarning } from '@fortawesome/free-solid-svg-icons';
 import { AgendaI, DiaClassI } from '../interfaces/agenda';
@@ -9,6 +9,7 @@ import { CompanyService } from '../service/company.service';
 import { UserService } from '../service/user.service';
 import { ProfesorService } from '../service/profesor.service';
 import { ProfesorI } from '../interfaces/profesor';
+import { NotificacionService } from '../service/notificacion.service';
 
 @Component({
   selector: 'app-agenda',
@@ -17,6 +18,7 @@ import { ProfesorI } from '../interfaces/profesor';
 })
 export class AgendaComponent {
   showLoading: boolean = false;
+  cancelarTurno: boolean = false;
 
   shechedules: AgendaI[] = [];
   day1!: string;
@@ -38,6 +40,7 @@ export class AgendaComponent {
     socio2: [{}],
     socio3: [{}],
     socio4: [{}],
+    justificacion: ['', Validators.required],
   });
 
   profesorForm: FormGroup = this.fb.group({
@@ -51,7 +54,8 @@ export class AgendaComponent {
     private agendaService: AgendaService,
     private companyService: CompanyService,
     private userService: UserService,
-    private profesorService: ProfesorService
+    private profesorService: ProfesorService,
+    private notificationService: NotificacionService
   ) {
     this.getHorarios();
     this.getProfesores();
@@ -122,18 +126,26 @@ export class AgendaComponent {
   }
 
   schedule(shechedule: any, hour: any, day: DiaClassI) {
+    this.day1 = `${day.dia} ${day.fecha} ${day.turno}`;
+    this.hour = hour;
+    this.dayAgenda = day;
     if (day?.autor1 && this.isSocio()) {
+      if (day?.socio1 === this.userInfo().nombre) {
+        this.showModal = true;
+        this.cancelarTurno = true;
+        return;
+      }
+      this.cancelarTurno = false;
       this.showModal = false;
       Swal.fire('Franja asignada', 'Esta franja ya ha sido asignada', 'info');
       return;
     } else {
+      this.cancelarTurno = false;
       this.showModal = true;
       this.getUsers();
-      this.day1 = `${day.dia} ${day.fecha} ${day.turno}`;
+
       this.preAgenda(day, shechedule, day.turno, day.fecha);
       this.sheduleAgenda = shechedule;
-      this.hour = hour;
-      this.dayAgenda = day;
 
       // this.sociosForm.get('socio1')?.setValue([{ nombre: 'hola' }],);
 
@@ -153,6 +165,32 @@ export class AgendaComponent {
         }
       }
     }
+  }
+
+  createNotification() {
+    if (this.sociosForm.invalid) {
+      this.sociosForm.markAllAsTouched();
+      return;
+    }
+
+    const body = {
+      user: this.userInfo().nombre,
+      userId: this.userInfo()._id,
+      fechaTurno: this.dayAgenda.fecha,
+      horaTurno: this.dayAgenda.turno,
+      justificacion: this.sociosForm.get('justificacion')?.value,
+    };
+    this.notificationService.createNotification(body).subscribe((res) => {
+      if (!res) {
+        Swal.fire('Error', 'Hubo un error en la petición', 'error');
+        return;
+      }
+      Swal.fire(
+        'Excelente',
+        'Se generará una notificación al administrador',
+        'success'
+      );
+    });
   }
 
   deleteHorario(scheduleId: string) {
@@ -178,8 +216,8 @@ export class AgendaComponent {
 
   showAsistencia() {
     return (
-      !!this.dayAgenda.autor1 &&
-      this.dayAgenda.profesor === this.userInfo().nombre
+      !!this.dayAgenda?.autor1 &&
+      this.dayAgenda?.profesor === this.userInfo().nombre
     );
   }
 
@@ -254,58 +292,58 @@ export class AgendaComponent {
     const day =
       hoy.getMonth() + 1 + '/' + hoy.getDate() + '/' + hoy.getFullYear();
     const manana = new Date(manan).toLocaleDateString('en-US');
-    if (
-      new Date(turnDate).getTime() < new Date(day).getTime() &&
-      this.isSocio()
-    ) {
-      this.showModal = false;
-      Swal.fire(
-        'Fecha inválida',
-        'No se pueden agendar turnos ya con fechas vencidas',
-        'info'
-      );
-      return;
-    }
-    if (
-      new Date(turnDate).getTime() === new Date(day).getTime() &&
-      this.isSocio()
-    ) {
-      if (ahora > turn) {
-        this.showModal = false;
-        Swal.fire(
-          'Turno ya no es válido',
-          'No se pueden agendar un turno pasada la hora del mismo',
-          'info'
-        );
-        return;
-      }
-    }
-    if (
-      new Date(turnDate).getTime() > new Date(manana).getTime() &&
-      this.isSocio()
-    ) {
-      this.showModal = false;
-      Swal.fire(
-        'Turno aún no válido',
-        'No se puede agendar turno con más de un día de anticipación',
-        'info'
-      );
-      return;
-    }
+    // if (
+    //   new Date(turnDate).getTime() < new Date(day).getTime() &&
+    //   this.isSocio()
+    // ) {
+    //   this.showModal = false;
+    //   Swal.fire(
+    //     'Fecha inválida',
+    //     'No se pueden agendar turnos ya con fechas vencidas',
+    //     'info'
+    //   );
+    //   return;
+    // }
+    // if (
+    //   new Date(turnDate).getTime() === new Date(day).getTime() &&
+    //   this.isSocio()
+    // ) {
+    //   if (ahora > turn) {
+    //     this.showModal = false;
+    //     Swal.fire(
+    //       'Turno ya no es válido',
+    //       'No se pueden agendar un turno pasada la hora del mismo',
+    //       'info'
+    //     );
+    //     return;
+    //   }
+    // }
+    // if (
+    //   new Date(turnDate).getTime() > new Date(manana).getTime() &&
+    //   this.isSocio()
+    // ) {
+    //   this.showModal = false;
+    //   Swal.fire(
+    //     'Turno aún no válido',
+    //     'No se puede agendar turno con más de un día de anticipación',
+    //     'info'
+    //   );
+    //   return;
+    // }
 
-    if (
-      (ahora < apAm || ahora > cierrAm) &&
-      (ahora < apPm || ahora > cierrPm) &&
-      this.isSocio()
-    ) {
-      this.showModal = false;
-      Swal.fire(
-        'Hora inválida',
-        'No se puede agendar turno fuera del horario establecido.',
-        'info'
-      );
-      return;
-    }
+    // if (
+    //   (ahora < apAm || ahora > cierrAm) &&
+    //   (ahora < apPm || ahora > cierrPm) &&
+    //   this.isSocio()
+    // ) {
+    //   this.showModal = false;
+    //   Swal.fire(
+    //     'Hora inválida',
+    //     'No se puede agendar turno fuera del horario establecido.',
+    //     'info'
+    //   );
+    //   return;
+    // }
   }
 
   preAsistio(fecha: any) {

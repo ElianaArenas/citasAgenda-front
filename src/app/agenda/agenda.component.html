@@ -91,28 +91,44 @@
         <span>
           {{day1 && day1}}
         </span><br><br>
-        <p>Otros participantes:</p>
-        <form [formGroup]="sociosForm">
-          <label for="">Solicitante 2:</label>
-          <select class="form-select" formControlName="socio2">
-            <option selected>Ninguno</option>
-            <option [ngValue]="socio" *ngFor="let socio of socios" >{{socio.nombre}}</option>
-          </select>
-          <label for="">Solicitante 3:</label>
-          <select class="form-select" formControlName="socio3">
-            <option selected>Ninguno</option>
-            <option [ngValue]="socio" *ngFor="let socio of socios" >{{socio.nombre}}</option>
-          </select>
-          <label for="">Solicitante 4:</label>
-          <select class="form-select" formControlName="socio4">
-            <option selected>Ninguno</option>
-            <option [ngValue]="socio" *ngFor="let socio of socios" >{{socio.nombre}}</option>
-          </select>
-        </form>
-      </div>
-      <div class="modal-footer m-auto">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="noShowModal()">Cerrar</button>
-        <button type="button" class="btn btn-primary" (click)="agenda()">Solicitar</button>
+        <div>
+          <div class="text-center" *ngIf="cancelarTurno == true; else turno">
+            <p>¿Desea cancelar el turno?</p>
+            <form [formGroup]="sociosForm">
+              <label>Justificación</label>
+              <input class="form-control" type="text"  formControlName="justificacion">
+              <p *ngIf="sociosForm.get('justificacion')!.touched && sociosForm.get('justificacion')!.hasError('required')" class="alert-danger">
+                La justificacion es obligatoria</p>
+            </form><br>
+            <button type="button" class="btn btn btn-danger" (click)="createNotification()">Cancelar turno</button>
+          </div>
+        </div>
+        <ng-template #turno>
+          <div>
+            <p>Otros participantes:</p>
+            <form [formGroup]="sociosForm">
+              <label for="">Solicitante 2:</label>
+              <select class="form-select" formControlName="socio2">
+                <option selected>Ninguno</option>
+                <option [ngValue]="socio" *ngFor="let socio of socios" >{{socio.nombre}}</option>
+              </select>
+              <label for="">Solicitante 3:</label>
+              <select class="form-select" formControlName="socio3">
+                <option selected>Ninguno</option>
+                <option [ngValue]="socio" *ngFor="let socio of socios" >{{socio.nombre}}</option>
+              </select>
+              <label for="">Solicitante 4:</label>
+              <select class="form-select" formControlName="socio4">
+                <option selected>Ninguno</option>
+                <option [ngValue]="socio" *ngFor="let socio of socios" >{{socio.nombre}}</option>
+              </select>
+            </form>
+            <div class="modal-footer m-auto">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="noShowModal()">Cerrar</button>
+              <button type="button" class="btn btn-primary" (click)="agenda()">Solicitar</button>
+            </div>
+          </div>
+        </ng-template>
       </div>
     </div>
   </div>
