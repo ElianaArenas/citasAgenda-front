@@ -35,6 +35,7 @@ import { ImagenesComponent } from './imagenes/imagenes.component';
 import { SafeUrlPipePipe } from './safe-url-pipe.pipe';
 import { SpinnerModule } from './shared/components/spinner/spinner.module';
 import { SpinnerInterceptor } from './shared/interceptors/spinner.interceptor';
+import { NotificationsComponent } from './admin/notifications/notifications.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { SpinnerInterceptor } from './shared/interceptors/spinner.interceptor';
     SobrenosotrosComponent,
     ImagenesComponent,
     SafeUrlPipePipe,
+    NotificationsComponent,
   ],
   imports: [
     BrowserModule,

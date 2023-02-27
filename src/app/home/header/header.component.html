@@ -44,6 +44,15 @@
           <ul class="navbar-nav">
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Notificaciones
+                <span class="badge badge-light" style="color: #C70039;">{{notificationsNumber ?? 0}}</span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item dropdown-text" routerLink="notification">Ver notificaciones</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Pagina
               </a>
               <ul class="dropdown-menu">

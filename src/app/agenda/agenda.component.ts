@@ -129,10 +129,12 @@ export class AgendaComponent {
     this.day1 = `${day.dia} ${day.fecha} ${day.turno}`;
     this.hour = hour;
     this.dayAgenda = day;
+    this.sheduleAgenda = shechedule;
     if (day?.autor1 && this.isSocio()) {
       if (day?.socio1 === this.userInfo().nombre) {
         this.showModal = true;
         this.cancelarTurno = true;
+
         return;
       }
       this.cancelarTurno = false;
@@ -173,12 +175,17 @@ export class AgendaComponent {
       return;
     }
 
+    console.log(this.sheduleAgenda);
+
     const body = {
       user: this.userInfo().nombre,
       userId: this.userInfo()._id,
       fechaTurno: this.dayAgenda.fecha,
       horaTurno: this.dayAgenda.turno,
+      diaTurno: this.dayAgenda.dia,
+      indiceHora: this.hour.indice,
       justificacion: this.sociosForm.get('justificacion')?.value,
+      idHorario: this.sheduleAgenda._id,
     };
     this.notificationService.createNotification(body).subscribe((res) => {
       if (!res) {
