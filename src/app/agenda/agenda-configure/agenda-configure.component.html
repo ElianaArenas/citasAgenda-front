@@ -238,7 +238,7 @@
           </form>
           <div class="text-center m-5">
             <button type="submit" class="btn btn-secondary m-2" (click)="showHoras= true; showRenovar= false">Anterior</button>
-            <button type="submit" class="btn btn-primary m-2" (click)="createHorario()">Validar y agregar</button>
+            <button type="submit" class="btn btn-primary m-2" (click)="createHorario(); showHoras= true;showRenovar= false ">Validar y agregar</button>
           </div>
         </div>
       </div>

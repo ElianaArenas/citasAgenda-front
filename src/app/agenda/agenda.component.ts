@@ -299,58 +299,58 @@ export class AgendaComponent {
     const day =
       hoy.getMonth() + 1 + '/' + hoy.getDate() + '/' + hoy.getFullYear();
     const manana = new Date(manan).toLocaleDateString('en-US');
-    // if (
-    //   new Date(turnDate).getTime() < new Date(day).getTime() &&
-    //   this.isSocio()
-    // ) {
-    //   this.showModal = false;
-    //   Swal.fire(
-    //     'Fecha inválida',
-    //     'No se pueden agendar turnos ya con fechas vencidas',
-    //     'info'
-    //   );
-    //   return;
-    // }
-    // if (
-    //   new Date(turnDate).getTime() === new Date(day).getTime() &&
-    //   this.isSocio()
-    // ) {
-    //   if (ahora > turn) {
-    //     this.showModal = false;
-    //     Swal.fire(
-    //       'Turno ya no es válido',
-    //       'No se pueden agendar un turno pasada la hora del mismo',
-    //       'info'
-    //     );
-    //     return;
-    //   }
-    // }
-    // if (
-    //   new Date(turnDate).getTime() > new Date(manana).getTime() &&
-    //   this.isSocio()
-    // ) {
-    //   this.showModal = false;
-    //   Swal.fire(
-    //     'Turno aún no válido',
-    //     'No se puede agendar turno con más de un día de anticipación',
-    //     'info'
-    //   );
-    //   return;
-    // }
+    if (
+      new Date(turnDate).getTime() < new Date(day).getTime() &&
+      this.isSocio()
+    ) {
+      this.showModal = false;
+      Swal.fire(
+        'Fecha inválida',
+        'No se pueden agendar turnos ya con fechas vencidas',
+        'info'
+      );
+      return;
+    }
+    if (
+      new Date(turnDate).getTime() === new Date(day).getTime() &&
+      this.isSocio()
+    ) {
+      if (ahora > turn) {
+        this.showModal = false;
+        Swal.fire(
+          'Turno ya no es válido',
+          'No se pueden agendar un turno pasada la hora del mismo',
+          'info'
+        );
+        return;
+      }
+    }
+    if (
+      new Date(turnDate).getTime() > new Date(manana).getTime() &&
+      this.isSocio()
+    ) {
+      this.showModal = false;
+      Swal.fire(
+        'Turno aún no válido',
+        'No se puede agendar turno con más de un día de anticipación',
+        'info'
+      );
+      return;
+    }
 
-    // if (
-    //   (ahora < apAm || ahora > cierrAm) &&
-    //   (ahora < apPm || ahora > cierrPm) &&
-    //   this.isSocio()
-    // ) {
-    //   this.showModal = false;
-    //   Swal.fire(
-    //     'Hora inválida',
-    //     'No se puede agendar turno fuera del horario establecido.',
-    //     'info'
-    //   );
-    //   return;
-    // }
+    if (
+      (ahora < apAm || ahora > cierrAm) &&
+      (ahora < apPm || ahora > cierrPm) &&
+      this.isSocio()
+    ) {
+      this.showModal = false;
+      Swal.fire(
+        'Hora inválida',
+        'No se puede agendar turno fuera del horario establecido.',
+        'info'
+      );
+      return;
+    }
   }
 
   preAsistio(fecha: any) {
