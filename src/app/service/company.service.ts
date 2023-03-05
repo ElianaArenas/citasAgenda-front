@@ -14,7 +14,7 @@ export class CompanyService {
 
   getCompany() {
     return this.http
-      .get(`${this.baseUrl}/empresa/configuracion/63d6ce8bb21b260e30fb3bba`)
+      .get(`${this.baseUrl}/empresa/configuracion/6403ec340de3ea13b08934ea`)
       .pipe(
         map((resp) => resp),
         catchError((err) => of(false))
@@ -26,7 +26,7 @@ export class CompanyService {
 
     return this.http
       .put(
-        `${this.baseUrl}/empresa/configuracion/63d6ce8bb21b260e30fb3bba`,
+        `${this.baseUrl}/empresa/configuracion/6403ec340de3ea13b08934ea`,
         updateBody,
         {
           headers: { 'x-access-token': token },
@@ -41,7 +41,7 @@ export class CompanyService {
   aperturaTurnos(updateBody: any) {
     return this.http
       .put(
-        `${this.baseUrl}/empresa/configuracion/aperturas/63d6ce8bb21b260e30fb3bba`,
+        `${this.baseUrl}/empresa/configuracion/aperturas/6403ec340de3ea13b08934ea`,
         updateBody,
         {
           headers: { 'x-access-token': this.token },
@@ -56,7 +56,7 @@ export class CompanyService {
   opcionCancelar(updateBody: any) {
     return this.http
       .put(
-        `${this.baseUrl}/empresa/configuracion/horario/cancelar/63d6ce8bb21b260e30fb3bba`,
+        `${this.baseUrl}/empresa/configuracion/horario/cancelar/6403ec340de3ea13b08934ea`,
         updateBody,
         {
           headers: { 'x-access-token': this.token },
@@ -71,7 +71,7 @@ export class CompanyService {
   actualizarRenovar(updateBody: any) {
     return this.http
       .put(
-        `${this.baseUrl}/empresa/configuracion/horario/renovar/63d6ce8bb21b260e30fb3bba`,
+        `${this.baseUrl}/empresa/configuracion/horario/renovar/6403ec340de3ea13b08934ea`,
         updateBody,
         {
           headers: { 'x-access-token': this.token },
