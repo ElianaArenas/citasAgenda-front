@@ -14,7 +14,9 @@ export class HeaderComponent {
     private authService: LoginService,
     private notificationService: NotificacionService
   ) {
-    this.getNotifications();
+    if (this.isLogged()) {
+      this.getNotifications();
+    }
     console.log(authService.loggedIn());
   }
 
