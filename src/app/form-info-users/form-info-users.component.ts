@@ -38,6 +38,8 @@ export class FormInfoUsersComponent {
     this.userService.getUser(this.userId).subscribe((user) => {
       this.user = user;
 
+      console.log(user?.message?.idFamiliar);
+
       this.registerForm.get('nombre')?.setValue(user?.message?.nombre);
       this.registerForm.get('genero')?.setValue(user?.message?.genero);
       this.registerForm.get('documento')?.setValue(user?.message?.documento);
@@ -64,6 +66,7 @@ export class FormInfoUsersComponent {
       categoria,
       direccion,
       barrio,
+      idFamiliar,
     } = this.registerForm.value;
 
     const updateBody = {
@@ -77,6 +80,7 @@ export class FormInfoUsersComponent {
       categoria,
       direccion,
       barrio,
+      idFamiliar,
     };
 
     this.userService
