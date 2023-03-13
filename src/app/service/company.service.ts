@@ -83,6 +83,21 @@ export class CompanyService {
       );
   }
 
+  actualizarHorarioAleatorio(updateBody: any) {
+    return this.http
+      .put(
+        `${this.baseUrl}/empresa/configuracion/horario/aleatorio/6403ec340de3ea13b08934ea`,
+        updateBody,
+        {
+          headers: { 'x-access-token': this.token },
+        }
+      )
+      .pipe(
+        map((resp) => resp),
+        catchError((err) => of(false))
+      );
+  }
+
   uploadImages(files: any) {
     let filesToUpload = new FormData();
     filesToUpload.append('imagen', files);

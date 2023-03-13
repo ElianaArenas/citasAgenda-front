@@ -82,6 +82,26 @@
       </button>
     </div>
   </div>
+  <div>
+    <h3 class="title">Opción de turnos aleatorios</h3>
+    <p class="text-center">Habilite o deshabilite si los horarios se eligiran de manera aleatoria.
+    </p>
+    <div class="d-flex flex-wrap justify-content-center">
+      <div class="m-3">
+        <label>Hora limite en la mañana: </label>
+        <ngb-timepicker [(ngModel)]="aleatorioAm" [meridian]="meridian"></ngb-timepicker>
+      </div>
+      <div class="m-3">
+        <label>Hora limite en la tarde: </label>
+        <ngb-timepicker [(ngModel)]="aleatorioPm" [meridian]="meridian"></ngb-timepicker>
+      </div>
+    </div>
+    <div class="text-center">
+      <button class="btn btn-primary" (click)="opcionTurnoAleatorio()">
+        Habilitar
+      </button>
+    </div>
+  </div>
   <hr>
   <div>
     <h3 class="title">Día para renovar horario</h3>

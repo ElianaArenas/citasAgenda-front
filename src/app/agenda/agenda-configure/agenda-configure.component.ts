@@ -21,6 +21,8 @@ export class AgendaConfigureComponent {
   cierrePm: any;
   limiteAm: any;
   limitePm: any;
+  aleatorioAm: any;
+  aleatorioPm: any;
   renovarHorario: any;
   horaInicio: any;
   franjaTurno: any;
@@ -266,6 +268,41 @@ export class AgendaConfigureComponent {
         return;
       }
     });
+  }
+
+  opcionTurnoAleatorio() {
+    if (
+      this.aleatorioAm?.hour == undefined ||
+      this.aleatorioAm?.minute == undefined ||
+      this.aleatorioPm?.hour == undefined ||
+      this.aleatorioPm?.minute == undefined
+    ) {
+      Swal.fire('Error', 'Debe ingresar todos los datos', 'error');
+      return;
+    }
+
+    this.aleatorioAm.hour = this.concatenateCero(this.aleatorioAm.hour);
+    this.aleatorioAm.minute = this.concatenateCero(this.aleatorioAm.minute);
+
+    this.aleatorioPm.hour = this.concatenateCero(this.aleatorioPm.hour);
+    this.aleatorioPm.minute = this.concatenateCero(this.aleatorioPm.minute);
+
+    const updateBody = {
+      aleatorio: true,
+      tiempoMañana: `${this.aleatorioAm.minute} ${this.aleatorioAm.hour} * * *`,
+      tiempoTarde: `${this.aleatorioPm.minute} ${this.aleatorioPm.hour} * * *`,
+    };
+
+    console.log({ updateBody });
+
+    this.companyService
+      .actualizarHorarioAleatorio(updateBody)
+      .subscribe((resp) => {
+        if (!resp) {
+          Swal.fire('Error', 'Hubo un error en la petición', 'error');
+          return;
+        }
+      });
   }
 
   actualizarRenovar() {
