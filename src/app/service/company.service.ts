@@ -21,6 +21,13 @@ export class CompanyService {
       );
   }
 
+  getImages() {
+    return this.http.get(`${this.baseUrl}/empresa/imagenes/`).pipe(
+      map((resp) => resp),
+      catchError((err) => of(false))
+    );
+  }
+
   updateCompany(updateBody: any) {
     const token = localStorage.getItem('token') || '';
 
@@ -98,12 +105,20 @@ export class CompanyService {
       );
   }
 
-  uploadImages(files: any) {
+  uploadImages(files: any, descripcion: string, tipo: string) {
+    const token = localStorage.getItem('token') || '';
+    console.log({ descripcion, tipo });
+
     let filesToUpload = new FormData();
     filesToUpload.append('imagen', files);
+    filesToUpload.append('descripcion', descripcion);
+    filesToUpload.append('tipo', tipo);
+
+    console.log({ filesToUpload });
+
     return this.http
       .post(`${this.baseUrl}/empresa/imagenes/`, filesToUpload, {
-        headers: { 'x-access-token': this.token },
+        headers: { 'x-access-token': token },
       })
       .pipe(
         map((resp) => resp),

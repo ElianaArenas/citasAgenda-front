@@ -1,20 +1,83 @@
 <div class="p-5 background-div">
   <h2 class="title">Personalizar imagenes a mostrar en la página</h2>
   <hr>
-  <div class="input-group">
-    <div class="input-group-prepend">
-      <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+  <div>
+    <div class="m-4 p-5" style="border: 1px solid blue;">
+      <h3 class="title">Carrusel</h3>
+      <img  class="m-2" *ngFor="let image of imagesCarrusel"  [src]="image.imagen" width="200" height="200">
+      <div class="text-center">
+        <button class="btn btn-primary" data-bs-toggle="modal" 
+                        data-bs-target="#exampleModal" (click)="imageType('carrusel')">
+                       Agregar
+        </button>
+      </div>
     </div>
-    <div class="custom-file">
-      <input type="file" class="custom-file-input" id="inputGroupFile01"
-        aria-describedby="inputGroupFileAddon01" (change)="preUploadImages($event)">
-      <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-    </div>
-  </div>
-
-  <div class="text-center m-5" *ngIf="urlImage">
-    <img [src]="urlImage | safeUrlPipe" alt="previsualización" style="width: 400px;"/>
-    <button class="btn btn-primary m-4"  (click)="uploadImages()">Agregar</button>
-  </div>
   
+    <div class="m-4 p-5" style="border: 1px solid blue;">
+      <h3 class="title">Canchas</h3>
+      <img  class="m-2" *ngFor="let image of imagesCanchas"  [src]="image.imagen" width="200" height="200">
+      <div class="text-center">
+        <button class="btn btn-primary" data-bs-toggle="modal" 
+                        data-bs-target="#exampleModal"
+                        (click)="imageType('canchas')"
+                        >
+                       Agregar
+        </button>
+      </div>
+    </div>
+  
+    <div class="m-4 p-5" style="border: 1px solid blue;">
+      <h3 class="title">Eventos</h3>
+      <img class="m-2"  *ngFor="let image of imagesEventos"  [src]="image.imagen" width="200" height="200">
+      <div class="text-center">
+        <button class="btn btn-primary" data-bs-toggle="modal" 
+                        data-bs-target="#exampleModal"
+                        (click)="imageType('eventos')"
+                        >
+                       Agregar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Cargar imagen</h5>
+        <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> 
+      </div>
+      <div class="modal-body">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+          </div>
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" id="inputGroupFile01"
+              aria-describedby="inputGroupFileAddon01" (change)="preUploadImages($event)">
+            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+          </div>
+        </div>
+        <div class="text-center m-5" *ngIf="urlImage">
+          <img [src]="urlImage | safeUrlPipe" alt="previsualización" style="width: 200px;"/><br>
+          <form 
+          [formGroup]="imageForm"
+          >
+          <label><b>Descripción</b></label>
+          <input type="text" class="form-control" formControlName="descripcion">
+          <label><b>Tipo</b></label>
+          <select class="form-select" formControlName="tipo">
+            <option *ngFor="let imageType of imageTypes" [value]="imageType">{{imageType}}</option>
+          </select>
+        </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="text-center">
+          <button class="btn btn-primary m-4"  (click)="uploadImages()">Agregar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

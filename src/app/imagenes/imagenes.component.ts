@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { CompanyService } from '../service/company.service';
 
@@ -10,7 +11,19 @@ import { CompanyService } from '../service/company.service';
 export class ImagenesComponent {
   file: any = null; // Variable to store file
   urlImage: any;
-  constructor(private companyService: CompanyService) {}
+  imageTypes: string[] = ['carrusel', 'canchas', 'eventos'];
+  imageForm: FormGroup = this.fb.group({
+    descripcion: ['', [Validators.required]],
+    tipo: ['', [Validators.required]],
+  });
+  imagesCanchas!: any;
+  imagesCarrusel!: any;
+  imagesEventos!: any;
+  imageTypeDes!: string;
+
+  constructor(private companyService: CompanyService, private fb: FormBuilder) {
+    this.getImages();
+  }
 
   preUploadImages(event: any) {
     this.file = event.target.files[0];
@@ -28,13 +41,43 @@ export class ImagenesComponent {
     this.urlImage = URL.createObjectURL(this.file);
   }
 
-  uploadImages() {
-    this.companyService.uploadImages(this.file).subscribe((resp) => {
+  getImages() {
+    this.companyService.getImages().subscribe((resp: any) => {
       if (!resp) {
         Swal.fire('Error', 'Hubo un error al cargar la imagen', 'error');
         return;
       }
-      Swal.fire('Excelente', 'Imagen cargada con exito', 'success');
+      console.log({ resp });
+
+      this.imagesCanchas = resp.filter((img: any) => img.tipo === 'canchas');
+      this.imagesCarrusel = resp.filter((img: any) => img.tipo === 'carrusel');
+      this.imagesEventos = resp.filter((img: any) => img.tipo === 'eventos');
     });
+  }
+
+  imageType(image: string) {
+    this.imageTypeDes = image;
+  }
+
+  uploadImages() {
+    this.companyService
+      .uploadImages(
+        this.file,
+        this.imageForm.get('descripcion')?.value,
+        this.imageForm.get('tipo')?.value
+      )
+      .subscribe((resp) => {
+        if (!resp) {
+          Swal.fire('Error', 'Hubo un error al cargar la imagen', 'error');
+          return;
+        }
+        this.urlImage = null;
+        this.imageForm.setValue({
+          descripcion: '',
+          tipo: '',
+        });
+        this.getImages();
+        Swal.fire('Excelente', 'Imagen cargada con exito', 'success');
+      });
   }
 }
