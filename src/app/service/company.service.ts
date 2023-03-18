@@ -126,4 +126,17 @@ export class CompanyService {
         catchError((err) => of(false))
       );
   }
+
+  deleteImage(id: string) {
+    const token = localStorage.getItem('token') || '';
+
+    return this.http
+      .delete(`${this.baseUrl}/empresa/imagenes/${id}`, {
+        headers: { 'x-access-token': token },
+      })
+      .pipe(
+        map((resp) => resp),
+        catchError((err) => of(false))
+      );
+  }
 }

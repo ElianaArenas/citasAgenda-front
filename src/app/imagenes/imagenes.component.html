@@ -4,7 +4,7 @@
   <div>
     <div class="m-4 p-5" style="border: 1px solid blue;">
       <h3 class="title">Carrusel</h3>
-      <img  class="m-2" *ngFor="let image of imagesCarrusel"  [src]="image.imagen" width="200" height="200">
+      <img  class="m-2" *ngFor="let image of imagesCarrusel"  [src]="image.imagen" width="200" height="200" (click)="deleteImage(image._id)">
       <div class="text-center">
         <button class="btn btn-primary" data-bs-toggle="modal" 
                         data-bs-target="#exampleModal" (click)="imageType('carrusel')">
@@ -15,7 +15,7 @@
   
     <div class="m-4 p-5" style="border: 1px solid blue;">
       <h3 class="title">Canchas</h3>
-      <img  class="m-2" *ngFor="let image of imagesCanchas"  [src]="image.imagen" width="200" height="200">
+      <img  class="m-2" *ngFor="let image of imagesCanchas"  [src]="image.imagen" width="200" height="200" (click)="deleteImage(image._id)">
       <div class="text-center">
         <button class="btn btn-primary" data-bs-toggle="modal" 
                         data-bs-target="#exampleModal"
@@ -28,7 +28,7 @@
   
     <div class="m-4 p-5" style="border: 1px solid blue;">
       <h3 class="title">Eventos</h3>
-      <img class="m-2"  *ngFor="let image of imagesEventos"  [src]="image.imagen" width="200" height="200">
+      <img class="m-2"  *ngFor="let image of imagesEventos"  [src]="image.imagen" width="200" height="200" (click)="deleteImage(image._id)">
       <div class="text-center">
         <button class="btn btn-primary" data-bs-toggle="modal" 
                         data-bs-target="#exampleModal"

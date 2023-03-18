@@ -82,4 +82,25 @@ export class ImagenesComponent {
         Swal.fire('Excelente', 'Imagen cargada con exito', 'success');
       });
   }
+
+  deleteImage(id: string) {
+    Swal.fire({
+      title: 'Eliminar la imagen',
+      text: '¿Desea eliminar la imagen?',
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonText: 'Continuar',
+    }).then((respuesta) => {
+      if (respuesta.isConfirmed) {
+        this.companyService.deleteImage(id).subscribe((resp) => {
+          if (!resp) {
+            Swal.fire('Error', 'Hubo un error al eliminar la imagen', 'error');
+            return;
+          }
+          this.getImages();
+          Swal.fire('Excelente', 'Se ha eliminado la imagen', 'success');
+        });
+      }
+    });
+  }
 }
