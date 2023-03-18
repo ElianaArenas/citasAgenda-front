@@ -2,35 +2,11 @@
 <div class="m-5 p-5 div-background">
   <h2 class= "title">Canchas</h2>
   <div class="row row-cols-1 row-cols-md-3 g-4">
-    <div class="col">
+    <div class="col" *ngFor="let cancha of images">
       <div class="card">
-        <img src="https://clubunionbucaramanga.com/wp-content/uploads/2022/02/t.c.cu_.jpg" class="card-img-top" alt="...">
+        <img [src]="cancha.imagen" class="card-img-top" alt="...">
         <div class="text-center">
-          <h5>Tenis</h5>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card">
-        <img src="https://clubunionbucaramanga.com/wp-content/uploads/2022/02/S.c.u.jpg" class="card-img-top" alt="...">
-        <div class=" text-center">
-          <h5>Squash</h5>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card">
-        <img src="https://clubunionbucaramanga.com/wp-content/uploads/2022/02/billar.c.u.jpg" class="card-img-top" alt="...">
-        <div class=" text-center">
-          <h5>Billar</h5>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card">
-        <img src="https://clubunionbucaramanga.com/wp-content/uploads/2022/02/ft.c.u.jpg" class="card-img-top" alt="...">
-        <div class="text-center">
-          <h5>Futbol</h5>
+          <h5>{{cancha.descripcion}}</h5>
         </div>
       </div>
     </div>

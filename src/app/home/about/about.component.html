@@ -4,21 +4,8 @@
    {{description}}
   </span>
   <div class="row"> 
-    <div class="column">
-      <img src="./../../../assets/club.png"class="images" >
-      <img src="./../../../assets/eventos.jpg">
-    </div>
-    <div class="column">
-      <img src="./../../../assets/porteria.jpg">
-      <img src="./../../../assets/piscina.jpg">
-    </div>  
-    <div class="column">
-      <img src="./../../../assets/club.png">
-      <img src="./../../../assets/festejos.jpg">
-    </div>
-    <div class="column">
-      <img src="./../../../assets/futbol.jpg">
-      <img src="./../../../assets/tenis.jpg">
+    <div class="column" *ngFor="let image of images">
+      <img [src]="image.imagen" class="images" width="600" height="600">
     </div>
   </div>
 </div>
