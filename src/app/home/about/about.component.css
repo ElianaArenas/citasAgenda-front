@@ -39,3 +39,17 @@
     max-width: 100%;
   }
 }
+
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.div-background {
+  background-color: rgba(153, 221, 238, 0.4);
+}
+
+.card-ttl {
+  background-color: rgb(0, 0, 0);
+  color: white;
+}

@@ -1,11 +1,10 @@
-<div class="p-5 background-div ">
-  <h2 class= "title">Historia</h2>
-  <span>
-   {{description}}
-  </span>
-  <div class="row"> 
-    <div class="column" *ngFor="let image of images">
-      <img [src]="image.imagen" class="images" width="600" height="600">
+<div class="p-5 background-div div-background">
+  <h2 class= "title">Eventos</h2>
+  <div class="card" style="width: 18rem;" *ngFor="let image of images">
+    <img [src]="image.imagen" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">{{image.titulo}}</h5>
+      <p class="card-text">{{image.descripcion}}</p>
     </div>
   </div>
 </div>
