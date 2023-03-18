@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { CompanyService } from '../service/company.service';
@@ -13,8 +13,9 @@ export class ImagenesComponent {
   urlImage: any;
   imageTypes: string[] = ['carrusel', 'canchas', 'eventos'];
   imageForm: FormGroup = this.fb.group({
-    descripcion: ['', [Validators.required]],
+    descripcion: [''],
     tipo: ['', [Validators.required]],
+    titulo: ['', [Validators.required]],
   });
   imagesCanchas!: any;
   imagesCarrusel!: any;
@@ -64,7 +65,8 @@ export class ImagenesComponent {
       .uploadImages(
         this.file,
         this.imageForm.get('descripcion')?.value,
-        this.imageForm.get('tipo')?.value
+        this.imageForm.get('tipo')?.value,
+        this.imageForm.get('titulo')?.value
       )
       .subscribe((resp) => {
         if (!resp) {

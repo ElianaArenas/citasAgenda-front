@@ -105,7 +105,7 @@ export class CompanyService {
       );
   }
 
-  uploadImages(files: any, descripcion: string, tipo: string) {
+  uploadImages(files: any, descripcion: string, tipo: string, titulo: string) {
     const token = localStorage.getItem('token') || '';
     console.log({ descripcion, tipo });
 
@@ -113,6 +113,7 @@ export class CompanyService {
     filesToUpload.append('imagen', files);
     filesToUpload.append('descripcion', descripcion);
     filesToUpload.append('tipo', tipo);
+    filesToUpload.append('titulo', titulo);
 
     console.log({ filesToUpload });
 
