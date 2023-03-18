@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CompanyService } from '../../service/company.service';
+import { faWarning } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-about',
@@ -16,6 +17,7 @@ export class AboutComponent {
 
   description: string = '';
   title: string = '';
+  faWarning = faWarning;
 
   getCompanyInformation() {
     this.companyService.getCompany().subscribe((message: any) => {
