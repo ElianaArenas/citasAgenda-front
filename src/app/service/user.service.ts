@@ -53,7 +53,7 @@ export class UserService {
       );
   }
 
-  validateToken() {
+  validateToken(tokeni?: string) {
     let userId;
 
     console.log(localStorage.getItem('user'));
@@ -69,7 +69,7 @@ export class UserService {
 
     return this.http
       .get(`${this.baseUrl}/users/refrescar/${userId}`, {
-        headers: { 'x-access-token': token },
+        headers: { 'x-access-token': tokeni ? tokeni : token },
       })
       .pipe(
         map((resp) => {

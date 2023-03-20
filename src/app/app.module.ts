@@ -36,6 +36,7 @@ import { SafeUrlPipePipe } from './safe-url-pipe.pipe';
 import { SpinnerModule } from './shared/components/spinner/spinner.module';
 import { SpinnerInterceptor } from './shared/interceptors/spinner.interceptor';
 import { NotificationsComponent } from './admin/notifications/notifications.component';
+import { NewPasswordComponent } from './new-password/new-password.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { NotificationsComponent } from './admin/notifications/notifications.comp
     ImagenesComponent,
     SafeUrlPipePipe,
     NotificationsComponent,
+    NewPasswordComponent,
   ],
   imports: [
     BrowserModule,

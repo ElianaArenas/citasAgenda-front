@@ -63,4 +63,15 @@ export class LoginService {
         catchError((err) => of(false))
       );
   }
+
+  newPassword(data: any, token: string) {
+    return this.http
+      .put(`${this.baseUrl}/auth/new-password`, data, {
+        headers: { reset: token },
+      })
+      .pipe(
+        map((resp) => resp),
+        catchError((err) => of(false))
+      );
+  }
 }

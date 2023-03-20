@@ -16,6 +16,7 @@ import { AyudaComponent } from './guia/ayuda/ayuda.component';
 import { SobrenosotrosComponent } from './sobrenosotros/sobrenosotros.component';
 import { ImagenesComponent } from './imagenes/imagenes.component';
 import { NotificationsComponent } from './admin/notifications/notifications.component';
+import { NewPasswordComponent } from './new-password/new-password.component';
 
 const routes: Routes = [
   {
@@ -87,6 +88,10 @@ const routes: Routes = [
   {
     path: 'notification',
     component: NotificationsComponent,
+  },
+  {
+    path: 'new-password/:token',
+    component: NewPasswordComponent,
   },
 ];
 
