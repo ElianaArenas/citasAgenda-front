@@ -133,6 +133,7 @@ export class AgendaComponent {
     if (day?.autor1 && this.isSocio()) {
       if (day?.socio1 === this.userInfo().nombre) {
         this.showModal = true;
+        this.preAgenda(day, shechedule, day.turno, day.fecha, true);
         this.cancelarTurno = true;
 
         return;
@@ -255,7 +256,8 @@ export class AgendaComponent {
     classDay: DiaClassI,
     schedule: any,
     turno: string,
-    turnDate: string
+    turnDate: string,
+    isCancel?: boolean
   ) {
     console.log({ classDay, turnDate });
 
@@ -306,7 +308,9 @@ export class AgendaComponent {
       this.showModal = false;
       Swal.fire(
         'Fecha inválida',
-        'No se pueden agendar turnos ya con fechas vencidas',
+        `No se pueden ${
+          isCancel ? 'cancelar' : 'agendar'
+        } turnos ya con fechas vencidas`,
         'info'
       );
       return;
@@ -319,37 +323,41 @@ export class AgendaComponent {
         this.showModal = false;
         Swal.fire(
           'Turno ya no es válido',
-          'No se pueden agendar un turno pasada la hora del mismo',
+          `No se pueden ${
+            isCancel ? 'cancelar' : 'agendar'
+          } un turno pasada la hora del mismo`,
           'info'
         );
         return;
       }
     }
-    if (
-      new Date(turnDate).getTime() > new Date(manana).getTime() &&
-      this.isSocio()
-    ) {
-      this.showModal = false;
-      Swal.fire(
-        'Turno aún no válido',
-        'No se puede agendar turno con más de un día de anticipación',
-        'info'
-      );
-      return;
-    }
+    if (!isCancel) {
+      if (
+        new Date(turnDate).getTime() > new Date(manana).getTime() &&
+        this.isSocio()
+      ) {
+        this.showModal = false;
+        Swal.fire(
+          'Turno aún no válido',
+          'No se puede agendar turno con más de un día de anticipación',
+          'info'
+        );
+        return;
+      }
 
-    if (
-      (ahora < apAm || ahora > cierrAm) &&
-      (ahora < apPm || ahora > cierrPm) &&
-      this.isSocio()
-    ) {
-      this.showModal = false;
-      Swal.fire(
-        'Hora inválida',
-        'No se puede agendar turno fuera del horario establecido.',
-        'info'
-      );
-      return;
+      if (
+        (ahora < apAm || ahora > cierrAm) &&
+        (ahora < apPm || ahora > cierrPm) &&
+        this.isSocio()
+      ) {
+        this.showModal = false;
+        Swal.fire(
+          'Hora inválida',
+          'No se puede agendar turno fuera del horario establecido.',
+          'info'
+        );
+        return;
+      }
     }
   }
 
