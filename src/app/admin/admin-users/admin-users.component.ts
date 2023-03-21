@@ -126,7 +126,7 @@ export class AdminUsersComponent {
       });
   }
 
-  deleteUser() {
+  deleteUser(user: any) {
     Swal.fire({
       title: 'Eliminar usuario',
       text: '¿Desea eliminar el usuario?',
@@ -135,7 +135,7 @@ export class AdminUsersComponent {
       confirmButtonText: 'Continuar',
     }).then((respuesta) => {
       if (respuesta.isConfirmed) {
-        this.userService.deleteUser(this.user.documento).subscribe((resp) => {
+        this.userService.deleteUser(user.documento).subscribe((resp) => {
           Swal.fire(
             'Operación exitosa',
             'Se eliminó el usuario correctamente',

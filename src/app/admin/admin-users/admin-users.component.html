@@ -64,7 +64,7 @@
             (click)="getUser(user)"
             >{{user?.activo === true? 'Activo': 'Inactivo'}}</button></td>
           <td>
-            <button type="button" class="btn btn-danger btn-sm m-2" (click)="deleteUser()">Eliminar</button>
+            <button type="button" class="btn btn-danger btn-sm m-2" (click)="deleteUser(user)">Eliminar</button>
             <button type="button" class="btn btn-primary btn-sm m-2"  data-bs-toggle="modal" 
             data-bs-target="#userModal"
             (click)="getUser(user)">Editar</button>
