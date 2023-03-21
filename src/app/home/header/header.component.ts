@@ -46,7 +46,9 @@ export class HeaderComponent {
       }
       if (typeof res === 'object') {
         const response = res as any;
-        this.notificationsNumber = response.notificaciones.length;
+        this.notificationsNumber = response.notificaciones.filter(
+          (notification: any) => notification.activo === true
+        ).length;
       }
     });
   }
