@@ -15,7 +15,6 @@ export class ImagenesComponent {
   imageForm: FormGroup = this.fb.group({
     descripcion: [''],
     tipo: ['', [Validators.required]],
-    titulo: ['', [Validators.required]],
   });
   imagesCanchas!: any;
   imagesCarrusel!: any;
@@ -66,7 +65,7 @@ export class ImagenesComponent {
         this.file,
         this.imageForm.get('descripcion')?.value,
         this.imageForm.get('tipo')?.value,
-        this.imageForm.get('titulo')?.value
+        ''
       )
       .subscribe((resp) => {
         if (!resp) {

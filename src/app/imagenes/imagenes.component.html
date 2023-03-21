@@ -64,9 +64,6 @@
           <form 
           [formGroup]="imageForm"
           >
-          <label><b>Titulo</b></label>
-          <input type="text" class="form-control" formControlName="titulo">
-          <p *ngIf="imageForm.get('titulo')!.touched && imageForm.get('titulo')!.hasError('required')" class="alert-danger">El titulo es obligatorio</p>
           <label><b>Descripción</b></label>
           <input type="text" class="form-control" formControlName="descripcion">
           <label><b>Tipo</b></label>
