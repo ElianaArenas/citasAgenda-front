@@ -8,7 +8,6 @@ import { CompanyService } from '../../service/company.service';
 @Component({
   selector: 'app-agenda-configure',
   templateUrl: './agenda-configure.component.html',
-  styleUrls: ['./agenda-configure.component.css'],
 })
 export class AgendaConfigureComponent {
   calendarVal?: Date;
