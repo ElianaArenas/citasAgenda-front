@@ -14,7 +14,9 @@ export class CompanyService {
 
   getCompany() {
     return this.http
-      .get(`${this.baseUrl}/empresa/configuracion/6403ec340de3ea13b08934ea`)
+      .get(
+        `backend-citasagenda-production.up.railway.app/api/empresa/configuracion/6403ec340de3ea13b08934ea`
+      )
       .pipe(
         map((resp) => resp),
         catchError((err) => of(false))
@@ -22,10 +24,14 @@ export class CompanyService {
   }
 
   getImages() {
-    return this.http.get(`${this.baseUrl}/empresa/imagenes/`).pipe(
-      map((resp) => resp),
-      catchError((err) => of(false))
-    );
+    return this.http
+      .get(
+        `backend-citasagenda-production.up.railway.app/api/empresa/imagenes/`
+      )
+      .pipe(
+        map((resp) => resp),
+        catchError((err) => of(false))
+      );
   }
 
   updateCompany(updateBody: any) {
