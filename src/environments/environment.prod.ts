@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseUrl: 'backend-citasagenda-production.up.railway.app/api',
+  baseUrl: 'https://backend-citasagenda-production.up.railway.app/api',
 };

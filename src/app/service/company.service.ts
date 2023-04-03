@@ -14,9 +14,7 @@ export class CompanyService {
 
   getCompany() {
     return this.http
-      .get(
-        `https://api.giphy.com/v1/gifs/search?api_key=hmCJsArtX1auVakB1bDmKtx8MFHTrefZ&q=One%20Punch&limit=10`
-      )
+      .get(`${this.baseUrl}/empresa/configuracion/6403ec340de3ea13b08934ea`)
       .pipe(
         map((resp) => resp),
         catchError((err) => of(false))
