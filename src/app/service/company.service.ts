@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, of } from 'rxjs';
+import { catchError, map, of, switchMap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -9,16 +9,26 @@ import { environment } from 'src/environments/environment';
 export class CompanyService {
   private baseUrl: string = environment.baseUrl;
   private token = localStorage.getItem('token') || '';
-
+  id_Empresa!: string;
   constructor(private http: HttpClient) {}
 
+  getCompanies() {
+    return this.http.get(`${this.baseUrl}/empresa`).pipe(
+      map((resp: any) => resp),
+      catchError((err) => of(false))
+    );
+  }
+
   getCompany() {
-    return this.http
-      .get(`${this.baseUrl}/empresa/configuracion/6403ec340de3ea13b08934ea`)
-      .pipe(
-        map((resp) => resp),
-        catchError((err) => of(false))
-      );
+    return this.getCompanies().pipe(
+      switchMap((resp: any) => {
+        this.id_Empresa = resp[0]._id;
+        return this.http.get(
+          `${this.baseUrl}/empresa/configuracion/${this.id_Empresa}`
+        );
+      }),
+      catchError((err) => of(false))
+    );
   }
 
   getImages() {
@@ -31,78 +41,75 @@ export class CompanyService {
   updateCompany(updateBody: any) {
     const token = localStorage.getItem('token') || '';
 
-    return this.http
-      .put(
-        `${this.baseUrl}/empresa/configuracion/6403ec340de3ea13b08934ea`,
-        updateBody,
-        {
-          headers: { 'x-access-token': token },
-        }
-      )
-      .pipe(
-        map((resp) => resp),
-        catchError((err) => of(false))
-      );
+    return this.getCompanies().pipe(
+      map((resp: any) => resp[0]._id),
+      switchMap((id: string) =>
+        this.http.put(
+          `${this.baseUrl}/empresa/configuracion/${id}`,
+          updateBody,
+          {
+            headers: { 'x-access-token': token },
+          }
+        )
+      ),
+      catchError((err) => of(false))
+    );
   }
 
   aperturaTurnos(updateBody: any) {
-    return this.http
-      .put(
-        `${this.baseUrl}/empresa/configuracion/aperturas/6403ec340de3ea13b08934ea`,
-        updateBody,
-        {
-          headers: { 'x-access-token': this.token },
-        }
-      )
-      .pipe(
-        map((resp) => resp),
-        catchError((err) => of(false))
-      );
+    return this.getCompanies().pipe(
+      map((resp: any) => resp[0]._id),
+      switchMap((id: string) =>
+        this.http.put(
+          `${this.baseUrl}/empresa/configuracion/aperturas/${id}`,
+          updateBody,
+          { headers: { 'x-access-token': this.token } }
+        )
+      ),
+      catchError((err) => of(false))
+    );
   }
 
   opcionCancelar(updateBody: any) {
-    return this.http
-      .put(
-        `${this.baseUrl}/empresa/configuracion/horario/cancelar/6403ec340de3ea13b08934ea`,
-        updateBody,
-        {
-          headers: { 'x-access-token': this.token },
-        }
-      )
-      .pipe(
-        map((resp) => resp),
-        catchError((err) => of(false))
-      );
+    return this.getCompanies().pipe(
+      map((resp: any) => resp[0]._id),
+      switchMap((id: string) =>
+        this.http.put(
+          `${this.baseUrl}/empresa/configuracion/horario/cancelar/${id}`,
+          updateBody,
+          { headers: { 'x-access-token': this.token } }
+        )
+      ),
+      catchError((err) => of(false))
+    );
   }
 
   actualizarRenovar(updateBody: any) {
-    return this.http
-      .put(
-        `${this.baseUrl}/empresa/configuracion/horario/renovar/6403ec340de3ea13b08934ea`,
-        updateBody,
-        {
-          headers: { 'x-access-token': this.token },
-        }
-      )
-      .pipe(
-        map((resp) => resp),
-        catchError((err) => of(false))
-      );
+    return this.getCompanies().pipe(
+      map((resp: any) => resp[0]._id),
+      switchMap((id: string) =>
+        this.http.put(
+          `${this.baseUrl}/empresa/configuracion/horario/renovar/${id}`,
+          updateBody,
+          { headers: { 'x-access-token': this.token } }
+        )
+      ),
+      catchError((err) => of(false))
+    );
   }
 
   actualizarHorarioAleatorio(updateBody: any) {
-    return this.http
-      .put(
-        `${this.baseUrl}/empresa/configuracion/horario/aleatorio/6403ec340de3ea13b08934ea`,
-        updateBody,
-        {
-          headers: { 'x-access-token': this.token },
-        }
-      )
-      .pipe(
-        map((resp) => resp),
-        catchError((err) => of(false))
-      );
+    return this.getCompanies().pipe(
+      map((resp: any) => resp[0]._id),
+      switchMap((id: string) =>
+        this.http.put(
+          `${this.baseUrl}/empresa/configuracion/horario/aleatorio/${id}`,
+          updateBody,
+          { headers: { 'x-access-token': this.token } }
+        )
+      ),
+      catchError((err) => of(false))
+    );
   }
 
   uploadImages(files: any, descripcion: string, tipo: string, titulo: string) {
