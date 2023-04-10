@@ -8,8 +8,8 @@
     <div *ngFor="let image of imagesCarrusel" class="carousel-item active">
       <img [src]="image.imagen" class="d-block w-100 h-50" alt="...">
       <div class="carousel-caption d-none d-md-block carousel-caption">
-        <h3>Canchas de futbol</h3>
-        <p>Reserva canchas de futbol, para entrenamientos o por diversión.</p>
+        <h3>{{image?.titulo}}</h3>
+        <p>{{image?.descripcion}}</p>
       </div>
     </div>
   </div>
