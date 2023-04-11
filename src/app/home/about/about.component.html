@@ -5,11 +5,15 @@
       <fa-icon [icon]="faWarning"></fa-icon>&nbsp;&nbsp;
       No hay ningún evento registrado</b>
   </div>
-  <div class="card" style="width: 18rem;" *ngFor="let image of images">
-    <img [src]="image.imagen" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">{{image.titulo}}</h5>
-      <p class="card-text">{{image.descripcion}}</p>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="col" *ngFor="let image of images">
+      <div class="card" style="width: 18rem;" >
+        <img [src]="image.imagen" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{image.titulo}}</h5>
+          <p class="card-text">{{image.descripcion}}</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>

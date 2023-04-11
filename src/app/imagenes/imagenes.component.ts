@@ -64,7 +64,7 @@ export class ImagenesComponent {
       .uploadImages(
         this.file,
         this.imageForm.get('descripcion')?.value,
-        this.imageForm.get('tipo')?.value,
+        this.imageTypeDes,
         ''
       )
       .subscribe((resp) => {
