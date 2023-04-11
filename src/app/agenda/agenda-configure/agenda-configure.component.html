@@ -212,20 +212,20 @@
           </div>
         </form>
         <p *ngIf="invalidDate" class="alert-danger">Por favor indique fecha actual o futura para definir la fecha de inicio, no se permiten fechas anteriores</p>
-        <div class="d-flex m-5 flex-wrap">
-          <div>
+        <div class="d-flex m-5 justify-content-between">
+          <div class="m-2">
             <label>Hora inicio: </label>
             <ngb-timepicker [(ngModel)]="horaInicio" [meridian]="meridian"></ngb-timepicker>
           </div>
-          <div>
+          <div class="m-2">
             <label>Franja turno: </label>
             <ngb-timepicker [(ngModel)]="franjaTurno" [meridian]="meridian"></ngb-timepicker>
           </div>
-          <div>
+          <div class="m-2">
             <label>Franja descanso: </label>
             <ngb-timepicker [(ngModel)]="franjaDescanso" [meridian]="meridian"></ngb-timepicker>
           </div>
-          <div>
+          <div class="m-2">
             <label>Hora fin: </label>
             <ngb-timepicker [(ngModel)]="horaFin" [meridian]="meridian"></ngb-timepicker>
           </div>
@@ -258,7 +258,7 @@
           </form>
           <div class="text-center m-5">
             <button type="submit" class="btn btn-secondary m-2" (click)="showHoras= true; showRenovar= false">Anterior</button>
-            <button type="submit" class="btn btn-primary m-2" (click)="createHorario(); showHoras= true;showRenovar= false ">Validar y agregar</button>
+            <button type="submit" class="btn btn-primary m-2" (click)="createHorario(); showDias= true;showRenovar= false ">Validar y agregar</button>
           </div>
         </div>
       </div>

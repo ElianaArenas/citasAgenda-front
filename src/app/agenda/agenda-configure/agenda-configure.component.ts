@@ -5,11 +5,24 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { AgendaI } from 'src/app/interfaces/agenda';
 import { AgendaService } from 'src/app/service/agenda.service';
 import { CompanyService } from '../../service/company.service';
+import { firstValueFrom } from 'rxjs';
 @Component({
   selector: 'app-agenda-configure',
   templateUrl: './agenda-configure.component.html',
 })
-export class AgendaConfigureComponent {
+export class AgendaConfigureComponent implements OnInit {
+  async ngOnInit() {
+    await this.getCompany();
+  }
+  constructor(
+    private agendaService: AgendaService,
+    private fb: FormBuilder,
+    private companyService: CompanyService
+  ) {
+    this.getHorarios();
+    // this.getCompany();
+  }
+
   calendarVal?: Date;
 
   shechedules!: AgendaI[];
@@ -76,15 +89,6 @@ export class AgendaConfigureComponent {
   showHoras = false;
   showRenovar = false;
 
-  constructor(
-    private agendaService: AgendaService,
-    private fb: FormBuilder,
-    private companyService: CompanyService
-  ) {
-    this.getHorarios();
-    this.getCompany();
-  }
-
   getHorarios() {
     this.agendaService
       .getHorarios()
@@ -149,19 +153,15 @@ export class AgendaConfigureComponent {
     });
   }
 
-  getCompany() {
-    this.companyService.getCompany().subscribe((res: any) => {
-      this.company = res.message;
-      const [aperturaAmHour, aperturAmMinutes] = this.company.aperturaAm
-        .split('T')[1]
-        .split(':');
+  async getCompany() {
+    const res: any = await firstValueFrom(this.companyService.getCompany());
+    this.company = res.message;
+    const [aperturaAmHour, aperturaAmMinutes] = this.company.aperturaAm
+      .split('T')[1]
+      .split(':');
 
-      this.aperturaAm.hour = Number(this.splitCero(aperturaAmHour));
-
-      this.aperturaAm.minute = Number(this.splitCero(aperturAmMinutes));
-
-      console.log(this.aperturaAm.hour);
-    });
+    this.aperturaAm.hour = Number(this.splitCero(aperturaAmHour));
+    this.aperturaAm.minute = Number(this.splitCero(aperturaAmMinutes));
   }
 
   aperturaTurnos() {
@@ -225,6 +225,11 @@ export class AgendaConfigureComponent {
         Swal.fire('Error', 'Hubo un error en la petición', 'error');
         return;
       }
+      Swal.fire(
+        'Excelente',
+        'Se habilitó el horario de apertura de turnos',
+        'success'
+      );
     });
   }
 
