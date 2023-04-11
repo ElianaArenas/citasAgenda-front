@@ -5,8 +5,8 @@
       <fa-icon [icon]="faWarning"></fa-icon>&nbsp;&nbsp;
       No hay ningún evento registrado</b>
   </div>
-  <div class="row row-cols-1 row-cols-md-3 g-4">
-    <div class="col" *ngFor="let image of images">
+  <div class="d-flex flex-wrap justify-content-center">
+    <div class="m-5" *ngFor="let image of images">
       <div class="card" style="width: 18rem;" >
         <img [src]="image.imagen" class="card-img-top" alt="...">
         <div class="card-body">
