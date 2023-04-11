@@ -55,7 +55,7 @@
                         data-bs-toggle="modal" 
                         data-bs-target="#profesorModal" 
                         (click)="schedule(shechedule,hour, day)"
-                        *ngIf="isProfesor()"
+                        *ngIf="isProfesor() || isCanchero()"
                         >
                   {{isLogged() ? day?.socio1: day?.horaSolicitud ? "Agendado": ""}}
                 </button>
@@ -219,9 +219,9 @@
          </div>
       </div>
       </div>
-      <div class="modal-footer m-auto" *ngIf="isProfesor()">
+      <div class="modal-footer m-auto" *ngIf="isProfesor() || isCanchero()">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="noShowModal()">Cerrar</button>
-        <button type="button" class="btn btn-primary" (click)="configureHorario()" *ngIf="!showAsistencia()">Confirmar</button>
+        <button type="button" class="btn btn-primary" (click)="configureHorario()" *ngIf="!showAsistencia() && isProfesor()">Confirmar</button>
         <button type="button" class="btn btn-primary" (click)="confirmarAsistencia()" *ngIf="showAsistencia()">Confirmar asistencia</button>
       </div>
     </div>

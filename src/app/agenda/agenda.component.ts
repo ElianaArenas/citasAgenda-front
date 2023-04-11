@@ -93,6 +93,13 @@ export class AgendaComponent {
     return this.userInfo().rol[0].name === 'Administrador';
   }
 
+  isCanchero() {
+    if (!this.userInfo()) {
+      return false;
+    }
+    return this.userInfo().rol[0].name === 'Canchero';
+  }
+
   getHorarios() {
     this.showLoading = true;
     console.log(this.showLoading);
@@ -225,7 +232,7 @@ export class AgendaComponent {
   showAsistencia() {
     return (
       !!this.dayAgenda?.autor1 &&
-      this.dayAgenda?.profesor === this.userInfo().nombre
+      (this.dayAgenda?.profesor === this.userInfo().nombre || this.isCanchero())
     );
   }
 
@@ -301,6 +308,18 @@ export class AgendaComponent {
     const day =
       hoy.getMonth() + 1 + '/' + hoy.getDate() + '/' + hoy.getFullYear();
     const manana = new Date(manan).toLocaleDateString('en-US');
+    if (
+      new Date(turnDate).getTime() < new Date(day).getTime() &&
+      this.isProfesor()
+    ) {
+      this.showModal = false;
+      Swal.fire(
+        'Fecha inválida',
+        `No te puedes asignar a turnos ya con fechas vencidas`,
+        'info'
+      );
+      return;
+    }
     if (
       new Date(turnDate).getTime() < new Date(day).getTime() &&
       this.isSocio()
