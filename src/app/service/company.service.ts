@@ -57,13 +57,15 @@ export class CompanyService {
   }
 
   aperturaTurnos(updateBody: any) {
+    const token = localStorage.getItem('token') || '';
+
     return this.getCompanies().pipe(
       map((resp: any) => resp[0]._id),
       switchMap((id: string) =>
         this.http.put(
           `${this.baseUrl}/empresa/configuracion/aperturas/${id}`,
           updateBody,
-          { headers: { 'x-access-token': this.token } }
+          { headers: { 'x-access-token': token } }
         )
       ),
       catchError((err) => of(false))
@@ -71,13 +73,15 @@ export class CompanyService {
   }
 
   opcionCancelar(updateBody: any) {
+    const token = localStorage.getItem('token') || '';
+
     return this.getCompanies().pipe(
       map((resp: any) => resp[0]._id),
       switchMap((id: string) =>
         this.http.put(
           `${this.baseUrl}/empresa/configuracion/horario/cancelar/${id}`,
           updateBody,
-          { headers: { 'x-access-token': this.token } }
+          { headers: { 'x-access-token': token } }
         )
       ),
       catchError((err) => of(false))
@@ -85,13 +89,15 @@ export class CompanyService {
   }
 
   actualizarRenovar(updateBody: any) {
+    const token = localStorage.getItem('token') || '';
+
     return this.getCompanies().pipe(
       map((resp: any) => resp[0]._id),
       switchMap((id: string) =>
         this.http.put(
           `${this.baseUrl}/empresa/configuracion/horario/renovar/${id}`,
           updateBody,
-          { headers: { 'x-access-token': this.token } }
+          { headers: { 'x-access-token': token } }
         )
       ),
       catchError((err) => of(false))
@@ -99,13 +105,15 @@ export class CompanyService {
   }
 
   actualizarHorarioAleatorio(updateBody: any) {
+    const token = localStorage.getItem('token') || '';
+
     return this.getCompanies().pipe(
       map((resp: any) => resp[0]._id),
       switchMap((id: string) =>
         this.http.put(
           `${this.baseUrl}/empresa/configuracion/horario/aleatorio/${id}`,
           updateBody,
-          { headers: { 'x-access-token': this.token } }
+          { headers: { 'x-access-token': token } }
         )
       ),
       catchError((err) => of(false))
