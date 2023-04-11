@@ -508,6 +508,7 @@ export class AgendaComponent {
           this.getHorarios();
         }
       });
+      this.getHorarios();
     }
   }
 
