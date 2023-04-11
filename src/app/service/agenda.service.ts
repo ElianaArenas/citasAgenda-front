@@ -9,7 +9,6 @@ import { AgendaI } from '../interfaces/agenda';
 })
 export class AgendaService {
   private baseUrl: string = environment.baseUrl;
-  private token = localStorage.getItem('token') || '';
 
   constructor(private http: HttpClient) {}
 
@@ -28,9 +27,11 @@ export class AgendaService {
   }
 
   updateHorario(scheduleId: string, updateBody: any) {
+    const token = localStorage.getItem('token') || '';
+
     return this.http
       .put(`${this.baseUrl}/horario/${scheduleId}`, updateBody, {
-        headers: { 'x-access-token': this.token },
+        headers: { 'x-access-token': token },
       })
       .pipe(
         map((resp) => resp),
@@ -52,12 +53,14 @@ export class AgendaService {
   }
 
   cambiarTitulo(scheduleId: string, titulo: string) {
+    const token = localStorage.getItem('token') || '';
+
     return this.http
       .put(
         `${this.baseUrl}/horario/titulo/${scheduleId}`,
         { lugar: titulo },
         {
-          headers: { 'x-access-token': this.token },
+          headers: { 'x-access-token': token },
         }
       )
       .pipe(
@@ -67,9 +70,11 @@ export class AgendaService {
   }
 
   solicitarTurno(scheduleId: string, updateBody: any) {
+    const token = localStorage.getItem('token') || '';
+
     return this.http
       .put(`${this.baseUrl}/horario/solicitud/${scheduleId}`, updateBody, {
-        headers: { 'x-access-token': this.token },
+        headers: { 'x-access-token': token },
       })
       .pipe(
         map((resp) => resp),
@@ -78,9 +83,11 @@ export class AgendaService {
   }
 
   confirmarAsistencia(scheduleId: string, updateBody: any) {
+    const token = localStorage.getItem('token') || '';
+
     return this.http
       .put(`${this.baseUrl}/horario/asistio/${scheduleId}`, updateBody, {
-        headers: { 'x-access-token': this.token },
+        headers: { 'x-access-token': token },
       })
       .pipe(
         map((resp) => resp),
@@ -89,9 +96,11 @@ export class AgendaService {
   }
 
   deleteHorario(scheduleId: string) {
+    const token = localStorage.getItem('token') || '';
+
     return this.http
       .delete(`${this.baseUrl}/horario/${scheduleId}`, {
-        headers: { 'x-access-token': this.token },
+        headers: { 'x-access-token': token },
       })
       .pipe(
         map((resp) => resp),
@@ -100,6 +109,8 @@ export class AgendaService {
   }
 
   autorenovar(scheduleId: string, active: boolean) {
+    const token = localStorage.getItem('token') || '';
+
     return this.http
       .put(
         `${this.baseUrl}/horario/regenerar/${scheduleId}`,
@@ -107,7 +118,7 @@ export class AgendaService {
           regenerar: !active,
         },
         {
-          headers: { 'x-access-token': this.token },
+          headers: { 'x-access-token': token },
         }
       )
       .pipe(
@@ -117,6 +128,8 @@ export class AgendaService {
   }
 
   mostrarHorario(scheduleId: string, active: boolean) {
+    const token = localStorage.getItem('token') || '';
+
     return this.http
       .put(
         `${this.baseUrl}/horario/mostrarTodo/${scheduleId}`,
@@ -124,7 +137,7 @@ export class AgendaService {
           mostrarTodo: !active,
         },
         {
-          headers: { 'x-access-token': this.token },
+          headers: { 'x-access-token': token },
         }
       )
       .pipe(
@@ -134,9 +147,11 @@ export class AgendaService {
   }
 
   createHorario(createBody: any) {
+    const token = localStorage.getItem('token') || '';
+
     return this.http
       .post(`${this.baseUrl}/horario`, createBody, {
-        headers: { 'x-access-token': this.token },
+        headers: { 'x-access-token': token },
       })
       .pipe(
         map((resp) => resp),
