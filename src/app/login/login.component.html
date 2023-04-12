@@ -17,10 +17,14 @@ autocomplete="off"
               <input type="email" id="typeEmailX-2" class="form-control form-control-lg" formControlName="email" required/>
             </div>
 
-            <div class="form-outline mb-4">
-              <label class="form-label" for="typePasswordX-2">Password</label>
-              <input type="password" id="typePasswordX-2" class="form-control form-control-lg" formControlName="password"/>
-            </div>
+            <div class="input-group mb-4">
+              <input  [type]="fieldTextType ? 'text' : 'password'" id="typePasswordX-2" class="form-control form-control-lg" formControlName="password"/>
+              <div class="input-group-append">
+                <span class="input-group-text">
+                  <fa-icon [icon]="fieldTextType? faEye : faEyeSlash" (click)="toggleFieldTextType()"></fa-icon>
+                </span>
+             </div>
+          </div>
 
             <div class="d-grid gap-2 mb-3">
               <button class="btn btn-primary btn-lg" type="submit">Entrar</button>

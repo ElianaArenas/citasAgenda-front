@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { LoginService } from '../service/auth.service';
 import Swal from 'sweetalert2';
 
@@ -20,6 +21,9 @@ export class LoginComponent {
   });
 
   showLoading: boolean = false;
+  faEye = faEye;
+  faEyeSlash = faEyeSlash;
+  fieldTextType!: boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -46,6 +50,10 @@ export class LoginComponent {
         this.router.navigateByUrl('/dashboard');
       }
     });
+  }
+
+  toggleFieldTextType() {
+    this.fieldTextType = !this.fieldTextType;
   }
 
   sendMail() {
