@@ -11,11 +11,11 @@ import Swal from 'sweetalert2';
 })
 export class RegisterComponent {
   registerForm: FormGroup = this.fb.group({
+    nombre: ['', [Validators.required]],
     document: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
-    code: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]],
-    token: [''],
+    // token: [''],
   });
 
   token: string | undefined;

@@ -17,10 +17,9 @@
               <p *ngIf="registerForm.get('document')!.touched && registerForm.get('document')!.hasError('pattern')" class="alert-danger">El documento debe ser numerico</p>
             </div>
             <div class="form-outline mb-1">
-              <label class="form-label" for="codigo">Código *</label>
-              <input type="text" id="codigo" class="form-control form-control-lg" formControlName="code"/>
-              <p *ngIf="registerForm.get('code')!.touched && registerForm.get('code')!.hasError('required')" class="alert-danger">El codigo es obligatorio</p>
-              <p *ngIf="registerForm.get('code')!.touched && registerForm.get('code')!.hasError('pattern')" class="alert-danger">El codigo debe ser numerico</p>
+              <label class="form-label" for="nombre">Nombre *</label>
+              <input type="text" id="nombre" class="form-control form-control-lg" formControlName="nombre"/>
+              <p *ngIf="registerForm.get('nombre')!.touched && registerForm.get('nombre')!.hasError('required')" class="alert-danger">El nombre es obligatorio</p>
             </div>
             <div class="form-outline mb-1">
               <label class="form-label" for="typeEmailX-2">Email *</label>

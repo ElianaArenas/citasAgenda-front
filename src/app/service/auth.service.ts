@@ -33,9 +33,17 @@ export class LoginService {
       );
   }
 
-  register(data: RegisterI) {
+  register(data: any) {
+    const body = {
+      nombre: data.nombre,
+      codigo: data.document,
+      documento: data.document,
+      contra: data.password,
+      email: data.email,
+    };
+
     return this.http
-      .post<RegisterResponseI>(`${this.baseUrl}/auth/signup`, data)
+      .post<RegisterResponseI>(`${this.baseUrl}/auth/signup`, body)
       .pipe(
         tap((resp) => {
           localStorage.setItem('token', resp.token!);
