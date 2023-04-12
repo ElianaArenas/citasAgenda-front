@@ -33,9 +33,6 @@
           <li class="nav-item">
             <a class="nav-link" data-toggle="modal" data-target="#exampleModal" routerLink="dashboard">Disponibilidad Horarios</a>
           </li>
-          <li class="nav-item">
-           <a class="nav-link">Bienvenido {{userInfo().nombre}}, estado: {{userInfo().activo? "activo": "desactivado"}}</a>
-          </li>
         </ul>
         <button type="button" class="btn btn-info" (click)="logOut()" routerLink="home">Logout</button>
       </div>
@@ -88,9 +85,6 @@
                 <li><a class="dropdown-item dropdown-text"  routerLink="aboutUs">Acerca de</a></li>
               </ul>
             </li>
-            <li class="nav-item">
-             <a class="nav-link">Bienvenido {{userInfo().nombre}}, estado: {{userInfo().activo? "activo": "desactivado"}}</a>
-            </li>
           </ul>
           <button type="button" class="btn btn-info" (click)="logOut()" routerLink="home">Logout</button>
         </div>
@@ -98,3 +92,6 @@
     </ng-template>
   </div>
 </nav>
+<div class="alert-warning text-rigth px-3 py-1" *ngIf="isLogged()" style="border: solid 1px rgb(236, 225, 186);">
+  <p><b>Bienvenido {{userInfo().nombre}},  Estado: {{userInfo().activo? "activo": "desactivado"}}</b></p>
+</div>
