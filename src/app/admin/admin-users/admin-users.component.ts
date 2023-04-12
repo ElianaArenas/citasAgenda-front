@@ -74,9 +74,9 @@ export class AdminUsersComponent {
       email: user.email,
       codigo: user.codigo,
       idFamiliar: '',
-      celular: user.celular,
+      celular: user.celular ?? '',
       categoria: '',
-      direccion: user.direccion,
+      direccion: user.direccion ?? '',
       barrio: '',
       rol: '',
       activo: user.activo,
@@ -111,7 +111,7 @@ export class AdminUsersComponent {
       direccion,
       barrio,
       rol,
-      activo,
+      activo: activo === 'Activo',
     };
 
     this.userService
