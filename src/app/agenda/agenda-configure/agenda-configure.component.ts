@@ -345,6 +345,11 @@ export class AgendaConfigureComponent implements OnInit {
         Swal.fire('Error', 'Hubo un error en la petición', 'error');
         return;
       }
+      Swal.fire(
+        'Excelente',
+        'Excelente se habilitó la opción de renovar horario',
+        'success'
+      );
     });
   }
 
