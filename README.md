@@ -15,7 +15,8 @@ Proyecto realizado en la versión de Angular 15 para el agendamiento de citas y 
 
 ## Construido con 🔩⚙
 
-[Angular 15](https://angular.io/docs)
+- [Angular 15](https://angular.io/docs)
+- [Bootstrap](https://getbootstrap.com/docs/5.3/getting-started/introduction/)
 
 ## Instalar modulos de Node
 
