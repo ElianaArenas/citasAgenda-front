@@ -5,7 +5,8 @@ Proyecto en la versión de Angular 15 para el agendamiento de citas y eventos ut
 ## Pre-requisitos 📋
 
 - Tener instalado Nodejs
-* [Node.js](https://nodejs.org/en/blog/release/v16.17.0/) - Version 16.17
+
+* [Node.js](https://nodejs.org/en/blog/release/v18.13.0/) - Version 18.13.0
 
 - Instalar Angular cli
 
@@ -17,15 +18,14 @@ Proyecto en la versión de Angular 15 para el agendamiento de citas y eventos ut
 
 ## Descargar modulos de Node
 
-`  $ npm install `
+` $ npm install`
 
 ## Correr el proyecto
 
-`
-  $ npm start`
+`$ npm start`
 
 ## Despliegue
 
-Al hacer push a la rama master, se hará el despliegue de manera automatica a Netlify.
+Al hacer push a la rama master, se hará el despliegue de manera automatica a [Netlify](https://www.netlify.com/).
 
 Made with ❤
