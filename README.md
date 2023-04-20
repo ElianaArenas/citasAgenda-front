@@ -1,6 +1,6 @@
 # citasAgenda-front
 
-Proyecto en Angular para el agendamiento de citas y eventos utilizado como recurso didáctico para la asignatura de programación web.
+Proyecto en la versión de Angular 15 para el agendamiento de citas y eventos utilizado como recurso didáctico para la asignatura de programación web.
 
 ## Pre-requisitos 📋
 
