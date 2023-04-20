@@ -23,7 +23,7 @@ Proyecto en Angular para el agendamiento de citas y eventos utilizado como recur
 
 ## Despliegue
 
-Al hacer push a la rama main, se hará el despliegue de manera automatica a Netlify.
+Al hacer push a la rama master, se hará el despliegue de manera automatica a Netlify.
 
 
 Made with ❤
