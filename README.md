@@ -5,13 +5,19 @@ Proyecto en la versión de Angular 15 para el agendamiento de citas y eventos ut
 ## Pre-requisitos 📋
 
 - Tener instalado Nodejs
+* [Node.js](https://nodejs.org/en/blog/release/v16.17.0/) - Version 16.17
+
 - Instalar Angular cli
 
 `  $ npm install -g @angular/cli`
 
-## Empezando
+## Construido con 🔩⚙
 
-`  $ npm install // Descargar modulos de Node`
+[Angular 15](https://angular.io/docs)
+
+## Descargar modulos de Node
+
+`  $ npm install `
 
 ## Correr el proyecto
 
