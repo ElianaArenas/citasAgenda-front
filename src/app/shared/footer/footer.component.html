@@ -1,0 +1,66 @@
+<!-- Footer -->
+<footer class="bg-dark text-center text-white">
+  <div class="container p-4">
+    <section class="mb-4">
+      <h5>
+        Contacta con nosotros
+      </h5>
+    </section>
+    <section class="">
+      <div class="row">
+        <div class="col-lg-6">
+          <ul class="list-unstyled mb-0">
+            <li>
+              <p>
+              {{company?.message?.direccion}} <fa-icon [icon]="faLocationDot" class="icons"></fa-icon><br>
+              ----------------------------------------------------
+            </p>  
+            </li>
+            <li>
+              <p> {{company?.message?.telefono1}} <fa-icon [icon]="faPhone" class="icons"></fa-icon><br>
+               ----------------------------------------------------
+              </p> 
+            </li>
+            <li>
+              <p>{{company?.message?.email}} <fa-icon [icon]="faEnvelope" class="icons"></fa-icon><br>
+               ----------------------------------------------------
+              </p>
+              
+            </li>
+          </ul>
+        </div>
+        <div class="col-lg-6  mb-4 mb-md-0">
+          <h6>Redes sociales</h6>
+
+          <ul class="list-unstyled mb-0">
+            <li>
+              <div class="d-flex justify-content-center m-4">
+                <div class="gray">
+                  <fa-icon [icon]="faInstagram"></fa-icon>
+              </div>
+              </div>
+            </li>
+            <li>
+              <div class="d-flex justify-content-center m-4">
+                <div class="gray">
+                  <fa-icon [icon]="faFacebook"></fa-icon>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="d-flex justify-content-center m-4">
+                <div class="gray">
+                  <fa-icon [icon]="faTwitter"></fa-icon>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    © 2023 Todos los derechos reservados | &nbsp;Made with &nbsp;
+    <fa-icon [icon]="faHeart" class="love"></fa-icon>
+  </div>
+</footer>

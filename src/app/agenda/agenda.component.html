@@ -1,0 +1,229 @@
+<div class="p-5">
+  <h2 class="title">Disponibilidad horarios</h2>
+  <hr>
+  <div class="alert alert-secondary" role="alert" *ngIf="!isLogged()">
+    <b>
+      <fa-icon [icon]="faWarning"></fa-icon>&nbsp;&nbsp;
+       Para reservar un turno, debe ingresar a su cuenta</b>
+  </div>
+  <div class="alert alert-warning" role="alert" *ngIf="shechedules.length === 0">
+    <b>
+      <fa-icon [icon]="faWarning"></fa-icon>&nbsp;&nbsp;
+        No hay horarios disponibles aún. 
+    </b>
+  </div>
+
+  <div *ngFor="let shechedule of shechedules; index as i">
+    <div *ngIf="isLogged()" class="d-flex flex-wrap justify-content-between">
+      <div>
+        <b>Profesor(es):</b>
+        <div *ngFor="let profesor of profesores" class="d-flex">
+          <p> {{profesor.nombre}}</p>
+          <div style="margin-left: 5px; width: 100px; height: 20px;" [ngStyle]="{'background-color': profesor.color}"></div>
+        </div>
+      </div>
+      <div>
+        <button type="button" class="btn btn btn-danger" *ngIf="isAdmin()" (click)="deleteHorario(shechedule._id)">Eliminar horario</button>
+      </div>
+    </div>
+
+    <h4 class="text-center">{{shechedule.lugar}}</h4>
+      <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+          <!-- Encabezado -->
+          <thead class="table-light">
+            <tr >
+              <th scope="col">Dia/Hora</th>
+              <!-- Repite los dias -->
+                <th class="text-center" scope="col" *ngFor="let day of shechedule.horario[i]?.dia">{{day?.dia | titlecase}} <br /> {{day?.fecha}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Repite las franjas -->
+            <tr *ngFor="let hour of shechedule.horario">
+              <th scope="row">{{hour.granDemanda ? "(Alta demanda) ":""}}{{hour.franja}}</th>
+              <!-- Repite las celdas -->
+              <td *ngFor="let day of hour.dia" [ngStyle]="{'background-color': day?.colorProfesor}">
+                <button class="btn btn-block button-agenda" data-bs-toggle="modal" 
+                        data-bs-target="#socioModal"
+                        (click)="schedule(shechedule,hour, day)"
+                        *ngIf="isSocio()"
+                        >
+                {{isLogged() ? day?.socio1: day?.horaSolicitud ? "Agendado": ""}}
+                </button>
+                <button class="btn btn-block button-agenda" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#profesorModal" 
+                        (click)="schedule(shechedule,hour, day)"
+                        *ngIf="isProfesor() || isCanchero()"
+                        >
+                  {{isLogged() ? day?.socio1: day?.horaSolicitud ? "Agendado": ""}}
+                </button>
+                <button class="btn btn-block button-agenda" 
+                  data-bs-toggle="modal" 
+                  data-bs-target="#profesorModal" 
+                  (click)="schedule(shechedule,hour, day)"
+                  *ngIf="isAdmin()"
+                >
+                {{isLogged() ? day?.socio1: day?.horaSolicitud ? "Agendado": ""}}
+                </button>
+                {{!isLogged() && day?.horaSolicitud ? "Agendado": ""}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+  </div> 
+</div>
+
+<!------------Modal socio------------------------>
+<div class="modal fade" id="socioModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" *ngIf="showModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title title" id="exampleModalLabel">Solicitud de turno</h3>
+        <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="noShowModal()"></button>
+      </div>
+      <div class="modal-body">
+        <span>
+          solicitud a nombre de <b>{{userInfo().nombre}}</b>
+        </span><br>
+        <span>
+          {{day1 && day1}}
+        </span><br><br>
+        <div>
+          <div class="text-center" *ngIf="cancelarTurno == true; else turno">
+            <p>¿Desea cancelar el turno?</p>
+            <form [formGroup]="sociosForm">
+              <label>Justificación</label>
+              <input class="form-control" type="text"  formControlName="justificacion">
+              <p *ngIf="sociosForm.get('justificacion')!.touched && sociosForm.get('justificacion')!.hasError('required')" class="alert-danger">
+                La justificacion es obligatoria</p>
+            </form><br>
+            <button type="button" class="btn btn btn-danger" (click)="createNotification()">Cancelar turno</button>
+          </div>
+        </div>
+        <ng-template #turno>
+          <div>
+            <p>Otros participantes:</p>
+            <form [formGroup]="sociosForm">
+              <label for="">Solicitante 2:</label>
+              <select class="form-select" formControlName="socio2">
+                <option selected>Ninguno</option>
+                <option [ngValue]="socio" *ngFor="let socio of socios" >{{socio.nombre}}</option>
+              </select>
+              <label for="">Solicitante 3:</label>
+              <select class="form-select" formControlName="socio3">
+                <option selected>Ninguno</option>
+                <option [ngValue]="socio" *ngFor="let socio of socios" >{{socio.nombre}}</option>
+              </select>
+              <label for="">Solicitante 4:</label>
+              <select class="form-select" formControlName="socio4">
+                <option selected>Ninguno</option>
+                <option [ngValue]="socio" *ngFor="let socio of socios" >{{socio.nombre}}</option>
+              </select>
+            </form>
+            <div class="modal-footer m-auto">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="noShowModal()">Cerrar</button>
+              <button type="button" class="btn btn-primary" (click)="agenda()">Solicitar</button>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-------------------Modal profesor y admin -------------------->
+<div class="modal fade" id="profesorModal" tabindex="-1" aria-labelledby="profesorModalLabel" aria-hidden="true" *ngIf="showModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title title" id="profesorModalLabel">Bienvenido {{userInfo().nombre}}</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="noShowModal()"></button>
+      </div>
+      <div class="modal-body">
+        <span *ngIf="showAsistencia(); else turn">
+          <b>Franja asignada a:</b> 
+           {{dayAgenda.socio1}} - {{dayAgenda.socio2}} - {{dayAgenda.socio3}} - {{dayAgenda.socio4}} <br>
+        </span>
+         <span>
+           <b>Franja:</b>
+           {{day1 && day1}}<br>
+         </span>
+         <ng-template #turn>
+          <span *ngIf="isProfesor()">
+            <b>¿Te asignarás a este turno?</b>
+          </span><br><br>
+        </ng-template>
+         <div *ngIf="isAdmin()">
+          <div>
+            <span>
+              <b>Profesor:</b>
+              {{dayAgenda.profesor ?? 'N/A'}}
+            </span>
+            <span>
+              <b>Canchero:</b>
+              {{dayAgenda.canchero ?? 'N/A'}}
+            </span>
+              <button type="button" class="btn btn btn-danger btn-sm m-4" (click)="cancelTurno()">Cancelar turno</button>
+         </div>
+          <hr>
+          <div class="d-flex">
+           <div class="m-2" style="width: 50%;">
+           <form [formGroup]="sociosForm">
+             <label for="">Titular:</label>
+             <select class="form-select" formControlName="socio1">
+               <option>Ninguno</option>
+               <option [ngValue]="socio"  *ngFor="let socio of socios">{{socio.nombre}}</option>
+             </select>
+             <label for="">Solicitante 2:</label>
+             <select class="form-select" formControlName="socio2">
+               <option selected>Ninguno</option>
+               <option [ngValue]="socio" *ngFor="let socio of socios" >{{socio.nombre}}</option>
+             </select>
+             <label for="">Solicitante 3:</label>
+             <select class="form-select" formControlName="socio3">
+               <option selected>Ninguno</option>
+               <option [ngValue]="socio" *ngFor="let socio of socios" >{{socio.nombre}}</option>
+             </select>
+             <label for="">Solicitante 4:</label>
+             <select class="form-select" formControlName="socio4">
+               <option selected>Ninguno</option>
+               <option [ngValue]="socio" *ngFor="let socio of socios" >{{socio.nombre}}</option>
+             </select>
+           </form>
+             <div class="text-center m-4">
+               <button type="button" class="btn btn-primary mb-2 btn-sm" data-bs-dismiss="modal" (click)="agenda()">Reasignar</button>
+             </div>
+           </div>
+           <div class="m-2" style="width: 50%;">
+           <form [formGroup]="profesorForm">
+              <label>Profesor:</label>
+              <select class="form-select" formControlName="profesor">
+                <option selected>Ninguno</option>
+                <option [ngValue]="profesor" *ngFor="let profesor of profesores" >{{profesor.nombre}}</option>
+              </select>
+              <label>Canchero:</label>
+              <select class="form-select" formControlName="canchero">
+                <option selected>Ninguno</option>
+                <option [ngValue]="canchero" *ngFor="let canchero of cancheros" >{{canchero.nombre}}</option>
+              </select>
+              <div class="text-center m-4">
+                <button type="button" class="btn btn-primary btn-sm" (click)="configureHorario()">Actualizar</button>
+              </div>
+           </form>
+          </div>
+          </div>
+          <div>
+         </div>
+      </div>
+      </div>
+      <div class="modal-footer m-auto" *ngIf="isProfesor() || isCanchero()">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="noShowModal()">Cerrar</button>
+        <button type="button" class="btn btn-primary" (click)="configureHorario()" *ngIf="!showAsistencia() && isProfesor()">Confirmar</button>
+        <button type="button" class="btn btn-primary" (click)="confirmarAsistencia()" *ngIf="showAsistencia()">Confirmar asistencia</button>
+      </div>
+    </div>
+  </div>
+</div>

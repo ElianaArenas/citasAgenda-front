@@ -1,0 +1,31 @@
+
+<div class="p-5 background-div">
+  <div>
+    <h2 class="title">Notificaciones</h2>
+    <hr>
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <th scope="col">Socio</th>
+          <th scope="col">Fecha turno</th>
+          <th scope="col">Hora turno</th>
+          <th scope="col">Justificación</th>
+          <th scope="col">Fecha notificación</th>
+          <th scope="col">Cancelar turno</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let notification of notifications">
+            <td>{{notification.user}}</td>
+            <td>{{notification.fechaTurno | date: 'dd/MM/yyyy'}}</td>
+            <td>{{notification.horaTurno}}</td>
+            <td>{{notification.justificacion}}</td>
+            <td>{{notification.fechaCreacion | date: 'dd/MM/yyyy'}}</td>
+            <td><button type="button" class="btn-sm btn-success mr-2" (click)="cancelTurno(notification)">Aceptar</button>
+              <button type="button" class="btn-sm btn-danger" (click)="deleteNotification(notification, 'Excelente')">Rechazar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

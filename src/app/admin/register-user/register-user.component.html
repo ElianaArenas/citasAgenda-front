@@ -1,0 +1,76 @@
+<div class="p-5 background-div">
+  <h2 class="title">Registre nuevo usuario</h2>
+  <hr>
+  <form [formGroup]="registerForm" autocomplete="off" (ngSubmit)="register()">
+   <div class="row m-5">
+     <div class="col">
+       <label for="admin">Nombre completo:*</label>
+       <input type="text" class="form-control" placeholder="Nombre" id="admin"
+       formControlName="nombre">
+       <p *ngIf="registerForm.get('nombre')!.touched && registerForm.get('nombre')!.hasError('required')" class="alert-danger">El nombre es obligatorio</p>
+     </div>
+     <div class="col">
+       <label>Genero:</label>
+       <select class="form-select" formControlName="genero">
+        <option *ngFor="let genero of generos" [ngValue]="genero">{{genero}}</option>
+      </select>
+      <p *ngIf="registerForm.get('genero')!.touched && registerForm.get('genero')!.hasError('required')" class="alert-danger">El genero es obligatorio</p>
+     </div>
+   </div>
+   <div class="row m-5">
+     <div class="col">
+       <label>Número documento:*</label>
+       <input type="text" class="form-control" placeholder="Documento"
+         formControlName="documento">
+         <p *ngIf="registerForm.get('documento')!.touched && registerForm.get('documento')!.hasError('required')" class="alert-danger">El documento es obligatorio</p>
+     </div>
+     <div class="col">
+       <label>Correo electrónico:*</label>
+       <input type="email" class="form-control" placeholder="Correo" 
+        formControlName="email">
+       <p *ngIf="registerForm.get('email')!.touched && registerForm.get('email')!.hasError('required')" class="alert-danger">El correo es obligatorio</p>
+     </div>
+   </div>
+   <div class="row m-5">
+     <div class="col">
+       <label>Direccion:*</label>
+       <input type="text" class="form-control" placeholder="Direccion"
+         formControlName="direccion">
+      <p *ngIf="registerForm.get('direccion')!.touched && registerForm.get('direccion')!.hasError('required')" class="alert-danger">La dirección es obligatoria</p>
+     </div>
+     <div class="col">
+       <label>Barrio:*</label>
+       <input type="text" class="form-control" placeholder="barrio"
+         formControlName="barrio">
+       <p *ngIf="registerForm.get('barrio')!.touched && registerForm.get('barrio')!.hasError('required')" class="alert-danger">El barrio es obligatorio</p>
+     </div>
+   </div>
+   <div class="row m-5">
+    <div class="col">
+      <label>Rol:*</label>
+      <select class="form-select" formControlName="rol">
+        <option *ngFor="let rol of roles" [ngValue]="rol">{{rol}}</option>
+      </select>
+      <p *ngIf="registerForm.get('rol')!.touched && registerForm.get('rol')!.hasError('required')" class="alert-danger">El rol es obligatorio</p>
+    </div>
+    <div class="col">
+      <label>Activar o desactivar:*</label>
+      <select class="form-select" formControlName="activo">
+        <option *ngFor="let status of userStatus" [ngValue]="status">{{status}}</option>
+      </select>
+      <p *ngIf="registerForm.get('activo')!.touched && registerForm.get('activo')!.hasError('required')" class="alert-danger">El status es obligatorio</p>
+    </div>
+  </div>
+  <div class="row m-5">
+    <div class="col">
+      <label>Color:</label>
+      <ngx-colors ngx-colors-trigger style="display: inline-block; margin:5px;" formControlName="color">
+      </ngx-colors>
+    </div>
+  </div>
+
+    <div class="text-center">
+     <button type="submit" class="btn btn-primary mb-4">Registrar</button>
+    </div>
+ </form>
+</div>

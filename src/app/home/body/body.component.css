@@ -1,0 +1,40 @@
+.titleServicios {
+  padding-top: 50px;
+  color: white;
+}
+
+.servicios {
+  background-color: #20b0d8;
+  height: 500px;
+  margin: 80px 0 80px 0;
+}
+
+span {
+  font-weight: 500;
+}
+
+.icons {
+  width: 50px;
+  margin-right: 20px;
+  margin-bottom: 5px;
+}
+
+.containerServicios {
+  /* margin: 0 10rem 0 10rem;*/
+  padding: 2rem;
+  background-color: rgb(217, 223, 235);
+}
+
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.div-background {
+  background-color: rgba(153, 221, 238, 0.4);
+}
+
+.card-ttl {
+  background-color: rgb(0, 0, 0);
+  color: white;
+}
