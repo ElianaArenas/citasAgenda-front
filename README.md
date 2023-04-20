@@ -1,6 +1,6 @@
 # citasAgenda-front
 
-Proyecto en la versión de Angular 15 para el agendamiento de citas y eventos utilizado como recurso didáctico para la asignatura de programación web.
+Proyecto realizado en la versión de Angular 15 para el agendamiento de citas y eventos utilizado como recurso didáctico para la asignatura de programación web.
 
 ## Pre-requisitos 📋
 
@@ -10,13 +10,14 @@ Proyecto en la versión de Angular 15 para el agendamiento de citas y eventos ut
 
 - Instalar [Angular cli](https://angular.io/cli)
 
+
 `  $ npm install -g @angular/cli`
 
 ## Construido con 🔩⚙
 
 [Angular 15](https://angular.io/docs)
 
-## Descargar modulos de Node
+## Instalar modulos de Node
 
 ` $ npm install`
 
@@ -26,6 +27,8 @@ Proyecto en la versión de Angular 15 para el agendamiento de citas y eventos ut
 
 ## Despliegue
 
-Al hacer push a la rama master, se hará el despliegue de manera automatica a [Netlify](https://www.netlify.com/).
+Al hacer push a la rama master, se hará el despliegue de manera automática a [Netlify](https://www.netlify.com/).
+
+
 
 Made with ❤
