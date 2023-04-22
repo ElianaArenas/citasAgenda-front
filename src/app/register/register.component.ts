@@ -36,7 +36,7 @@ export class RegisterComponent {
       if (!login) {
         Swal.fire('Error', '', 'error');
       } else {
-        this.router.navigateByUrl('/about');
+        this.router.navigateByUrl('/dashboard');
       }
     });
   }

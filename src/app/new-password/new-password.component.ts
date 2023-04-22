@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 import { LoginService } from '../service/auth.service';
 
@@ -17,6 +18,12 @@ export class NewPasswordComponent {
     private router: Router
   ) {}
 
+  faEye = faEye;
+  faEyeSlash = faEyeSlash;
+  fieldTextType!: boolean;
+  fieldTextType1!: boolean;
+  fieldTextType2!: boolean;
+
   updatePasswordForm: FormGroup = this.fb.group(
     {
       oldPassword: ['', [Validators.required]],
@@ -27,6 +34,17 @@ export class NewPasswordComponent {
       validator: this.ConfirmedValidator('newPassword', 'confirmPassword'),
     }
   );
+
+  toggleFieldTextType() {
+    this.fieldTextType = !this.fieldTextType;
+  }
+
+  toggleFieldTextType1() {
+    this.fieldTextType1 = !this.fieldTextType1;
+  }
+  toggleFieldTextType2() {
+    this.fieldTextType2 = !this.fieldTextType2;
+  }
 
   updatePassword() {
     if (this.updatePasswordForm.invalid) {

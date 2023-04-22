@@ -32,7 +32,7 @@
               <input type="password" id="typePasswordX-2" class="form-control form-control-lg" formControlName="password"/>
               <p *ngIf="registerForm.get('email')!.touched && registerForm.get('password')!.hasError('required')" class="alert-danger">La contraseña es obligatoria</p>
             </div>
-            <div class="d-flex justify-content-center mt-2 mb-2">
+            <div class="d-flex justify-content-center mt-3 mb-3 ">
               <re-captcha id="recaptcha" name="recaptcha"  formControlName="token" required></re-captcha>
             </div>
             <div class="d-grid gap-2 mb-3">

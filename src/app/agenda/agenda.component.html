@@ -18,10 +18,10 @@
       <div style="width: 30%;">
         <b>Profesor(es):</b>
         <div *ngFor="let profesor of profesores" class="d-flex">
-          <div style="width: 50%;">
+          <div style="width: 70%;">
             <p> {{profesor.nombre}}</p>
           </div>
-          <div style="margin-left: 5px; width: 50%; height: 20px;" [ngStyle]="{'background-color': profesor.color}"></div>
+          <div style="margin-left: 5px; width: 30%; height: 20px;" [ngStyle]="{'background-color': profesor.color}"></div>
         </div>
       </div>
       <div>

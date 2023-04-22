@@ -7,11 +7,13 @@
   </div>
   <div class="d-flex flex-wrap justify-content-center">
     <div class="m-5" *ngFor="let image of images">
-      <div class="card" style="width: 18rem;" >
-        <img [src]="image.imagen" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">{{image.titulo}}</h5>
-          <p class="card-text">{{image.descripcion}}</p>
+      <div class="card-deck">
+        <div class="card" style="width: 18rem;" >
+          <img [src]="image.imagen" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">{{image.titulo}}</h5>
+            <p class="card-text">{{image.descripcion}}</p>
+          </div>
         </div>
       </div>
     </div>
