@@ -1,5 +1,6 @@
 {
   "conventionalCommits.scopes": [
-    "carrusel"
+    "carrusel",
+    "schedule"
   ]
 }

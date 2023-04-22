@@ -15,11 +15,13 @@
 
   <div *ngFor="let shechedule of shechedules; index as i">
     <div *ngIf="isLogged()" class="d-flex flex-wrap justify-content-between">
-      <div>
+      <div style="width: 30%;">
         <b>Profesor(es):</b>
         <div *ngFor="let profesor of profesores" class="d-flex">
-          <p> {{profesor.nombre}}</p>
-          <div style="margin-left: 5px; width: 100px; height: 20px;" [ngStyle]="{'background-color': profesor.color}"></div>
+          <div style="width: 50%;">
+            <p> {{profesor.nombre}}</p>
+          </div>
+          <div style="margin-left: 5px; width: 50%; height: 20px;" [ngStyle]="{'background-color': profesor.color}"></div>
         </div>
       </div>
       <div>
