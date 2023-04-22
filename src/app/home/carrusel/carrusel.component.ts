@@ -19,10 +19,7 @@ export class CarruselComponent implements OnInit {
         Swal.fire('Error', 'Hubo un error al cargar la imagen', 'error');
         return;
       }
-      console.log({ resp });
       this.imagesCarrusel = resp.filter((img: any) => img.tipo === 'carrusel');
-
-      console.log(this.imagesCarrusel);
     });
   }
 }
