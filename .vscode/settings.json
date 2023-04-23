@@ -2,6 +2,7 @@
   "conventionalCommits.scopes": [
     "carrusel",
     "schedule",
-    "notifications"
+    "notifications",
+    "images"
   ]
 }

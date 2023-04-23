@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { faTrash, faPencil } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 import { CompanyService } from '../service/company.service';
 
@@ -14,12 +15,15 @@ export class ImagenesComponent {
   imageTypes: string[] = ['carrusel', 'canchas', 'eventos'];
   imageForm: FormGroup = this.fb.group({
     descripcion: [''],
-    tipo: ['', [Validators.required]],
+    titulo: [''],
   });
   imagesCanchas!: any;
   imagesCarrusel!: any;
   imagesEventos!: any;
   imageTypeDes!: string;
+
+  faTrash = faTrash;
+  faPencil = faPencil;
 
   constructor(private companyService: CompanyService, private fb: FormBuilder) {
     this.getImages();
@@ -47,8 +51,6 @@ export class ImagenesComponent {
         Swal.fire('Error', 'Hubo un error al cargar la imagen', 'error');
         return;
       }
-      console.log({ resp });
-
       this.imagesCanchas = resp.filter((img: any) => img.tipo === 'canchas');
       this.imagesCarrusel = resp.filter((img: any) => img.tipo === 'carrusel');
       this.imagesEventos = resp.filter((img: any) => img.tipo === 'eventos');
@@ -60,12 +62,14 @@ export class ImagenesComponent {
   }
 
   uploadImages() {
+    console.log(this.imageForm.get('descripcion')?.value);
+    console.log(this.imageForm.get('titulo')?.value);
     this.companyService
       .uploadImages(
         this.file,
         this.imageForm.get('descripcion')?.value,
         this.imageTypeDes,
-        ''
+        this.imageForm.get('titulo')?.value
       )
       .subscribe((resp) => {
         if (!resp) {
@@ -79,6 +83,7 @@ export class ImagenesComponent {
         });
         this.getImages();
         Swal.fire('Excelente', 'Imagen cargada con exito', 'success');
+        this.getImages();
       });
   }
 

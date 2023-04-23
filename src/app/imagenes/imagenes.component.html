@@ -4,8 +4,24 @@
   <div>
     <div class="m-4 p-5" style="border: 1px solid blue;">
       <h3 class="title">Carrusel</h3>
-      <img  class="m-2" *ngFor="let image of imagesCarrusel"  [src]="image.imagen" width="200" height="200" (click)="deleteImage(image._id)">
-      <div class="text-center">
+      <div class="d-flex flex-wrap justify-content-center">
+        <div class="card m-3" style="width: 13rem; background-color: rgb(173, 177, 216);" *ngFor="let image of imagesCarrusel">
+          <img  class="card-img-top image-card"  [src]="image.imagen">
+          <div class="card-body">
+            <h5 class="card-title">{{image.titulo}}</h5>
+            <p class="card-text">{{image.descripcion}}</p>
+            <div class="text-center">
+              <button class="btn-primary btn-sm mx-1" ngbTooltip="Editar">
+                <fa-icon [icon]="faPencil" ></fa-icon>
+              </button>
+              <button class="btn-danger btn-sm mx-1" ngbTooltip="Eliminar" (click)="deleteImage(image._id)">
+                  <fa-icon [icon]="faTrash" ></fa-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div> 
+      <div class="text-center mt-5">
         <button class="btn btn-primary" data-bs-toggle="modal" 
                         data-bs-target="#exampleModal" (click)="imageType('carrusel')">
                        Agregar
@@ -15,7 +31,24 @@
   
     <div class="m-4 p-5" style="border: 1px solid blue;">
       <h3 class="title">Canchas</h3>
-      <img  class="m-2" *ngFor="let image of imagesCanchas"  [src]="image.imagen" width="200" height="200" (click)="deleteImage(image._id)">
+      <div class="d-flex flex-wrap justify-content-center">
+        <div class="card m-3" style="width: 13rem; background-color: rgb(173, 177, 216);" *ngFor="let image of imagesCanchas">
+          <img  class="card-img-top image-card"  [src]="image.imagen">
+          <div class="card-body">
+            <h5 class="card-title">{{image.titulo}}</h5>
+            <p class="card-text">{{image.descripcion}}</p>
+            <div class="text-center">
+              <button class="btn-primary btn-sm mx-1" ngbTooltip="Editar">
+                <fa-icon [icon]="faPencil" ></fa-icon>
+              </button>
+              <button class="btn-danger btn-sm mx-1" ngbTooltip="Eliminar" (click)="deleteImage(image._id)">
+                  <fa-icon [icon]="faTrash" ></fa-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div> 
+      
       <div class="text-center">
         <button class="btn btn-primary" data-bs-toggle="modal" 
                         data-bs-target="#exampleModal"
@@ -28,7 +61,23 @@
   
     <div class="m-4 p-5" style="border: 1px solid blue;">
       <h3 class="title">Eventos</h3>
-      <img class="m-2"  *ngFor="let image of imagesEventos"  [src]="image.imagen" width="200" height="200" (click)="deleteImage(image._id)">
+      <div class="d-flex flex-wrap justify-content-center">
+        <div class="card m-3" style="width: 13rem; background-color: rgb(173, 177, 216);" *ngFor="let image of imagesEventos">
+          <img  class="card-img-top image-card"  [src]="image.imagen">
+          <div class="card-body">
+            <h5 class="card-title">{{image.titulo}}</h5>
+            <p class="card-text">{{image.descripcion}}</p>
+            <div class="text-center">
+              <button class="btn-primary btn-sm mx-1" ngbTooltip="Editar">
+                <fa-icon [icon]="faPencil" ></fa-icon>
+              </button>
+              <button class="btn-danger btn-sm mx-1" ngbTooltip="Eliminar" (click)="deleteImage(image._id)">
+                  <fa-icon [icon]="faTrash" ></fa-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="text-center">
         <button class="btn btn-primary" data-bs-toggle="modal" 
                         data-bs-target="#exampleModal"
@@ -40,7 +89,8 @@
     </div>
   </div>
 </div>
-<!-- Modal -->
+
+<!-- Modal  upload images-->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -60,16 +110,16 @@
           </div>
         </div>
         <div class="text-center m-5" *ngIf="urlImage">
-          <img [src]="urlImage | safeUrlPipe" alt="previsualización" style="width: 200px;"/><br>
+          <img [src]="urlImage | safeUrlPipe" alt="previsualización" style="width: 200px; height: 200px;"/><br>
           <form 
           [formGroup]="imageForm"
           >
+          <label><b>Titulo</b></label>
+          <input type="text" class="form-control" formControlName="titulo">
           <label><b>Descripción</b></label>
-          <input type="text" class="form-control" formControlName="descripcion">
-          <!-- <label><b>Tipo</b></label> -->
-          <!-- <select class="form-select" formControlName="tipo">
-            <option *ngFor="let imageType of imageTypes" [value]="imageType">{{imageType}}</option>
-          </select> -->
+          <textarea name="message" rows="5" class="form-control" cols="30" formControlName="descripcion">
+            Enter your message here...
+          </textarea>
         </form>
         </div>
       </div>
