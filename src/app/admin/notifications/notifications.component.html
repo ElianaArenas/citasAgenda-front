@@ -15,7 +15,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let notification of notifications">
-            <td>{{notification.user}}</td>
+            <td>{{user}}</td>
             <td>{{notification.fechaTurno | date: 'dd/MM/yyyy'}}</td>
             <td>{{notification.horaTurno}}</td>
             <td>{{notification.justificacion}}</td>

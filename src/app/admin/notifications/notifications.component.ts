@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AgendaService } from 'src/app/service/agenda.service';
 import { NotificacionService } from 'src/app/service/notificacion.service';
+import { UserService } from 'src/app/service/user.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -9,9 +10,11 @@ import Swal from 'sweetalert2';
 })
 export class NotificationsComponent {
   notifications!: any[];
+  user!: string;
   constructor(
     private notificationService: NotificacionService,
-    private agendaService: AgendaService
+    private agendaService: AgendaService,
+    private userService: UserService
   ) {
     this.getNotifications();
   }
@@ -27,7 +30,12 @@ export class NotificationsComponent {
         this.notifications = response.notificaciones.filter(
           (notification: any) => notification.activo === true
         );
-        console.log(this.notifications);
+
+        this.userService
+          .getUser(this.notifications[0].userId)
+          .subscribe((res1) => {
+            this.user = res1.message.nombre;
+          });
       }
     });
   }
