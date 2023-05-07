@@ -453,6 +453,13 @@ export class AgendaComponent {
           Swal.fire('Error', 'Hubo un error en la petición', 'error');
           return;
         }
+
+        if (this.profesorForm.get('profesor')?.value) {
+          this.profesorForm.get('profesor')?.setValue('');
+        } else {
+          this.profesorForm.get('canchero')?.setValue('');
+        }
+
         Swal.fire(
           'Asignación correcta',
           'Se asigno correctamente al turno',
@@ -524,6 +531,10 @@ export class AgendaComponent {
         'success'
       ).then((result) => {
         if (result.isConfirmed) {
+          this.sociosForm.get('socio1')?.setValue('');
+          this.sociosForm.get('socio2')?.setValue('');
+          this.sociosForm.get('socio3')?.setValue('');
+          this.sociosForm.get('socio4')?.setValue('');
           this.getHorarios();
         }
       });

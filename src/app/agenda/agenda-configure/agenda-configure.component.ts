@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
@@ -99,6 +99,7 @@ export class AgendaConfigureComponent implements OnInit {
 
   getHorario(schedule: AgendaI) {
     this.schedule = schedule;
+    this.tituloForm.get('titulo')?.setValue(schedule.lugar);
   }
 
   updateTitulo(scheduleId: string) {
@@ -225,6 +226,12 @@ export class AgendaConfigureComponent implements OnInit {
         Swal.fire('Error', 'Hubo un error en la petición', 'error');
         return;
       }
+
+      this.cierreAm = { hour: null, minute: null };
+      this.aperturaPm = { hour: null, minute: null };
+      this.aperturaAm = { hour: null, minute: null };
+      this.cierrePm = { hour: null, minute: null };
+
       Swal.fire(
         'Excelente',
         'Se habilitó el horario de apertura de turnos',
@@ -271,7 +278,11 @@ export class AgendaConfigureComponent implements OnInit {
         Swal.fire('Error', 'Hubo un error en la petición', 'error');
         return;
       }
-      Swal.fire('Excelente', 'Se habilitó la opción de cancelar', 'success');
+      Swal.fire(
+        'Excelente',
+        'Se habilitó la opción de cancelar turno',
+        'success'
+      );
     });
   }
 

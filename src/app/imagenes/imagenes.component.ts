@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { faTrash, faPencil } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 import { CompanyService } from '../service/company.service';
@@ -21,7 +21,7 @@ export class ImagenesComponent {
   imagesCarrusel!: any;
   imagesEventos!: any;
   imageTypeDes!: string;
-
+  imageId!: string;
   faTrash = faTrash;
   faPencil = faPencil;
 
@@ -77,10 +77,8 @@ export class ImagenesComponent {
           return;
         }
         this.urlImage = null;
-        this.imageForm.setValue({
-          descripcion: '',
-          tipo: '',
-        });
+        this.imageForm.get('descripcion')?.setValue('');
+        this.imageForm.get('titulo')?.setValue('');
         this.getImages();
         Swal.fire('Excelente', 'Imagen cargada con exito', 'success');
         this.getImages();
@@ -105,6 +103,32 @@ export class ImagenesComponent {
           Swal.fire('Excelente', 'Se ha eliminado la imagen', 'success');
         });
       }
+    });
+  }
+
+  preUpdateImage(imageId: string, image: any) {
+    this.imageForm.get('descripcion')?.setValue(image.descripcion);
+    this.imageForm.get('titulo')?.setValue(image.titulo);
+    this.imageId = imageId;
+  }
+
+  updateImage() {
+    const { descripcion, titulo } = this.imageForm.value;
+
+    let body = {} as any;
+
+    if (descripcion) body.descripcion = descripcion;
+    if (titulo) body = { ...body, titulo };
+
+    this.companyService.updateImage(this.imageId, body).subscribe((resp) => {
+      if (!resp) {
+        Swal.fire('Error', 'Hubo un error al cargar la imagen', 'error');
+        return;
+      }
+      this.imageForm.get('descripcion')?.setValue('');
+      this.imageForm.get('titulo')?.setValue('');
+      this.getImages();
+      Swal.fire('Excelente', 'Titulo y descripción actualizada', 'success');
     });
   }
 }

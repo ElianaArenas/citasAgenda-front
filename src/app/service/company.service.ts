@@ -154,4 +154,19 @@ export class CompanyService {
         catchError((err) => of(false))
       );
   }
+
+  updateImage(id: string, updateBody: any) {
+    console.log('desde el servicio');
+
+    const token = localStorage.getItem('token') || '';
+
+    return this.http
+      .put(`${this.baseUrl}/imgEmpresa/${id}`, updateBody, {
+        headers: { 'x-access-token': token },
+      })
+      .pipe(
+        map((resp) => resp),
+        catchError((err) => of(false))
+      );
+  }
 }
