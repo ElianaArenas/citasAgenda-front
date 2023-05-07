@@ -83,7 +83,7 @@ export class RegisterUserComponent {
       this.registerForm.get('barrio')?.setValue('');
       this.registerForm.get('rol')?.setValue('');
       this.registerForm.get('activo')?.setValue('');
-
+      this.registerForm.get('color')?.setValue('');
       this.registerForm.markAsUntouched();
     });
   }

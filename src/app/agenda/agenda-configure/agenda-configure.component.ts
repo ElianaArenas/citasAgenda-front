@@ -278,6 +278,9 @@ export class AgendaConfigureComponent implements OnInit {
         Swal.fire('Error', 'Hubo un error en la petición', 'error');
         return;
       }
+      this.limiteAm = { hour: null, minute: null };
+      this.limitePm = { hour: null, minute: null };
+
       Swal.fire(
         'Excelente',
         'Se habilitó la opción de cancelar turno',
@@ -318,6 +321,10 @@ export class AgendaConfigureComponent implements OnInit {
           Swal.fire('Error', 'Hubo un error en la petición', 'error');
           return;
         }
+
+        this.aleatorioAm = { hour: null, minute: null };
+        this.aleatorioPm = { hour: null, minute: null };
+
         Swal.fire(
           'Excelente',
           'Excelente se habilitó la opción de turno aleatorio',
@@ -356,6 +363,10 @@ export class AgendaConfigureComponent implements OnInit {
         Swal.fire('Error', 'Hubo un error en la petición', 'error');
         return;
       }
+
+      this.renovarHorario = { hour: null, minute: null };
+      this.renovarHorarioForm.get('dia')?.setValue('');
+
       Swal.fire(
         'Excelente',
         'Excelente se habilitó la opción de renovar horario',
@@ -504,6 +515,14 @@ export class AgendaConfigureComponent implements OnInit {
         return;
       }
       this.getHorarios();
+      this.diasForm.get('lunes')?.setValue(false);
+      this.diasForm.get('martes')?.setValue(false);
+      this.diasForm.get('miercoles')?.setValue(false);
+      this.diasForm.get('jueves')?.setValue(false);
+      this.diasForm.get('viernes')?.setValue(false);
+      this.diasForm.get('sabado')?.setValue(false);
+      this.diasForm.get('domingo')?.setValue(false);
+
       Swal.fire('Excelente', 'Se creo el horario exitosamente', 'success');
       return;
     });
