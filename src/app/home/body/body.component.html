@@ -5,9 +5,9 @@
     <div class="col" *ngFor="let cancha of images">
       <div class="card">
         <img [src]="cancha.imagen" class="card-img-top" alt="...">
-        <div class="text-center">
+        <div class="card-body">
           <h5 class="card-title">{{cancha.titulo}}</h5>
-          <h5>{{cancha.descripcion}}</h5>
+          <h5 class="card-text">{{cancha.descripcion}}</h5>
         </div>
       </div>
     </div>
