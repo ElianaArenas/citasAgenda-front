@@ -39,7 +39,8 @@
             <h5 class="card-title">{{image.titulo}}</h5>
             <p class="card-text">{{image.descripcion}}</p>
             <div class="text-center">
-              <button class="btn-primary btn-sm mx-1" ngbTooltip="Editar">
+              <button class="btn-primary btn-sm mx-1" ngbTooltip="Editar" (click)="preUpdateImage(image._id,image)" data-bs-toggle="modal" 
+              data-bs-target="#updateModal">
                 <fa-icon [icon]="faPencil" ></fa-icon>
               </button>
               <button class="btn-danger btn-sm mx-1" ngbTooltip="Eliminar" (click)="deleteImage(image._id)">
@@ -69,7 +70,8 @@
             <h5 class="card-title">{{image.titulo}}</h5>
             <p class="card-text">{{image.descripcion}}</p>
             <div class="text-center">
-              <button class="btn-primary btn-sm mx-1" ngbTooltip="Editar">
+              <button class="btn-primary btn-sm mx-1" ngbTooltip="Editar" (click)="preUpdateImage(image._id,image)" data-bs-toggle="modal" 
+              data-bs-target="#updateModal">
                 <fa-icon [icon]="faPencil" ></fa-icon>
               </button>
               <button class="btn-danger btn-sm mx-1" ngbTooltip="Eliminar" (click)="deleteImage(image._id)">
